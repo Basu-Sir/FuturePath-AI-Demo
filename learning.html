@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Paths — FuturePath AI</title>
+  <meta name="description" content="Curated course recommendations to bridge your skill gaps from top providers." />
+  <link rel="stylesheet" href="css/main.css" />
+  <style>
+    .filter-bar {
+      display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; align-items: center;
+    }
+    .filter-btn {
+      padding: 7px 16px; border-radius: 100px; font-size: 13px; font-weight: 600;
+      border: 1px solid var(--border); background: transparent; color: var(--text-secondary);
+      cursor: pointer; transition: var(--transition);
+    }
+    .filter-btn:hover  { border-color: var(--primary); color: var(--primary-light); }
+    .filter-btn.active { background: rgba(108,99,255,.18); border-color: var(--primary); color: var(--primary-light); }
+
+    .course-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+
+    .course-card-full {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 20px; transition: var(--transition);
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .course-card-full:hover {
+      border-color: var(--border-hover); transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .cc-top { display: flex; gap: 14px; align-items: flex-start; }
+    .cc-logo {
+      width: 46px; height: 46px; border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+      background: rgba(255,255,255,.06); border: 1px solid var(--border);
+    }
+    .cc-provider { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing:.5px; text-transform:uppercase; margin-bottom: 3px; }
+    .cc-title    { font-size: 15px; font-weight: 700; line-height: 1.3; }
+    .cc-skill    { display: inline-flex; align-items: center; gap: 4px; }
+
+    .cc-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+    .cc-footer { display: flex; gap: 10px; align-items: center; margin-top: auto; }
+    .cc-rating { font-size: 12px; color: var(--warning); display: flex; align-items: center; gap: 4px; }
+
+    .career-filter-row {
+      display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap;
+    }
+
+    .section-banner {
+      background: linear-gradient(135deg, rgba(0,212,255,.08), rgba(108,99,255,.08));
+      border: 1px solid rgba(0,212,255,.2);
+      border-radius: var(--r-lg); padding: 18px 22px; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-banner .sb-icon { font-size: 30px; }
+    .section-banner h3  { font-size: 16px; font-weight: 700; margin-bottom: 3px; }
+    .section-banner p   { font-size: 13px; color: var(--text-secondary); }
+
+    .no-courses { text-align: center; padding: 48px 20px; }
+    .no-courses .nc-icon { font-size: 48px; opacity: .4; margin-bottom: 12px; }
+    .no-courses h3 { font-size: 18px; margin-bottom: 8px; }
+    .no-courses p  { color: var(--text-secondary); }
+
+    .stats-row { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+    .mini-stat {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r-md); padding: 10px 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .ms-val { font-family:'Outfit',sans-serif; font-size:18px; font-weight:800;
+      background:var(--grad-primary); -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent; background-clip:text; }
+    .ms-label { font-size: 12px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="app-container">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main-content">
+    <header class="topbar" id="topbar"></header>
+
+    <div class="page-content">
+      <div id="learning-content"></div>
+    </div>
+  </main>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/ai-engine.js"></script>
+<script>
+let allCourses = [];
+let activeFilter = 'all';
+
+document.addEventListener('DOMContentLoaded', () => {
+  requireAuth();
+  renderSidebar('learning');
+  renderTopbar('Learning Paths', 'Curated courses to bridge your skill gaps');
+
+  const user    = getCurrentUser();
+  const careers = user.careerCache || [];
+  const params  = new URLSearchParams(window.location.search);
+  const careerId = params.get('career');
+
+  if (careers.length === 0) {
+    document.getElementById('learning-content').innerHTML = `
+      <div class="no-courses">
+        <div class="nc-icon">📚</div>
+        <h3>No Predictions Yet</h3>
+        <p>Run career predictions first to get personalized course recommendations.</p>
+        <a href="careers.html" class="btn btn-primary" style="margin-top:16px">🎯 Get Predictions →</a>
+      </div>`;
+    return;
+  }
+
+  // Collect all missing skills across careers
+  const missingByCareer = {};
+  careers.forEach(c => {
+    const gap = getSkillGap(user.profile.skills || [], c);
+    missingByCareer[c.id] = { career: c, missing: gap.missing };
+  });
+
+  // Get recommended course for target career or all
+  const targetCareer = careers.find(c => c.id === careerId);
+  const focusMissing = targetCareer
+    ? missingByCareer[targetCareer.id].missing
+    : careers.flatMap(c => missingByCareer[c.id].missing);
+
+  allCourses = getLearningRecommendations(focusMissing);
+  renderLearningPage(careers, missingByCareer, targetCareer, allCourses);
+});
+
+function renderLearningPage(careers, missingByCareer, targetCareer, courses) {
+  const providers = ['all', ...new Set(courses.map(c => c.provider))];
+  const diffMap   = { Beginner:'easy', Intermediate:'medium', Advanced:'hard' };
+
+  const totalFree = courses.filter(c => c.cost.toLowerCase().includes('free')).length;
+
+  document.getElementById('learning-content').innerHTML = `
+    ${targetCareer ? `
+      <div class="section-banner anim-fade-up">
+        <div class="sb-icon">${targetCareer.icon}</div>
+        <div>
+          <h3>Learning path for: ${targetCareer.title}</h3>
+          <p>${missingByCareer[targetCareer.id]?.missing.length || 0} missing skills · ${courses.length} courses recommended</p>
+        </div>
+        <a href="careers.html" class="btn btn-ghost btn-sm" style="margin-left:auto">← All Careers</a>
+      </div>` : ''}
+
+    <div class="stats-row">
+      <div class="mini-stat"><div class="ms-val">${courses.length}</div><div class="ms-label">Courses Found</div></div>
+      <div class="mini-stat"><div class="ms-val">${totalFree}</div><div class="ms-label">Free Courses</div></div>
+      <div class="mini-stat"><div class="ms-val">${new Set(courses.map(c=>c.provider)).size}</div><div class="ms-label">Providers</div></div>
+      <div class="mini-stat"><div class="ms-val">${new Set(courses.map(c=>c.skill)).size}</div><div class="ms-label">Skills Covered</div></div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-bar">
+      <span class="text-sm text-muted" style="white-space:nowrap">Filter by provider:</span>
+      ${providers.map(p => `
+        <button class="filter-btn${p === 'all' ? ' active' : ''}"
+          data-filter="${p}" onclick="filterCourses('${p}')">
+          ${p === 'all' ? 'All Providers' : p}
+        </button>`).join('')}
+    </div>
+
+    <!-- Difficulty filter -->
+    <div class="filter-bar" style="margin-top:-12px">
+      <span class="text-sm text-muted" style="white-space:nowrap">Difficulty:</span>
+      ${['all','Beginner','Intermediate','Advanced'].map(d => `
+        <button class="filter-btn${d === 'all' ? '' : ''}"
+          data-diff="${d}" onclick="filterByDiff('${d}')">
+          ${d === 'all' ? 'All Levels' : d}
+        </button>`).join('')}
+    </div>
+
+    <div id="courses-grid" class="course-grid">
+      ${courses.map(c => courseCardHTML(c)).join('')}
+    </div>
+
+    ${courses.length === 0 ? `
+      <div class="no-courses">
+        <div class="nc-icon">🔍</div>
+        <h3>No courses found</h3>
+        <p>We don't have courses for these specific skills yet. Try browsing Coursera or Udemy directly.</p>
+      </div>` : ''}`;
+}
+
+function courseCardHTML(c) {
+  const diffClass = { Beginner:'success', Intermediate:'warning', Advanced:'danger' };
+  const stars = '★'.repeat(Math.floor(c.rating)) + (c.rating % 1 >= .5 ? '½' : '');
+  const isFree = c.cost.toLowerCase().includes('free');
+
+  return `
+  <div class="course-card-full anim-fade-up">
+    <div class="cc-top">
+      <div class="cc-logo">${c.providerIcon}</div>
+      <div style="flex:1">
+        <div class="cc-provider">${c.provider}</div>
+        <div class="cc-title">${c.title}</div>
+      </div>
+    </div>
+    <div class="cc-meta">
+      <span class="tag tag-ghost text-xs">📌 ${c.skill}</span>
+      <span class="tag tag-${diffClass[c.difficulty] || 'ghost'} text-xs">${c.difficulty}</span>
+      <span class="tag ${isFree ? 'tag-success' : 'tag-ghost'} text-xs">
+        ${isFree ? '🆓 Free' : '💰 ' + c.cost}
+      </span>
+      <span class="tag tag-ghost text-xs">⏱️ ${c.duration}</span>
+    </div>
+    <div class="cc-footer">
+      <div class="cc-rating">${stars} <span style="color:var(--text-muted)">${c.rating}</span></div>
+      <a href="${c.url}" target="_blank" class="btn btn-primary btn-sm" style="margin-left:auto">
+        Enroll Now →
+      </a>
+    </div>
+  </div>`;
+}
+
+function filterCourses(provider) {
+  document.querySelectorAll('.filter-btn[data-filter]').forEach(b => {
+    b.classList.toggle('active', b.dataset.filter === provider);
+  });
+  activeFilter = provider;
+  rerenderCourses();
+}
+
+function filterByDiff(diff) {
+  document.querySelectorAll('.filter-btn[data-diff]').forEach(b => {
+    b.classList.toggle('active', b.dataset.diff === diff);
+  });
+  rerenderCourses(diff);
+}
+
+function rerenderCourses(diff = 'all') {
+  let filtered = allCourses;
+  if (activeFilter !== 'all') filtered = filtered.filter(c => c.provider === activeFilter);
+  if (diff !== 'all')          filtered = filtered.filter(c => c.difficulty === diff);
+  const grid = document.getElementById('courses-grid');
+  if (grid) grid.innerHTML = filtered.map(courseCardHTML).join('') ||
+    `<div class="no-courses" style="grid-column:1/-1"><div class="nc-icon">🔍</div>
+      <h3>No courses match this filter</h3></div>`;
+}
+</script>
+</body>
+</html>

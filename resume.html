@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume Upload — FuturePath AI</title>
+  <meta name="description" content="Upload your resume and let AI extract your skills automatically." />
+  <link rel="stylesheet" href="css/main.css" />
+  <style>
+    .dropzone {
+      border: 2px dashed rgba(108,99,255,.35);
+      border-radius: var(--r-xl);
+      padding: 60px 40px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      background: rgba(108,99,255,.04);
+      position: relative;
+    }
+    .dropzone:hover, .dropzone.drag-over {
+      border-color: var(--primary);
+      background: rgba(108,99,255,.09);
+      box-shadow: 0 0 40px rgba(108,99,255,.15);
+    }
+    .dropzone.drag-over { transform: scale(1.01); }
+    .dropzone-icon  { font-size: 56px; margin-bottom: 16px; }
+    .dropzone-title { font-family:'Outfit',sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .dropzone-sub   { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+    .dropzone-formats { display: flex; gap: 8px; justify-content: center; }
+
+    .result-section {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 24px; margin-bottom: 20px;
+    }
+    .result-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px; }
+
+    .extract-stats {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 24px;
+    }
+    .extract-stat {
+      background: rgba(108,99,255,.08); border: 1px solid rgba(108,99,255,.18);
+      border-radius: var(--r-md); padding: 16px; text-align: center;
+    }
+    .extract-stat .es-val {
+      font-family: 'Outfit',sans-serif; font-size: 28px; font-weight: 800;
+      background: var(--grad-primary);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .extract-stat .es-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    .tips-card {
+      background: rgba(0,212,255,.05); border: 1px solid rgba(0,212,255,.2);
+      border-radius: var(--r-lg); padding: 20px 24px;
+    }
+    .tips-card h4 { font-size: 14px; font-weight: 700; color: var(--secondary); margin-bottom: 12px; }
+    .tip-item { display: flex; gap: 10px; margin-bottom: 10px; font-size: 13.5px; color: var(--text-secondary); }
+    .tip-item::before { content: '✓'; color: var(--success); font-weight: 700; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="app-container">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main-content">
+    <header class="topbar" id="topbar"></header>
+
+    <div class="page-content">
+      <div id="upload-alert"></div>
+
+      <div class="grid-2 gap-32">
+        <!-- LEFT: Upload area -->
+        <div>
+          <div id="dropzone" class="dropzone mb-20">
+            <input id="resume-file" type="file" accept=".pdf,.docx,.txt" style="display:none" />
+            <div class="dropzone-icon">📄</div>
+            <h3 class="dropzone-title">Drop your resume here</h3>
+            <p class="dropzone-sub">or click to browse files</p>
+            <div class="dropzone-formats">
+              <span class="tag tag-ghost">PDF</span>
+              <span class="tag tag-ghost">DOCX</span>
+              <span class="tag tag-ghost">TXT</span>
+            </div>
+          </div>
+
+          <!-- Current resume badge -->
+          <div id="current-resume-card" style="display:none"
+            class="flex items-center gap-14 card card-flat mb-20">
+            <div style="font-size:32px">📎</div>
+            <div style="flex:1">
+              <div style="font-weight:600; font-size:14px" id="resume-filename"></div>
+              <div style="font-size:12px; color:var(--text-muted)" id="resume-date"></div>
+            </div>
+            <span class="tag tag-success">Active</span>
+          </div>
+
+          <!-- Extraction results -->
+          <div id="result-area" style="display:none">
+            <div class="extract-stats">
+              <div class="extract-stat">
+                <div class="es-val" id="extracted-skill-count">0</div>
+                <div class="es-label">Skills Found</div>
+              </div>
+              <div class="extract-stat">
+                <div class="es-val" id="extracted-word-count">0</div>
+                <div class="es-label">Words Parsed</div>
+              </div>
+              <div class="extract-stat">
+                <div class="es-val" id="extracted-pages">—</div>
+                <div class="es-label">File Type</div>
+              </div>
+            </div>
+
+            <div class="result-section">
+              <h3>✅ Extracted Skills</h3>
+              <div id="extracted-skills-list" class="flex flex-wrap gap-6"></div>
+            </div>
+
+            <div class="flex gap-12 mt-16">
+              <a href="profile.html" class="btn btn-primary">
+                ✏️ Edit in Profile
+              </a>
+              <a href="careers.html" class="btn btn-secondary">
+                🎯 Get Career Predictions →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Tips & info -->
+        <div>
+          <div class="tips-card mb-20">
+            <h4>💡 Tips for best results</h4>
+            <div class="tip-item">Use a clean, text-based PDF — avoid image-only scans</div>
+            <div class="tip-item">Include a Skills section with individual skill names</div>
+            <div class="tip-item">Mention technologies used in each project</div>
+            <div class="tip-item">Include your CGPA/GPA for academic scoring</div>
+            <div class="tip-item">Add certifications with provider names</div>
+          </div>
+
+          <div class="card card-flat mb-20">
+            <h3 style="font-size:15px; font-weight:700; margin-bottom:14px">🔍 What AI extracts</h3>
+            <div class="flex flex-col gap-12">
+              <div class="flex items-center gap-12">
+                <span style="font-size:20px">💡</span>
+                <div>
+                  <div style="font-size:14px; font-weight:600">Technical Skills</div>
+                  <div class="text-muted text-sm">Languages, frameworks, tools</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-12">
+                <span style="font-size:20px">🎓</span>
+                <div>
+                  <div style="font-size:14px; font-weight:600">Education Details</div>
+                  <div class="text-muted text-sm">Degree, CGPA, institution</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-12">
+                <span style="font-size:20px">💼</span>
+                <div>
+                  <div style="font-size:14px; font-weight:600">Experience</div>
+                  <div class="text-muted text-sm">Roles, companies, duration</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-12">
+                <span style="font-size:20px">🛠️</span>
+                <div>
+                  <div style="font-size:14px; font-weight:600">Projects</div>
+                  <div class="text-muted text-sm">Technologies mentioned in projects</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-flat" style="background:rgba(255,107,107,.04); border-color:rgba(255,107,107,.15)">
+            <h4 style="font-size:14px; font-weight:700; color:var(--accent); margin-bottom:10px">🔒 Privacy Note</h4>
+            <p class="text-sm text-secondary">
+              Your resume is processed entirely in your browser. No data is sent to any server.
+              All information is stored locally on your device only.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/ai-engine.js"></script>
+<script src="js/resume.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  requireAuth();
+  renderSidebar('resume');
+  renderTopbar('Resume Upload', 'AI-powered skill extraction from PDF, DOCX, or TXT');
+
+  const user = getCurrentUser();
+  if (user.profile.resumeFile) {
+    const card = document.getElementById('current-resume-card');
+    card.style.display = 'flex';
+    document.getElementById('resume-filename').textContent = user.profile.resumeFile;
+    document.getElementById('resume-date').textContent = user.profile.resumeDate
+      ? 'Uploaded on ' + formatDate(user.profile.resumeDate) : '';
+  }
+
+  initResumeUpload();
+});
+</script>
+</body>
+</html>

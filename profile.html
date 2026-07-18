@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile — FuturePath AI</title>
+  <meta name="description" content="Edit your profile: skills, projects, CGPA, certifications and experience." />
+  <link rel="stylesheet" href="css/main.css" />
+  <style>
+    .profile-hero {
+      display: flex; gap: 24px; align-items: center;
+      background: var(--grad-card); border: 1px solid rgba(108,99,255,.2);
+      border-radius: var(--r-xl); padding: 28px 32px; margin-bottom: 28px;
+    }
+    .profile-avatar-lg {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: var(--grad-primary);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 800; color: #fff;
+      flex-shrink: 0; box-shadow: 0 8px 24px rgba(108,99,255,.4);
+    }
+    .profile-meta h2   { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+    .profile-meta .sub { font-size: 14px; color: var(--text-secondary); }
+
+    .section-card { background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 24px; margin-bottom: 20px; }
+    .section-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 18px;
+      display: flex; align-items: center; gap: 8px; }
+
+    .list-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; border-radius: var(--r-md);
+      border: 1px solid var(--border); background: rgba(255,255,255,.03);
+      margin-bottom: 8px; transition: var(--transition);
+    }
+    .list-item:hover { border-color: var(--border-hover); }
+    .list-item-text { flex: 1; font-size: 14px; }
+    .list-item-sub  { font-size: 12px; color: var(--text-muted); }
+    .remove-item-btn {
+      background: none; border: none; color: var(--text-muted);
+      font-size: 18px; cursor: pointer; transition: var(--transition);
+      line-height: 1; padding: 2px 6px;
+    }
+    .remove-item-btn:hover { color: var(--accent); }
+
+    .add-row { display: flex; gap: 10px; margin-top: 10px; }
+
+    .cgpa-display {
+      font-family: 'Outfit', sans-serif; font-size: 48px; font-weight: 800;
+      background: var(--grad-primary);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1;
+    }
+    .cgpa-max { font-size: 20px; color: var(--text-muted); font-family: 'Inter', sans-serif;
+      font-weight: 400; -webkit-text-fill-color: var(--text-muted); }
+
+    .save-bar {
+      position: fixed; bottom: 24px; right: 40px; z-index: 200;
+      background: rgba(10,10,26,.95); border: 1px solid rgba(108,99,255,.3);
+      border-radius: var(--r-xl); padding: 14px 20px;
+      display: flex; align-items: center; gap: 14px;
+      backdrop-filter: blur(20px); box-shadow: 0 8px 32px rgba(0,0,0,.5);
+      animation: slideLeft .3s ease;
+    }
+    .save-bar p { font-size: 14px; color: var(--text-secondary); }
+  </style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="app-container">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main-content">
+    <header class="topbar" id="topbar"></header>
+    <div id="page-alert" style="padding:0 36px"></div>
+
+    <div class="page-content">
+      <!-- Profile hero -->
+      <div class="profile-hero anim-fade-up">
+        <div class="profile-avatar-lg" id="profile-avatar"></div>
+        <div class="profile-meta">
+          <h2 id="profile-name"></h2>
+          <div class="sub" id="profile-college"></div>
+          <div class="sub" id="profile-degree-branch"></div>
+          <div class="flex gap-8 mt-8" id="profile-tags"></div>
+        </div>
+        <div style="margin-left:auto; text-align:right">
+          <div class="cgpa-display" id="cgpa-display">—</div>
+          <div style="font-size:13px; color:var(--text-muted); margin-top:2px">CGPA</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- LEFT COLUMN -->
+        <div>
+          <!-- Skills -->
+          <div class="section-card anim-fade-up delay-1">
+            <h3>💡 Technical Skills</h3>
+            <div class="skill-input-wrapper" id="skills-wrapper">
+              <input id="skill-input" class="skill-input-inner" placeholder="Type a skill and press Enter…" />
+            </div>
+            <div class="form-hint mt-8">Press Enter or comma to add each skill</div>
+          </div>
+
+          <!-- Interests -->
+          <div class="section-card anim-fade-up delay-2">
+            <h3>⭐ Interests</h3>
+            <div class="skill-input-wrapper" id="interests-wrapper">
+              <input id="interest-input" class="skill-input-inner" placeholder="AI, Data Science, Web Dev…" />
+            </div>
+            <div class="form-hint mt-8">Interests help improve career matching accuracy</div>
+          </div>
+
+          <!-- CGPA -->
+          <div class="section-card anim-fade-up delay-2">
+            <h3>🎓 Academic Details</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">CGPA / GPA</label>
+                <input id="cgpa-input" type="number" step="0.01" min="0" max="10" class="form-input"
+                  placeholder="e.g. 8.5" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Scale</label>
+                <select id="cgpa-scale" class="form-input">
+                  <option value="10">Out of 10</option>
+                  <option value="4">Out of 4</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div>
+          <!-- Projects -->
+          <div class="section-card anim-fade-up delay-1">
+            <h3>🛠️ Projects</h3>
+            <div id="projects-list"></div>
+            <div class="add-row">
+              <input id="project-title" type="text" class="form-input" placeholder="Project title…" />
+              <input id="project-desc" type="text" class="form-input" placeholder="Description…" />
+              <button class="btn btn-secondary btn-sm" onclick="addProject()" style="white-space:nowrap">+ Add</button>
+            </div>
+          </div>
+
+          <!-- Certifications -->
+          <div class="section-card anim-fade-up delay-2">
+            <h3>🏆 Certifications</h3>
+            <div id="certs-list"></div>
+            <div class="add-row">
+              <input id="cert-name" type="text" class="form-input" placeholder="Certification name…" />
+              <input id="cert-issuer" type="text" class="form-input" placeholder="Issued by…" />
+              <button class="btn btn-secondary btn-sm" onclick="addCert()" style="white-space:nowrap">+ Add</button>
+            </div>
+          </div>
+
+          <!-- Experience -->
+          <div class="section-card anim-fade-up delay-3">
+            <h3>💼 Experience</h3>
+            <div id="exp-list"></div>
+            <div class="add-row">
+              <input id="exp-role" type="text" class="form-input" placeholder="Role…" />
+              <input id="exp-company" type="text" class="form-input" placeholder="Company / Duration…" />
+              <button class="btn btn-secondary btn-sm" onclick="addExp()" style="white-space:nowrap">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center mt-24">
+        <button class="btn btn-primary btn-lg" onclick="saveProfile()">💾 Save Profile</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+let skillsController, interestsController;
+let localUser;
+
+document.addEventListener('DOMContentLoaded', () => {
+  requireAuth();
+  renderSidebar('profile');
+  renderTopbar('My Profile', 'Update your skills, projects, and academic details');
+
+  localUser = getCurrentUser();
+  const p = localUser.profile;
+
+  // Hero
+  document.getElementById('profile-avatar').textContent = getInitials(localUser.name);
+  document.getElementById('profile-name').textContent   = localUser.name;
+  document.getElementById('profile-college').textContent = `📍 ${localUser.college}`;
+  document.getElementById('profile-degree-branch').textContent =
+    `${localUser.degree} • ${localUser.branch} • ${localUser.year}`;
+
+  const tagsEl = document.getElementById('profile-tags');
+  tagsEl.innerHTML = [
+    `<span class="tag tag-primary">📧 ${localUser.email}</span>`,
+    `<span class="tag tag-cyan">📱 ${localUser.phone}</span>`,
+  ].join('');
+
+  // CGPA
+  document.getElementById('cgpa-input').value = p.cgpa || '';
+  if (p.cgpa) document.getElementById('cgpa-display').textContent = parseFloat(p.cgpa).toFixed(2);
+  document.getElementById('cgpa-input').addEventListener('input', e => {
+    const v = parseFloat(e.target.value);
+    document.getElementById('cgpa-display').textContent = isNaN(v) ? '—' : v.toFixed(2);
+  });
+
+  // Skill tag input
+  const skills = [...(p.skills || [])];
+  skillsController = initSkillTagInput('skill-input', 'skills-wrapper', skills);
+
+  // Interests
+  const interests = [...(p.interests || [])];
+  interestsController = initSkillTagInput('interest-input', 'interests-wrapper', interests);
+
+  // Lists
+  renderList('projects-list', p.projects || [], 'project', p => `
+    <div class="list-item">
+      <div class="flex-col flex-1">
+        <div class="list-item-text">${p.title}</div>
+        <div class="list-item-sub">${p.desc}</div>
+      </div>
+      <button class="remove-item-btn" onclick="removeItem('projects','${p.id}')">×</button>
+    </div>`);
+  renderList('certs-list', p.certifications || [], 'cert', c => `
+    <div class="list-item">
+      <div class="flex-col flex-1">
+        <div class="list-item-text">${c.name}</div>
+        <div class="list-item-sub">${c.issuer}</div>
+      </div>
+      <button class="remove-item-btn" onclick="removeItem('certifications','${c.id}')">×</button>
+    </div>`);
+  renderList('exp-list', p.experience || [], 'exp', e => `
+    <div class="list-item">
+      <div class="flex-col flex-1">
+        <div class="list-item-text">${e.role}</div>
+        <div class="list-item-sub">${e.company}</div>
+      </div>
+      <button class="remove-item-btn" onclick="removeItem('experience','${e.id}')">×</button>
+    </div>`);
+});
+
+function renderList(containerId, items, prefix, templateFn) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  if (items.length === 0) {
+    el.innerHTML = `<p class="text-muted text-sm" style="padding:8px 0">None added yet.</p>`;
+    return;
+  }
+  el.innerHTML = items.map(templateFn).join('');
+}
+
+function addProject() {
+  const title = document.getElementById('project-title').value.trim();
+  const desc  = document.getElementById('project-desc').value.trim();
+  if (!title) return;
+  localUser.profile.projects = localUser.profile.projects || [];
+  localUser.profile.projects.push({ id: generateId(), title, desc });
+  document.getElementById('project-title').value = '';
+  document.getElementById('project-desc').value  = '';
+  refreshProjectsList();
+}
+function addCert() {
+  const name   = document.getElementById('cert-name').value.trim();
+  const issuer = document.getElementById('cert-issuer').value.trim();
+  if (!name) return;
+  localUser.profile.certifications = localUser.profile.certifications || [];
+  localUser.profile.certifications.push({ id: generateId(), name, issuer });
+  document.getElementById('cert-name').value   = '';
+  document.getElementById('cert-issuer').value = '';
+  renderList('certs-list', localUser.profile.certifications, 'cert', c => `
+    <div class="list-item">
+      <div class="flex-col flex-1">
+        <div class="list-item-text">${c.name}</div>
+        <div class="list-item-sub">${c.issuer}</div>
+      </div>
+      <button class="remove-item-btn" onclick="removeItem('certifications','${c.id}')">×</button>
+    </div>`);
+}
+function addExp() {
+  const role    = document.getElementById('exp-role').value.trim();
+  const company = document.getElementById('exp-company').value.trim();
+  if (!role) return;
+  localUser.profile.experience = localUser.profile.experience || [];
+  localUser.profile.experience.push({ id: generateId(), role, company });
+  document.getElementById('exp-role').value    = '';
+  document.getElementById('exp-company').value = '';
+  renderList('exp-list', localUser.profile.experience, 'exp', e => `
+    <div class="list-item">
+      <div class="flex-col flex-1">
+        <div class="list-item-text">${e.role}</div>
+        <div class="list-item-sub">${e.company}</div>
+      </div>
+      <button class="remove-item-btn" onclick="removeItem('experience','${e.id}')">×</button>
+    </div>`);
+}
+function refreshProjectsList() {
+  renderList('projects-list', localUser.profile.projects, 'project', p => `
+    <div class="list-item">
+      <div class="flex-col flex-1">
+        <div class="list-item-text">${p.title}</div>
+        <div class="list-item-sub">${p.desc}</div>
+      </div>
+      <button class="remove-item-btn" onclick="removeItem('projects','${p.id}')">×</button>
+    </div>`);
+}
+function removeItem(field, id) {
+  localUser.profile[field] = (localUser.profile[field] || []).filter(x => x.id !== id);
+  if (field === 'projects')       refreshProjectsList();
+  if (field === 'certifications') renderList('certs-list', localUser.profile.certifications, 'cert', c => `
+    <div class="list-item"><div class="flex-col flex-1"><div class="list-item-text">${c.name}</div>
+    <div class="list-item-sub">${c.issuer}</div></div>
+    <button class="remove-item-btn" onclick="removeItem('certifications','${c.id}')">×</button></div>`);
+  if (field === 'experience')     renderList('exp-list', localUser.profile.experience, 'exp', e => `
+    <div class="list-item"><div class="flex-col flex-1"><div class="list-item-text">${e.role}</div>
+    <div class="list-item-sub">${e.company}</div></div>
+    <button class="remove-item-btn" onclick="removeItem('experience','${e.id}')">×</button></div>`);
+}
+
+function saveProfile() {
+  // Collect skills from tag input
+  const skillTags = document.querySelectorAll('#skills-wrapper .tag-primary');
+  const skills = [...skillTags].map(t => t.childNodes[0].textContent.trim()).filter(Boolean);
+
+  const intTags = document.querySelectorAll('#interests-wrapper .tag-primary');
+  const interests = [...intTags].map(t => t.childNodes[0].textContent.trim()).filter(Boolean);
+
+  localUser.profile.skills    = skills;
+  localUser.profile.interests = interests;
+  localUser.profile.cgpa      = parseFloat(document.getElementById('cgpa-input').value) || '';
+  // Clear stale cache
+  localUser.careerCache = null;
+  saveCurrentUser(localUser);
+  showAlert('page-alert', '✅ Profile saved! Career predictions have been reset.', 'success');
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+</script>
+</body>
+</html>
