@@ -893,7 +893,7 @@ async function predictCareersHybrid(userSkills = [], interests = [], cgpa = 0) {
   
   // Compute mean skill and interest RIASEC profiles
   const userSkillRiasec = new Array(6).fill(0);
-  const userInterestRiasec = new Array(6).fill(0);
+  let userInterestRiasec = new Array(6).fill(0);
   
   normalizedSkills.forEach(skill => {
     for (let i = 0; i < 6; i++) {
@@ -972,20 +972,32 @@ async function predictCareersHybrid(userSkills = [], interests = [], cgpa = 0) {
     W_KEYWORD * zKeywordScores[i]
   );
   
+  // DEBUG: Log raw blended scores before softmax
+  console.log('=== BLENDED SCORES (Z-scored + Weighted) ===');
+  CAREER_PROFILES.forEach((career, idx) => {
+    console.log(`  ${career.id}: ${blendedScores[idx].toFixed(3)}`);
+  });
+  
   // Softmax to get probabilities
   const probabilities = softmax(blendedScores, 0.25);
   
+  // DEBUG: Log probabilities after softmax
+  console.log('\n=== PROBABILITIES (After Softmax) ===');
+  CAREER_PROFILES.forEach((career, idx) => {
+    console.log(`  ${career.id}: ${(probabilities[idx] * 100).toFixed(2)}%`);
+  });
+  
   // Construct results with scores and probabilities
   const scored = CAREER_PROFILES.map((career, idx) => {
-    const score = Math.round(Math.max(0, Math.min(98, (blendedScores[idx] + 50))));
+    // Use probability directly as confidence score (0-100)
+    const confidenceScore = probabilities[idx] * 100;
+    const score = Math.round(Math.max(0, Math.min(98, confidenceScore)));
     
-    // Determine which lane drove this rank
-    const driverLane = getScoreLaneName(
-      zSemanticScores[idx],
-      zSkillScores[idx],
-      zInterestScores[idx],
-      zKeywordScores[idx]
-    );
+    // Get all four lane scores for this career
+    const semanticScore = zSemanticScores[idx];
+    const skillScore = zSkillScores[idx];
+    const interestScore = zInterestScores[idx];
+    const keywordScore = zKeywordScores[idx];
     
     const matchedSkills = [];
     const missingSkills = [];
@@ -995,12 +1007,51 @@ async function predictCareersHybrid(userSkills = [], interests = [], cgpa = 0) {
       else missingSkills.push(req);
     });
     
-    const reasons = [driverLane];
-    if (matchedSkills.length >= career.requiredSkills.length * 0.8) {
-      reasons.push('You meet most skill requirements');
+    // Build detailed reasons from all four lanes
+    const reasons = [];
+    const threshold = 0.2;
+    
+    // Semantic lane
+    if (semanticScore > threshold) {
+      reasons.push(`Strong semantic match: your skills align with ${career.title} job descriptions`);
     }
+    
+    // Skill match lane
+    if (skillScore > threshold) {
+      if (matchedSkills.length > 0) {
+        reasons.push(`Excellent skill alignment: ${matchedSkills.slice(0, 2).join(', ')}${matchedSkills.length > 2 ? ` + ${matchedSkills.length - 2} more` : ''}`);
+      } else {
+        reasons.push('Strong alignment with required skill sets');
+      }
+    }
+    
+    // Interest match lane
+    if (interestScore > threshold) {
+      const matchedInterests = interests.filter(i => 
+        INTEREST_TO_RIASEC_MAP[i] === RIASEC_DIMS[RIASEC_DIMS.findIndex(d => 
+          career.riasecVector[RIASEC_DIMS.indexOf(d)] > 0
+        )]?.name
+      );
+      if (matchedInterests.length > 0) {
+        reasons.push(`Your interests match this role: ${matchedInterests.slice(0, 2).join(', ')}`);
+      } else {
+        reasons.push('Strong match with your stated interests');
+      }
+    }
+    
+    // Keyword match lane
+    if (keywordScore > threshold && matchedSkills.length > 0) {
+      reasons.push(`Exact matches on required skills: ${matchedSkills.slice(0, 2).join(', ')}`);
+    }
+    
+    // CGPA bonus
     if (cgpa >= 8.5) {
-      reasons.push(`CGPA ${cgpa.toFixed(1)} demonstrates academic strength`);
+      reasons.push(`CGPA ${cgpa.toFixed(1)} demonstrates academic excellence`);
+    }
+    
+    // Fallback if no reasons generated
+    if (reasons.length === 0) {
+      reasons.push('Relevant to your overall profile');
     }
     
     return {
