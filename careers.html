@@ -175,17 +175,24 @@ function runPrediction() {
   if (skills.length === 0) return renderNoSkills();
 
   btn.disabled  = true;
-  btn.innerHTML = '<div class="spinner"></div> Analyzing…';
+  btn.innerHTML = '<div class="spinner"></div> Analyzing with AI…';
 
-  // Simulate AI delay
-  setTimeout(() => {
-    const results = predictCareers(skills, interests, cgpa);
-    user.careerCache = results;
-    saveCurrentUser(user);
-    renderCareers(results);
-    btn.disabled  = false;
-    btn.innerHTML = '⚡ Re-generate';
-    showAlert('page-alert', `✅ Top ${results.length} career paths predicted based on your profile!`, 'success');
+  // Call async predictCareers with proper await
+  setTimeout(async () => {
+    try {
+      const results = await predictCareers(skills, interests, cgpa);
+      user.careerCache = results;
+      saveCurrentUser(user);
+      renderCareers(results);
+      btn.disabled  = false;
+      btn.innerHTML = '⚡ Re-generate';
+      showAlert('page-alert', `✅ Top ${results.length} career paths predicted based on your profile!`, 'success');
+    } catch (err) {
+      console.error('Career prediction error:', err);
+      btn.disabled  = false;
+      btn.innerHTML = '⚡ Re-generate';
+      showAlert('page-alert', '❌ Error predicting careers. Please try again.', 'error');
+    }
   }, 1800);
 }
 

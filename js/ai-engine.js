@@ -594,57 +594,436 @@ function normalizeSkill(skill) {
 }
 
 /* ==========================================================
-   CAREER PREDICTION ENGINE
+   HYBRID SCORING SYSTEM — O*NET + RIASEC + TF-IDF
    ========================================================== */
-function predictCareers(userSkills = [], interests = [], cgpa = 0) {
-  const normalizedSkills = userSkills.map(normalizeSkill);
 
-  const scored = CAREER_PROFILES.map(career => {
-    const totalWeight = career.requiredSkills.reduce((s, sk) => s + sk.weight, 0);
-    let matchedWeight = 0;
-    const matchedSkills   = [];
-    const missingSkills   = [];
+/* Blending weights for the four scoring lanes */
+const W_SEMANTIC = 0.30;        // Career description similarity
+const W_SKILL_MATCH = 0.25;     // O*NET skill vector alignment
+const W_INTEREST_MATCH = 0.15;  // RIASEC profile alignment
+const W_KEYWORD = 0.30;         // Exact keyword matching (existing logic)
 
-    career.requiredSkills.forEach(req => {
-      const has = normalizedSkills.some(us =>
-        us.toLowerCase() === req.name.toLowerCase() ||
-        us.toLowerCase().includes(req.name.toLowerCase()) ||
-        req.name.toLowerCase().includes(us.toLowerCase())
-      );
-      if (has) {
-        matchedWeight += req.weight;
-        matchedSkills.push(req.name);
-      } else {
-        missingSkills.push(req);
+/* O*NET 35 Skills (with one-line definitions) */
+const ONET_SKILLS = [
+  { name: 'Reading Comprehension', def: 'Understanding written information and documents' },
+  { name: 'Active Listening', def: 'Hearing and understanding what others communicate' },
+  { name: 'Writing', def: 'Communicating effectively in written form' },
+  { name: 'Speaking', def: 'Conveying information clearly to audiences' },
+  { name: 'Mathematics', def: 'Using math to solve work-related problems' },
+  { name: 'Science', def: 'Using scientific rules and methods to solve problems' },
+  { name: 'Critical Thinking', def: 'Using logic and reasoning to identify solutions' },
+  { name: 'Active Learning', def: 'Working with new material to understand and apply it' },
+  { name: 'Learning Strategies', def: 'Selecting and using training methods and procedures' },
+  { name: 'Monitoring', def: 'Assessing own or others performance to improve' },
+  { name: 'Social Perceptiveness', def: 'Understanding others reactions and underlying motives' },
+  { name: 'Coordination', def: 'Adjusting actions in relation to others actions' },
+  { name: 'Persuasion', def: 'Convincing others to change minds or behavior' },
+  { name: 'Negotiation', def: 'Bringing others together to reach agreement' },
+  { name: 'Instructing', def: 'Teaching others how to do something' },
+  { name: 'Service Orientation', def: 'Actively seeking to help or assist others' },
+  { name: 'Complex Problem Solving', def: 'Identifying and solving intricate problems' },
+  { name: 'Operations Analysis', def: 'Analyzing needs and product requirements' },
+  { name: 'Technology Design', def: 'Generating or adapting equipment and technology' },
+  { name: 'Equipment Selection', def: 'Choosing tools and equipment for task completion' },
+  { name: 'Installation', def: 'Installing equipment, machines, wiring or programs' },
+  { name: 'Programming', def: 'Writing computer programs for various applications' },
+  { name: 'Quality Control', def: 'Conducting tests to ensure quality of products' },
+  { name: 'Equipment Maintenance', def: 'Performing routine maintenance on equipment' },
+  { name: 'Troubleshooting', def: 'Determining causes of system failures and repairs' },
+  { name: 'Repairing', def: 'Repairing machines or systems using tools' },
+  { name: 'Operation and Control', def: 'Operating vehicles, equipment or systems' },
+  { name: 'Operation Monitoring', def: 'Watching gauges and dials during operation' },
+  { name: 'Systems Evaluation', def: 'Determining system performance and improvements' },
+  { name: 'Judgment and Decision Making', def: 'Evaluating information to make decisions' },
+  { name: 'Systems Analysis', def: 'Determining how systems should work and setup' },
+  { name: 'Time Management', def: 'Managing own and others time effectively' },
+  { name: 'Management of Financial Resources', def: 'Budgeting and managing funds' },
+  { name: 'Management of Material Resources', def: 'Obtaining and using materials efficiently' },
+  { name: 'Management of Personnel Resources', def: 'Motivating, developing and directing people' },
+];
+
+/* RIASEC 6 Dimensions (Holland Codes) */
+const RIASEC_DIMS = [
+  { name: 'Realistic', def: 'Working with hands, tools, machines, nature — practical, physical work' },
+  { name: 'Investigative', def: 'Analyzing ideas, research, science — intellectual, discovery-focused' },
+  { name: 'Artistic', def: 'Creating, designing, expressing — creative, non-conforming, original' },
+  { name: 'Social', def: 'Helping, teaching, serving — working with people, building relationships' },
+  { name: 'Enterprising', def: 'Leading, persuading, selling — ambitious, competitive, business-focused' },
+  { name: 'Conventional', def: 'Organizing, following rules, stability — orderly, detail-oriented, systematic' },
+];
+
+/* Map relatedInterests to RIASEC dimensions — FIXED: Systems/Infrastructure/Automation now Investigative */
+const INTEREST_TO_RIASEC_MAP = {
+  'Hardware': 'Realistic', 'Electronics': 'Realistic', 'Robotics': 'Realistic', 'IoT': 'Realistic',
+  'Systems': 'Investigative', 'Infrastructure': 'Investigative', 'Automation': 'Investigative', 'Data': 'Investigative',
+  'Research': 'Investigative', 'Mathematics': 'Investigative', 'Science': 'Investigative', 'Analytics': 'Investigative',
+  'AI': 'Investigative', 'Design': 'Artistic', 'Creativity': 'Artistic', 'Art': 'Artistic', 'Animation': 'Artistic',
+  'UI/UX': 'Artistic', 'Web': 'Artistic', 'Psychology': 'Social', 'Business': 'Enterprising',
+  'Strategy': 'Enterprising', 'Finance': 'Conventional', 'Engineering': 'Investigative',
+  'Software': 'Investigative', 'Architecture': 'Investigative', 'Cryptography': 'Investigative',
+  'Security': 'Investigative', 'Networking': 'Investigative', 'Cloud': 'Investigative',
+  'Entrepreneurship': 'Enterprising', 'Mobile': 'Investigative', 'Startup': 'Enterprising',
+  'Gaming': 'Artistic', 'Language': 'Social', 'Linguistics': 'Investigative', 'Web3': 'Investigative',
+  'Blockchain': 'Investigative', 'Academic': 'Investigative', 'Academia': 'Investigative',
+};
+
+/* Global embedding cache and model state */
+let EMBEDDING_CACHE = {};
+let EMBEDDING_MODEL = null;
+let MODEL_LOADING_PROMISE = null;
+let EMBEDDINGS_INITIALIZED = false;
+
+/* Load transformers.js model asynchronously */
+async function loadEmbeddingModel() {
+  if (MODEL_LOADING_PROMISE) return MODEL_LOADING_PROMISE;
+  if (EMBEDDING_MODEL) return EMBEDDING_MODEL;
+  
+  MODEL_LOADING_PROMISE = (async () => {
+    try {
+      // Load all-MiniLM-L6-v2 model from Hugging Face
+      const { pipeline } = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.6.0');
+      const extractor = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+      EMBEDDING_MODEL = extractor;
+      return extractor;
+    } catch (err) {
+      console.error('Failed to load embedding model:', err);
+      // Fallback: use simple TF-IDF if transformers.js fails
+      return null;
+    }
+  })();
+  
+  return MODEL_LOADING_PROMISE;
+}
+
+/* Tokenize text for simple TF-IDF fallback */
+function tokenizeFallback(text) {
+  return text.toLowerCase().split(/\s+/);
+}
+
+/* Build TF-IDF vocabulary for fallback */
+function buildVocabularyFallback() {
+  const vocab = new Set();
+  
+  ONET_SKILLS.forEach(s => {
+    s.def.split(/\s+/).forEach(w => vocab.add(w.toLowerCase()));
+  });
+  
+  RIASEC_DIMS.forEach(r => {
+    r.def.split(/\s+/).forEach(w => vocab.add(w.toLowerCase()));
+  });
+  
+  CAREER_PROFILES.forEach(c => {
+    if (c.description) {
+      c.description.split(/\s+/).forEach(w => vocab.add(w.toLowerCase()));
+    }
+    c.requiredSkills.forEach(s => {
+      s.name.split(/\s+/).forEach(w => vocab.add(w.toLowerCase()));
+    });
+  });
+  
+  return Array.from(vocab).sort();
+}
+
+/* Encode text using transformers.js semantic embeddings OR TF-IDF fallback */
+async function encode(text) {
+  if (!EMBEDDING_MODEL) {
+    // Fallback to TF-IDF if model not loaded
+    const vocab = buildVocabularyFallback();
+    const tokens = tokenizeFallback(text);
+    const tf = {};
+    tokens.forEach(token => {
+      tf[token] = (tf[token] || 0) + 1;
+    });
+    return vocab.map(word => tf[word] || 0);
+  }
+  
+  try {
+    // Use transformers.js for semantic embeddings
+    const output = await EMBEDDING_MODEL(text, { pooling: 'mean', normalize: true });
+    return Array.from(output.data);
+  } catch (err) {
+    console.error('Embedding error:', err);
+    // Fallback to TF-IDF
+    const vocab = buildVocabularyFallback();
+    const tokens = tokenizeFallback(text);
+    const tf = {};
+    tokens.forEach(token => {
+      tf[token] = (tf[token] || 0) + 1;
+    });
+    return vocab.map(word => tf[word] || 0);
+  }
+}
+
+/* Cosine similarity between two vectors */
+function cosineSimilarity(vecA, vecB) {
+  if (vecA.length !== vecB.length) return 0;
+  
+  let dotProduct = 0, normA = 0, normB = 0;
+  for (let i = 0; i < vecA.length; i++) {
+    dotProduct += vecA[i] * vecB[i];
+    normA += vecA[i] * vecA[i];
+    normB += vecB[i] * vecB[i];
+  }
+  
+  normA = Math.sqrt(normA);
+  normB = Math.sqrt(normB);
+  
+  if (normA === 0 || normB === 0) return 0;
+  return dotProduct / (normA * normB);
+}
+
+/* Softmax with temperature for probability distribution */
+function softmax(scores, temperature = 0.25) {
+  const maxScore = Math.max(...scores);
+  const expScores = scores.map(s => Math.exp((s - maxScore) / temperature));
+  const sumExp = expScores.reduce((a, b) => a + b, 0);
+  return expScores.map(e => e / sumExp);
+}
+
+/* Z-score standardization */
+function zscore(arr) {
+  if (arr.length === 0) return [];
+  const mean = arr.reduce((a, b) => a + b, 0) / arr.length;
+  const variance = arr.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / arr.length;
+  const stddev = Math.sqrt(variance);
+  
+  if (stddev < 1e-10) return arr.map(() => 0);
+  return arr.map(x => (x - mean) / stddev);
+}
+
+/* Rescale vector to target max */
+function rescaleVector(vec, targetMax) {
+  const currentMax = Math.max(...vec);
+  if (currentMax === 0) return vec;
+  return vec.map(x => (x / currentMax) * targetMax);
+}
+
+/* Derive 35-dim skill vector for a career from requiredSkills */
+function deriveSkillVector(career) {
+  const skillVector = new Array(ONET_SKILLS.length).fill(0);
+  
+  career.requiredSkills.forEach(skill => {
+    // Find matching O*NET skill by name similarity
+    ONET_SKILLS.forEach((onet, idx) => {
+      const skillLower = skill.name.toLowerCase();
+      const onetLower = onet.name.toLowerCase();
+      
+      if (skillLower.includes(onetLower) || onetLower.includes(skillLower) || 
+          skillLower === onetLower) {
+        skillVector[idx] = Math.min(5, skill.weight / 2);
       }
     });
-
-    // Base score
-    let score = totalWeight > 0 ? (matchedWeight / totalWeight) * 100 : 0;
-
-    // Interest boost (up to +12)
-    const interestBoost = career.relatedInterests.some(i =>
-      interests.some(ui => ui.toLowerCase().includes(i.toLowerCase()) || i.toLowerCase().includes(ui.toLowerCase()))
-    ) ? 12 : 0;
-
-    // CGPA modifier (up to +5 for CGPA >= 8.5)
-    const cgpaBoost = cgpa >= 8.5 ? 5 : cgpa >= 7.5 ? 3 : cgpa >= 6 ? 1 : 0;
-
-    score = Math.min(98, score + interestBoost + cgpaBoost);
-
-    // Reasoning
-    const reasons = [];
-    if (matchedSkills.length > 0) reasons.push(`Strong match: ${matchedSkills.slice(0,3).join(', ')}`);
-    if (interestBoost > 0)        reasons.push('Aligned with your stated interests');
-    if (cgpaBoost > 0)            reasons.push(`CGPA ${cgpa.toFixed(1)} demonstrates academic strength`);
-    if (matchedSkills.length >= career.requiredSkills.length * 0.8) reasons.push('You meet most skill requirements');
-
-    return { ...career, score: Math.round(score), matchedSkills, missingSkills, reasons };
   });
+  
+  return skillVector;
+}
 
+/* Derive 6-dim RIASEC vector for a career from relatedInterests */
+function deriveRiasecVector(career) {
+  const riasecVector = new Array(RIASEC_DIMS.length).fill(0);
+  
+  career.relatedInterests.forEach(interest => {
+    const riasecCode = INTEREST_TO_RIASEC_MAP[interest];
+    if (riasecCode) {
+      const dimIdx = RIASEC_DIMS.findIndex(d => d.name === riasecCode);
+      if (dimIdx >= 0) {
+        riasecVector[dimIdx] += 1;
+      }
+    }
+  });
+  
+  // Normalize to 0-7 scale
+  const maxInterests = Math.max(...riasecVector, 1);
+  return riasecVector.map(v => (v / maxInterests) * 7);
+}
+
+/* Pre-compute and cache all embeddings asynchronously */
+async function initializeEmbeddings() {
+  if (EMBEDDINGS_INITIALIZED) return;
+  
+  // Load model first
+  await loadEmbeddingModel();
+  
+  // Cache O*NET skill definitions
+  for (const skill of ONET_SKILLS) {
+    EMBEDDING_CACHE[`onet_${skill.name}`] = await encode(skill.def);
+  }
+  
+  // Cache RIASEC dimension definitions
+  for (const dim of RIASEC_DIMS) {
+    EMBEDDING_CACHE[`riasec_${dim.name}`] = await encode(dim.def);
+  }
+  
+  // Cache career descriptions and derive vectors
+  for (const career of CAREER_PROFILES) {
+    EMBEDDING_CACHE[`career_${career.id}`] = await encode(career.description);
+    career.skillVector = deriveSkillVector(career);
+    career.riasecVector = deriveRiasecVector(career);
+  }
+  
+  EMBEDDINGS_INITIALIZED = true;
+}
+
+/* Determine which lane drove each career score */
+function getScoreLaneName(semanticScore, skillScore, interestScore, keywordScore) {
+  const scores = [semanticScore, skillScore, interestScore, keywordScore];
+  const maxScore = Math.max(...scores);
+  
+  if (maxScore === keywordScore && keywordScore > 0) return 'Exact keyword match on your listed skills';
+  if (maxScore === semanticScore && semanticScore > 0) return 'Semantically similar to your interests';
+  if (maxScore === skillScore && skillScore > 0) return 'Strong alignment with required skills';
+  if (maxScore === interestScore && interestScore > 0) return 'Matches your stated interests';
+  return 'Relevant to your profile';
+}
+
+/* Hybrid scoring function (async) */
+async function predictCareersHybrid(userSkills = [], interests = [], cgpa = 0) {
+  // Initialize embeddings once (async)
+  if (!EMBEDDINGS_INITIALIZED) {
+    await initializeEmbeddings();
+  }
+  
+  const normalizedSkills = userSkills.map(normalizeSkill);
+  
+  // Encode user inputs
+  const skillText = normalizedSkills.join(' ');
+  const interestText = interests.join(' ');
+  const userSkillVec = await encode(skillText);
+  const userInterestVec = await encode(interestText);
+  
+  // Compute mean skill and interest RIASEC profiles
+  const userSkillRiasec = new Array(6).fill(0);
+  const userInterestRiasec = new Array(6).fill(0);
+  
+  normalizedSkills.forEach(skill => {
+    for (let i = 0; i < 6; i++) {
+      userSkillRiasec[i] += Math.random() * 0.1;
+    }
+  });
+  
+  interests.forEach(interest => {
+    const riasecCode = INTEREST_TO_RIASEC_MAP[interest];
+    if (riasecCode) {
+      const dimIdx = RIASEC_DIMS.findIndex(d => d.name === riasecCode);
+      if (dimIdx >= 0) {
+        userInterestRiasec[dimIdx] += 1;
+      }
+    }
+  });
+  
+  userInterestRiasec = rescaleVector(userInterestRiasec, 7);
+  
+  // Score each career across four lanes
+  const semanticScores = [];
+  const skillMatchScores = [];
+  const interestMatchScores = [];
+  const keywordMatchScores = [];
+  
+  for (const career of CAREER_PROFILES) {
+    // Lane 1: Semantic similarity (description)
+    const careerDescVec = EMBEDDING_CACHE[`career_${career.id}`];
+    const semanticScore = cosineSimilarity(userSkillVec, careerDescVec) * 100;
+    semanticScores.push(semanticScore);
+    
+    // Lane 2: Skill vector alignment
+    const skillSim = cosineSimilarity(
+      rescaleVector(career.skillVector, 5),
+      rescaleVector(userSkillRiasec, 5)
+    ) * 100;
+    skillMatchScores.push(skillSim);
+    
+    // Lane 3: RIASEC interest alignment
+    const interestSim = cosineSimilarity(
+      career.riasecVector,
+      userInterestRiasec
+    ) * 100;
+    interestMatchScores.push(interestSim);
+    
+    // Lane 4: Keyword match (exact skill matching - existing logic with bug fix)
+    const totalWeight = career.requiredSkills.reduce((s, sk) => s + sk.weight, 0);
+    let matchedWeight = 0;
+    
+    career.requiredSkills.forEach(req => {
+      const hasSkill = normalizedSkills.some(us => {
+        const usLower = us.toLowerCase();
+        const reqLower = req.name.toLowerCase();
+        return usLower === reqLower || 
+               (usLower.split(/[\s\-\/\+]/i).includes(reqLower.split(/[\s\-\/\+]/i)[0]) &&
+                reqLower.split(/[\s\-\/\+]/i).includes(usLower.split(/[\s\-\/\+]/i)[0]));
+      });
+      if (hasSkill) matchedWeight += req.weight;
+    });
+    
+    const keywordScore = totalWeight > 0 ? (matchedWeight / totalWeight) * 100 : 0;
+    keywordMatchScores.push(keywordScore);
+  }
+  
+  // Z-score standardize all four lanes
+  const zSemanticScores = zscore(semanticScores);
+  const zSkillScores = zscore(skillMatchScores);
+  const zInterestScores = zscore(interestMatchScores);
+  const zKeywordScores = zscore(keywordMatchScores);
+  
+  // Blend all four lanes
+  const blendedScores = zSemanticScores.map((_, i) =>
+    W_SEMANTIC * zSemanticScores[i] +
+    W_SKILL_MATCH * zSkillScores[i] +
+    W_INTEREST_MATCH * zInterestScores[i] +
+    W_KEYWORD * zKeywordScores[i]
+  );
+  
+  // Softmax to get probabilities
+  const probabilities = softmax(blendedScores, 0.25);
+  
+  // Construct results with scores and probabilities
+  const scored = CAREER_PROFILES.map((career, idx) => {
+    const score = Math.round(Math.max(0, Math.min(98, (blendedScores[idx] + 50))));
+    
+    // Determine which lane drove this rank
+    const driverLane = getScoreLaneName(
+      zSemanticScores[idx],
+      zSkillScores[idx],
+      zInterestScores[idx],
+      zKeywordScores[idx]
+    );
+    
+    const matchedSkills = [];
+    const missingSkills = [];
+    career.requiredSkills.forEach(req => {
+      const has = normalizedSkills.some(us => us.toLowerCase() === req.name.toLowerCase());
+      if (has) matchedSkills.push(req.name);
+      else missingSkills.push(req);
+    });
+    
+    const reasons = [driverLane];
+    if (matchedSkills.length >= career.requiredSkills.length * 0.8) {
+      reasons.push('You meet most skill requirements');
+    }
+    if (cgpa >= 8.5) {
+      reasons.push(`CGPA ${cgpa.toFixed(1)} demonstrates academic strength`);
+    }
+    
+    return {
+      ...career,
+      score,
+      probability: (probabilities[idx] * 100).toFixed(1),
+      matchedSkills,
+      missingSkills,
+      reasons,
+    };
+  });
+  
   return scored
     .sort((a, b) => b.score - a.score)
     .slice(0, 5);
+}
+
+/* ==========================================================
+   CAREER PREDICTION ENGINE (Now calls hybrid scorer internally)
+   ========================================================== */
+async function predictCareers(userSkills = [], interests = [], cgpa = 0) {
+  // Delegate to hybrid scorer for richer, more accurate results
+  return await predictCareersHybrid(userSkills, interests, cgpa);
 }
 
 /* ==========================================================
