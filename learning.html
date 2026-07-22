@@ -95,7 +95,7 @@
 let allCourses = [];
 let activeFilter = 'all';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   requireAuth();
   renderSidebar('learning');
   renderTopbar('Learning Paths', 'Curated courses to bridge your skill gaps');
@@ -117,11 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Collect all missing skills across careers
-  const missingByCareer = {};
-  careers.forEach(c => {
-    const gap = getSkillGap(user.profile.skills || [], c);
-    missingByCareer[c.id] = { career: c, missing: gap.missing };
-  });
+  const gaps = await Promise.all(careers.map(async c => ({
+    career: c,
+    missing: (await getSkillGap(user.profile.skills || [], c)).missing,
+  })));
+  const missingByCareer = Object.fromEntries(gaps.map(gap => [gap.career.id, gap]));
 
   // Get recommended course for target career or all
   const targetCareer = careers.find(c => c.id === careerId);
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ? missingByCareer[targetCareer.id].missing
     : careers.flatMap(c => missingByCareer[c.id].missing);
 
-  allCourses = getLearningRecommendations(focusMissing);
+  allCourses = await getLearningRecommendations(focusMissing);
   renderLearningPage(careers, missingByCareer, targetCareer, allCourses);
 });
 

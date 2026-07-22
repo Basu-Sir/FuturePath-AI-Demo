@@ -178,8 +178,8 @@ function runPrediction() {
   btn.innerHTML = '<div class="spinner"></div> Analyzing…';
 
   // Simulate AI delay
-  setTimeout(() => {
-    const results = predictCareers(skills, interests, cgpa);
+  setTimeout(async () => {
+    const results = await predictCareers(skills, interests, cgpa);
     user.careerCache = results;
     saveCurrentUser(user);
     renderCareers(results);
