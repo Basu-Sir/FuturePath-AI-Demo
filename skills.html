@@ -108,7 +108,7 @@
 <script>
 let activeCareer = null;
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   requireAuth();
   renderSidebar('skills');
   renderTopbar('Skill Gap Analysis', 'See what skills you need for each career path');
@@ -132,20 +132,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   activeCareer = careers.find(c => c.id === initId) || careers[0];
-  renderPage(careers, activeCareer, user.profile.skills || []);
+  await renderPage(careers, activeCareer, user.profile.skills || []);
 });
 
-function selectCareer(id) {
+async function selectCareer(id) {
   const user    = getCurrentUser();
   const careers = user.careerCache || [];
   activeCareer  = careers.find(c => c.id === id) || careers[0];
   document.querySelectorAll('.cs-card').forEach(el => {
     el.classList.toggle('active', el.dataset.id === id);
   });
-  renderGapDetail(activeCareer, user.profile.skills || []);
+  await renderGapDetail(activeCareer, user.profile.skills || []);
 }
 
-function renderPage(careers, selected, userSkills) {
+async function renderPage(careers, selected, userSkills) {
   const careerTabsHTML = careers.map((c,i) => `
     <div class="cs-card${c.id === selected.id ? ' active' : ''}" data-id="${c.id}" onclick="selectCareer('${c.id}')">
       <span class="cs-icon">${c.icon}</span>
@@ -159,11 +159,11 @@ function renderPage(careers, selected, userSkills) {
     <div class="career-selector-grid">${careerTabsHTML}</div>
     <div id="gap-detail"></div>`;
 
-  renderGapDetail(selected, userSkills);
+  await renderGapDetail(selected, userSkills);
 }
 
-function renderGapDetail(career, userSkills) {
-  const gap = getSkillGap(userSkills, career);
+async function renderGapDetail(career, userSkills) {
+  const gap = await getSkillGap(userSkills, career);
   const container = document.getElementById('gap-detail');
 
   const totalTime = gap.missing.reduce((s, sk) => {

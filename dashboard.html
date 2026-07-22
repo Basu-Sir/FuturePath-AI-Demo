@@ -1,295 +1,465 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard — FuturePath AI</title>
-  <meta name="description" content="Your career intelligence dashboard — overview of skills, predictions, and progress." />
+  <meta name="description"
+    content="Your career intelligence dashboard — overview of skills, predictions, and progress." />
   <link rel="stylesheet" href="css/main.css" />
   <style>
     .welcome-banner {
-      background: linear-gradient(135deg, rgba(108,99,255,.18) 0%, rgba(0,212,255,.08) 100%);
-      border: 1px solid rgba(108,99,255,.25);
+      background: linear-gradient(135deg, rgba(108, 99, 255, .18) 0%, rgba(0, 212, 255, .08) 100%);
+      border: 1px solid rgba(108, 99, 255, .25);
       border-radius: var(--r-xl);
       padding: 28px 32px;
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 28px; position: relative; overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
     }
+
     .welcome-banner::before {
-      content: ''; position: absolute; right: -40px; top: -40px;
-      width: 200px; height: 200px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(108,99,255,.2), transparent 70%);
+      content: '';
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(108, 99, 255, .2), transparent 70%);
     }
-    .welcome-left h2 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
-    .welcome-left p  { font-size: 14px; color: var(--text-secondary); max-width: 400px; }
-    .welcome-emoji   { font-size: 60px; z-index: 1; }
+
+    .welcome-left h2 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .welcome-left p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      max-width: 400px;
+    }
+
+    .welcome-emoji {
+      font-size: 60px;
+      z-index: 1;
+    }
 
     .profile-complete-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--r-lg); padding: 22px 24px; margin-bottom: 28px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 22px 24px;
+      margin-bottom: 28px;
     }
+
     .profile-complete-card .pcc-header {
-      display: flex; justify-content: space-between; align-items: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 12px;
     }
-    .profile-complete-card h3 { font-size: 15px; font-weight: 700; }
+
+    .profile-complete-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
     .pcc-pct {
-      font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800;
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
       background: var(--grad-primary);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    .quick-actions { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin-bottom: 28px; }
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
     .qa-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--r-lg); padding: 18px 20px;
-      display: flex; align-items: center; gap: 14px;
-      cursor: pointer; transition: var(--transition); text-decoration: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
     }
-    .qa-card:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: var(--shadow-glow); }
-    .qa-icon { font-size: 28px; width: 50px; height: 50px; border-radius: var(--r-md);
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(108,99,255,.12); flex-shrink: 0; }
-    .qa-title { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
-    .qa-sub   { font-size: 12px; color: var(--text-muted); }
 
-    .career-preview { }
-    .cp-empty { display: flex; flex-direction: column; align-items: center; text-align: center;
-      padding: 40px 20px; gap: 12px; }
-    .cp-empty .cp-icon { font-size: 40px; opacity: .4; }
-    .cp-empty h3 { font-size: 16px; font-weight: 600; color: var(--text-secondary); }
-    .cp-empty p  { font-size: 13px; color: var(--text-muted); max-width: 300px; }
+    .qa-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .qa-icon {
+      font-size: 28px;
+      width: 50px;
+      height: 50px;
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(108, 99, 255, .12);
+      flex-shrink: 0;
+    }
+
+    .qa-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .qa-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .career-preview {}
+
+    .cp-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+      gap: 12px;
+    }
+
+    .cp-empty .cp-icon {
+      font-size: 40px;
+      opacity: .4;
+    }
+
+    .cp-empty h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .cp-empty p {
+      font-size: 13px;
+      color: var(--text-muted);
+      max-width: 300px;
+    }
 
     .mini-career-card {
-      display: flex; align-items: center; gap: 14px;
-      padding: 12px 14px; border-radius: var(--r-md);
-      border: 1px solid var(--border); background: rgba(255,255,255,.03);
-      margin-bottom: 10px; transition: var(--transition); cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      border-radius: var(--r-md);
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, .03);
+      margin-bottom: 10px;
+      transition: var(--transition);
+      cursor: pointer;
     }
-    .mini-career-card:hover { border-color: var(--border-hover); background: var(--bg-card-hover); }
-    .mcc-icon { font-size: 22px; width: 40px; height: 40px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(108,99,255,.12); flex-shrink: 0; }
-    .mcc-title { font-size: 14px; font-weight: 600; }
-    .mcc-domain { font-size: 12px; color: var(--text-muted); }
-    .mcc-score  { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800;
+
+    .mini-career-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+    }
+
+    .mcc-icon {
+      font-size: 22px;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(108, 99, 255, .12);
+      flex-shrink: 0;
+    }
+
+    .mcc-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .mcc-domain {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .mcc-score {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
       background: var(--grad-primary);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      margin-left: auto; white-space: nowrap; }
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-left: auto;
+      white-space: nowrap;
+    }
 
     .activity-item {
-      display: flex; gap: 12px; align-items: flex-start;
-      padding: 10px 0; border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
     }
-    .activity-item:last-child { border-bottom: none; }
-    .ai-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
-    .ai-text { font-size: 13.5px; color: var(--text-secondary); }
-    .ai-time { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .ai-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    .ai-text {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+    }
+
+    .ai-time {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
   </style>
 </head>
+
 <body>
-<div class="bg-mesh"></div>
-<div class="app-container">
-  <aside class="sidebar" id="sidebar"></aside>
-  <main class="main-content">
-    <header class="topbar" id="topbar"></header>
+  <div class="bg-mesh"></div>
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main-content">
+      <header class="topbar" id="topbar"></header>
 
-    <div class="page-content">
-      <!-- Welcome banner -->
-      <div class="welcome-banner anim-fade-up" id="welcome-banner">
-        <div class="welcome-left">
-          <h2 id="welcome-heading">Welcome back! 👋</h2>
-          <p>Your career intelligence dashboard is ready. Complete your profile to get personalized predictions.</p>
-        </div>
-        <div class="welcome-emoji">🚀</div>
-      </div>
-
-      <!-- Stats -->
-      <div class="grid-4 mb-24">
-        <div class="stat-card v anim-fade-up delay-1">
-          <div class="stat-icon">💡</div>
-          <div class="stat-value" id="stat-skills">0</div>
-          <div class="stat-label">Skills Identified</div>
-        </div>
-        <div class="stat-card c anim-fade-up delay-2">
-          <div class="stat-icon">🎯</div>
-          <div class="stat-value" id="stat-careers">0</div>
-          <div class="stat-label">Career Matches</div>
-        </div>
-        <div class="stat-card r anim-fade-up delay-3">
-          <div class="stat-icon">📚</div>
-          <div class="stat-value" id="stat-courses">0</div>
-          <div class="stat-label">Courses Ready</div>
-        </div>
-        <div class="stat-card g anim-fade-up delay-4">
-          <div class="stat-icon">📊</div>
-          <div class="stat-value" id="stat-score">0%</div>
-          <div class="stat-label">Profile Complete</div>
-        </div>
-      </div>
-
-      <!-- Profile completeness -->
-      <div class="profile-complete-card anim-fade-up delay-2">
-        <div class="pcc-header">
-          <h3>Profile Completeness</h3>
-          <span class="pcc-pct" id="pcc-pct">0%</span>
-        </div>
-        <div class="progress-bar progress-lg mb-8">
-          <div class="progress-fill" id="pcc-bar"></div>
-        </div>
-        <p style="font-size:13px; color:var(--text-muted)" id="pcc-hint">Complete your profile to unlock better predictions.</p>
-      </div>
-
-      <div class="grid-2 mb-24">
-        <!-- Quick Actions -->
-        <div class="card card-flat">
-          <div class="section-header mb-20">
-            <h2>Quick Actions</h2>
+      <div class="page-content">
+        <!-- Welcome banner -->
+        <div class="welcome-banner anim-fade-up" id="welcome-banner">
+          <div class="welcome-left">
+            <h2 id="welcome-heading">Welcome back! 👋</h2>
+            <p>Your career intelligence dashboard is ready. Complete your profile to get personalized predictions.</p>
           </div>
-          <div class="quick-actions p-0">
-            <a href="resume.html" class="qa-card">
-              <div class="qa-icon">📄</div>
-              <div><div class="qa-title">Upload Resume</div><div class="qa-sub">PDF, DOCX, TXT</div></div>
-            </a>
-            <a href="careers.html" class="qa-card">
-              <div class="qa-icon">🎯</div>
-              <div><div class="qa-title">Get Predictions</div><div class="qa-sub">AI career matches</div></div>
-            </a>
-            <a href="profile.html" class="qa-card">
-              <div class="qa-icon">👤</div>
-              <div><div class="qa-title">Edit Profile</div><div class="qa-sub">Skills & projects</div></div>
-            </a>
-            <a href="education.html" class="qa-card">
-              <div class="qa-icon">🎓</div>
-              <div><div class="qa-title">Higher Ed</div><div class="qa-sub">IITs, MIT, Stanford</div></div>
-            </a>
+          <div class="welcome-emoji">🚀</div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid-4 mb-24">
+          <div class="stat-card v anim-fade-up delay-1">
+            <div class="stat-icon">💡</div>
+            <div class="stat-value" id="stat-skills">0</div>
+            <div class="stat-label">Skills Identified</div>
+          </div>
+          <div class="stat-card c anim-fade-up delay-2">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-value" id="stat-careers">0</div>
+            <div class="stat-label">Career Matches</div>
+          </div>
+          <div class="stat-card r anim-fade-up delay-3">
+            <div class="stat-icon">📚</div>
+            <div class="stat-value" id="stat-courses">0</div>
+            <div class="stat-label">Courses Ready</div>
+          </div>
+          <div class="stat-card g anim-fade-up delay-4">
+            <div class="stat-icon">📊</div>
+            <div class="stat-value" id="stat-score">0%</div>
+            <div class="stat-label">Profile Complete</div>
           </div>
         </div>
 
-        <!-- Career Predictions Preview -->
-        <div class="card card-flat">
-          <div class="section-header">
-            <h2>Top Career Matches</h2>
-            <a href="careers.html" class="btn btn-secondary btn-sm">View All →</a>
+        <!-- Profile completeness -->
+        <div class="profile-complete-card anim-fade-up delay-2">
+          <div class="pcc-header">
+            <h3>Profile Completeness</h3>
+            <span class="pcc-pct" id="pcc-pct">0%</span>
           </div>
-          <div id="career-preview-list"></div>
-        </div>
-      </div>
-
-      <!-- Bottom row -->
-      <div class="grid-2">
-        <!-- Skills preview -->
-        <div class="card card-flat">
-          <div class="section-header">
-            <h2>Your Skills</h2>
-            <a href="profile.html" class="btn btn-secondary btn-sm">Add Skills</a>
+          <div class="progress-bar progress-lg mb-8">
+            <div class="progress-fill" id="pcc-bar"></div>
           </div>
-          <div id="skills-preview" class="flex flex-wrap gap-6" style="min-height:60px"></div>
+          <p style="font-size:13px; color:var(--text-muted)" id="pcc-hint">Complete your profile to unlock better
+            predictions.</p>
         </div>
 
-        <!-- Activity -->
-        <div class="card card-flat">
-          <div class="section-header"><h2>Recent Activity</h2></div>
-          <div id="activity-list">
-            <div class="activity-item">
-              <div class="ai-dot" style="background:var(--primary)"></div>
-              <div>
-                <div class="ai-text">Account created — Welcome to FuturePath AI!</div>
-                <div class="ai-time">Just now</div>
+        <div class="grid-2 mb-24">
+          <!-- Quick Actions -->
+          <div class="card card-flat">
+            <div class="section-header mb-20">
+              <h2>Quick Actions</h2>
+            </div>
+            <div class="quick-actions p-0">
+              <a href="resume.html" class="qa-card">
+                <div class="qa-icon">📄</div>
+                <div>
+                  <div class="qa-title">Upload Resume</div>
+                  <div class="qa-sub">PDF, DOCX, TXT</div>
+                </div>
+              </a>
+              <a href="careers.html" class="qa-card">
+                <div class="qa-icon">🎯</div>
+                <div>
+                  <div class="qa-title">Get Predictions</div>
+                  <div class="qa-sub">AI career matches</div>
+                </div>
+              </a>
+              <a href="profile.html" class="qa-card">
+                <div class="qa-icon">👤</div>
+                <div>
+                  <div class="qa-title">Edit Profile</div>
+                  <div class="qa-sub">Skills & projects</div>
+                </div>
+              </a>
+              <a href="education.html" class="qa-card">
+                <div class="qa-icon">🎓</div>
+                <div>
+                  <div class="qa-title">Higher Ed</div>
+                  <div class="qa-sub">IITs, MIT, Stanford</div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Career Predictions Preview -->
+          <div class="card card-flat">
+            <div class="section-header">
+              <h2>Top Career Matches</h2>
+              <a href="careers.html" class="btn btn-secondary btn-sm">View All →</a>
+            </div>
+            <div id="career-preview-list"></div>
+          </div>
+        </div>
+
+        <!-- Bottom row -->
+        <div class="grid-2">
+          <!-- Skills preview -->
+          <div class="card card-flat">
+            <div class="section-header">
+              <h2>Your Skills</h2>
+              <a href="profile.html" class="btn btn-secondary btn-sm">Add Skills</a>
+            </div>
+            <div id="skills-preview" class="flex flex-wrap gap-6" style="min-height:60px"></div>
+          </div>
+
+          <!-- Activity -->
+          <div class="card card-flat">
+            <div class="section-header">
+              <h2>Recent Activity</h2>
+            </div>
+            <div id="activity-list">
+              <div class="activity-item">
+                <div class="ai-dot" style="background:var(--primary)"></div>
+                <div>
+                  <div class="ai-text">Account created — Welcome to FuturePath AI!</div>
+                  <div class="ai-time">Just now</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
-</div>
+    </main>
+  </div>
 
-<script src="js/app.js"></script>
-<script src="js/ai-engine.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  requireAuth();
-  const user = getCurrentUser();
-  renderSidebar('dashboard');
-  renderTopbar('Dashboard', `Welcome back, ${user.name.split(' ')[0]}!`);
+  <script src="js/app.js"></script>
+  <script src="js/ai-engine.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      requireAuth();
+      const user = getCurrentUser();
+      renderSidebar('dashboard');
+      renderTopbar('Dashboard', `Welcome back, ${user.name.split(' ')[0]}!`);
 
-  document.getElementById('welcome-heading').textContent =
-    `Welcome back, ${user.name.split(' ')[0]}! 👋`;
+      document.getElementById('welcome-heading').textContent =
+        `Welcome back, ${user.name.split(' ')[0]}! 👋`;
 
-  const skills   = user.profile.skills || [];
-  const score    = calcProfileScore(user);
-  const careers  = user.careerCache || [];
-  const courses  = careers.length > 0
-    ? getLearningRecommendations(careers.flatMap(c => c.missingSkills || [])).length
-    : 0;
+      const skills = user.profile.skills || [];
+      const score = calcProfileScore(user);
+      const careers = user.careerCache || [];
+      const courses = careers.length > 0
+        ? (await getLearningRecommendations(careers.flatMap(c => c.missingSkills || []))).length
+        : 0;
 
-  // Animate stat counters
-  function animateCounter(id, target, suffix = '') {
-    const el = document.getElementById(id);
-    if (!el) return;
-    let cur = 0; const step = Math.ceil(target / 30);
-    const t = setInterval(() => {
-      cur = Math.min(cur + step, target);
-      el.textContent = cur + suffix;
-      if (cur >= target) clearInterval(t);
-    }, 40);
-  }
-  animateCounter('stat-skills',  skills.length);
-  animateCounter('stat-careers', careers.length);
-  animateCounter('stat-courses', courses);
-  animateCounter('stat-score',   score, '%');
-  animateCounter('pcc-pct',      score, '%');
+      // Animate stat counters
+      function animateCounter(id, target, suffix = '') {
+        const el = document.getElementById(id);
+        if (!el) return;
+        let cur = 0; const step = Math.ceil(target / 30);
+        const t = setInterval(() => {
+          cur = Math.min(cur + step, target);
+          el.textContent = cur + suffix;
+          if (cur >= target) clearInterval(t);
+        }, 40);
+      }
+      animateCounter('stat-skills', skills.length);
+      animateCounter('stat-careers', careers.length);
+      animateCounter('stat-courses', courses);
+      animateCounter('stat-score', score, '%');
+      animateCounter('pcc-pct', score, '%');
 
-  setTimeout(() => {
-    document.getElementById('pcc-bar').style.width = score + '%';
-  }, 200);
+      setTimeout(() => {
+        document.getElementById('pcc-bar').style.width = score + '%';
+      }, 200);
 
-  const hints = {
-    0:'Upload your resume and fill in skills to get AI predictions.',
-    50:'Great start! Add certifications and projects for better results.',
-    80:'Almost there! Upload resume to maximize prediction accuracy.',
-    100:'Profile complete! Your AI predictions are at maximum accuracy.',
-  };
-  const hintKey = score >= 100 ? 100 : score >= 80 ? 80 : score >= 50 ? 50 : 0;
-  document.getElementById('pcc-hint').textContent = hints[hintKey];
+      const hints = {
+        0: 'Upload your resume and fill in skills to get AI predictions.',
+        50: 'Great start! Add certifications and projects for better results.',
+        80: 'Almost there! Upload resume to maximize prediction accuracy.',
+        100: 'Profile complete! Your AI predictions are at maximum accuracy.',
+      };
+      const hintKey = score >= 100 ? 100 : score >= 80 ? 80 : score >= 50 ? 50 : 0;
+      document.getElementById('pcc-hint').textContent = hints[hintKey];
 
-  // Career preview
-  const cpList = document.getElementById('career-preview-list');
-  if (careers.length === 0) {
-    cpList.innerHTML = `
+      // Career preview
+      const cpList = document.getElementById('career-preview-list');
+      if (careers.length === 0) {
+        cpList.innerHTML = `
       <div class="cp-empty">
         <div class="cp-icon">🎯</div>
         <h3>No predictions yet</h3>
         <p>Add your skills and visit Career Paths to get your top 5 matches.</p>
         <a href="careers.html" class="btn btn-primary btn-sm" style="margin-top:8px">Predict My Career →</a>
       </div>`;
-  } else {
-    cpList.innerHTML = careers.slice(0,4).map(c => `
+      } else {
+        cpList.innerHTML = careers.slice(0, 4).map(c => `
       <div class="mini-career-card" onclick="location.href='careers.html'">
         <div class="mcc-icon">${c.icon}</div>
         <div><div class="mcc-title">${c.title}</div><div class="mcc-domain">${c.domain}</div></div>
         <div class="mcc-score">${c.score}%</div>
       </div>`).join('');
-  }
+      }
 
-  // Skills preview
-  const sp = document.getElementById('skills-preview');
-  if (skills.length === 0) {
-    sp.innerHTML = '<span class="text-muted text-sm" style="padding:8px 0">No skills added yet. Go to Profile or upload your Resume.</span>';
-  } else {
-    sp.innerHTML = skills.slice(0,18).map(s => `<span class="tag tag-primary">${s}</span>`).join('');
-    if (skills.length > 18) sp.innerHTML += `<span class="tag tag-ghost">+${skills.length - 18} more</span>`;
-  }
+      // Skills preview
+      const sp = document.getElementById('skills-preview');
+      if (skills.length === 0) {
+        sp.innerHTML = '<span class="text-muted text-sm" style="padding:8px 0">No skills added yet. Go to Profile or upload your Resume.</span>';
+      } else {
+        sp.innerHTML = skills.slice(0, 18).map(s => `<span class="tag tag-primary">${s}</span>`).join('');
+        if (skills.length > 18) sp.innerHTML += `<span class="tag tag-ghost">+${skills.length - 18} more</span>`;
+      }
 
-  // Activity
-  const acts = [];
-  if (user.profile.resumeFile) acts.push({ text:`Resume uploaded: ${user.profile.resumeFile}`, time:user.profile.resumeDate, color:'var(--secondary)' });
-  if (careers.length > 0)      acts.push({ text:`Career predictions generated — Top: ${careers[0]?.title}`, time: new Date().toISOString(), color:'var(--primary)' });
-  if (skills.length > 0)       acts.push({ text:`${skills.length} skills identified in your profile`, time:user.createdAt, color:'var(--success)' });
+      // Activity
+      const acts = [];
+      if (user.profile.resumeFile) acts.push({ text: `Resume uploaded: ${user.profile.resumeFile}`, time: user.profile.resumeDate, color: 'var(--secondary)' });
+      if (careers.length > 0) acts.push({ text: `Career predictions generated — Top: ${careers[0]?.title}`, time: new Date().toISOString(), color: 'var(--primary)' });
+      if (skills.length > 0) acts.push({ text: `${skills.length} skills identified in your profile`, time: user.createdAt, color: 'var(--success)' });
 
-  if (acts.length > 0) {
-    document.getElementById('activity-list').innerHTML = acts.map(a => `
+      if (acts.length > 0) {
+        document.getElementById('activity-list').innerHTML = acts.map(a => `
       <div class="activity-item">
         <div class="ai-dot" style="background:${a.color}"></div>
         <div>
@@ -302,8 +472,9 @@ document.addEventListener('DOMContentLoaded', () => {
         <div><div class="ai-text">Account created — Welcome to FuturePath AI!</div>
           <div class="ai-time">${formatDate(user.createdAt)}</div></div>
       </div>`;
-  }
-});
-</script>
+      }
+    });
+  </script>
 </body>
+
 </html>

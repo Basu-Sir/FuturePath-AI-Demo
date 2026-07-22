@@ -105,7 +105,7 @@ async function handleFileUpload(file) {
 
   try {
     const text = await parseFile(file);
-    processExtractedText(text, file.name);
+    await processExtractedText(text, file.name);
   } catch (err) {
     showAlert('upload-alert', `Parsing failed: ${err.message}`, 'error');
     resetUploadArea();
@@ -141,9 +141,10 @@ function dropzoneInnerHTML() {
   `;
 }
 
-function processExtractedText(text, fileName) {
-  const skills    = extractSkillsFromText(text);
-  const eduInfo   = extractEducationFromText(text);
+async function processExtractedText(text, fileName) {
+  const analysis  = await analyzeResume(text);
+  const skills    = analysis.skills;
+  const eduInfo   = analysis.education;
   const wordCount = text.split(/\s+/).length;
 
   // Store in user profile
