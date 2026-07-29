@@ -16,7 +16,13 @@ ALIASES = {
     "c++": "C/C++", "cpp": "C/C++", "c": "C/C++", "mssql": "SQL", "mysql": "SQL",
     "postgresql": "SQL", "postgres": "SQL", "html": "HTML/CSS", "css": "HTML/CSS",
     "sklearn": "Machine Learning", "scikit-learn": "Machine Learning", "tableau": "Data Visualization",
-    "mongodb": "MongoDB", "express": "Node.js", "next.js": "React", "nextjs": "React",
+    "mongodb": "MongoDB", "express": "Node.js", "next.js": "React", "nextjs": "React", "cv": "Computer Vision", "nlp": "Natural Language Processing", "llm": "Large Language Models", "llms": "Large Language Models", "rag": "RAG", "retrieval augmented generation": "RAG", "retrieval-augmented-generation": "RAG",
+    "hf": "Hugging Face", "huggingface": "Hugging Face", "langchain": "LangChain", "opencv": "OpenCV", "ros": "ROS", "ros2": "ROS",
+    "spark": "Apache Spark", "kafka": "Apache Kafka", "airflow": "Apache Airflow", "etl": "ETL Pipelines", "dbt": "Data Modeling",
+    "terraform": "Terraform", "grafana": "Grafana", "prometheus": "Prometheus", "redshift": "Amazon Redshift", "snowflake": "Snowflake",
+    "salesforce": "Salesforce", "apex": "Apex", "mqtt": "MQTT", "esp32": "ESP32", "pcb": "PCB Design", "aws": "AWS", "gcp": "GCP", "azure": "Azure", "tf2": "TensorFlow", "pytorch": "PyTorch", "opencv-python": "OpenCV",
+    "vision": "Computer Vision", "genai": "Generative AI", "gen ai": "Generative AI", "llama": "Large Language Models",
+    "bert": "Transformers", "transformer": "Transformers","transformers": "Transformers", "reinforcement learning": "Reinforcement Learning", "rl": "Reinforcement Learning",
 }
 SKILL_KEYWORDS = [
     "Python", "JavaScript", "TypeScript", "Java", "C++", "C#", "C/C++", "Go", "Rust", "Scala", "Kotlin", "Swift", "Dart", "PHP", "Ruby", "R",
@@ -28,7 +34,10 @@ SKILL_KEYWORDS = [
     "Figma", "Adobe XD", "Sketch", "UI/UX Design", "Wireframing", "Prototyping", "Agile", "Scrum", "Kanban", "JIRA", "Confluence",
     "Networking", "Cybersecurity", "Ethical Hacking", "Penetration Testing", "Cryptography", "Blockchain", "Solidity", "Ethereum", "Web3.js", "Smart Contracts",
     "Unity", "Unreal Engine", "Game Design", "React Native", "Flutter", "Android", "iOS", "Embedded Systems", "IoT", "RTOS", "Microcontrollers", "Arduino", "Raspberry Pi",
-    "MLOps", "LangChain", "Transformers", "BERT", "GPT", "Reinforcement Learning", "Mathematics", "Linear Algebra", "Calculus", "Probability",
+    "MLOps", "LangChain", "Transformers", "BERT", "GPT", "Reinforcement Learning", "Mathematics", "Linear Algebra", "Calculus", "Probability", "Natural Language Processing","Large Language Models",
+    "Prompt Engineering", "RAG", "Retrieval-Augmented Generation", "Vector Databases", "Fine-tuning", "LoRA", "QLoRA", "LangChain", "Hugging Face", "OpenCV", "Apache Spark", "Apache Kafka", "Apache Airflow", "ETL Pipelines", "Data Modeling", "Data Warehousing",
+    "Prometheus", "Grafana", "Monitoring", "Logging", "Observability", "Redshift", "Snowflake", "Salesforce", "Apex", "MQTT", "ESP32", "PCB Design", "SAP ERP",
+    "ERP Implementation", "Business Process Analysis", "Requirements Gathering", "Project Management", "Documentation", "Data Migration",
 ]
 
 app = Flask(__name__)
@@ -36,12 +45,26 @@ app = Flask(__name__)
 
 def normalize(skill):
     cleaned = skill.strip()
-    return ALIASES.get(cleaned.lower(), cleaned)
+    alias_key = cleaned.lower()
+    # Treat punctuation variants (for example, RAG's hyphenated spelling) as
+    # the same alias without making them substring matches.
+    alias_key = re.sub(r"[-_]+", " ", alias_key)
+    return ALIASES.get(cleaned.lower(), ALIASES.get(alias_key, cleaned))
+
+
+def skill_key(skill):
+    """Return a comparison key for one named skill.
+
+    Skills are labels, not free text: using a substring comparison made short
+    labels such as ``R`` match unrelated skills including RAG and Docker.
+    """
+    normalized = normalize(str(skill)).lower()
+    return re.sub(r"[^a-z0-9]+", "", normalized)
 
 
 def matches(skills, required):
-    required_name = required.lower()
-    return any(skill.lower() == required_name or skill.lower() in required_name or required_name in skill.lower() for skill in skills)
+    required_key = skill_key(required)
+    return bool(required_key) and required_key in {skill_key(skill) for skill in skills}
 
 
 def skill_gap(skills, career):
@@ -113,7 +136,13 @@ def learning_recommendations():
 def analyze_resume():
     text = (request.get_json(silent=True) or {}).get("text", "")
     lowered = text.lower()
-    skills = [skill for skill in SKILL_KEYWORDS if skill.lower() in lowered]
+    # A skill must stand on its own.  A plain substring search makes short
+    # skills such as ``R`` match letters inside unrelated words (for example,
+    # "engineer"), which produces false skills and distorted predictions.
+    def appears_as_skill(skill):
+        return re.search(rf"(?<!\w){re.escape(skill)}(?!\w)", text, re.IGNORECASE) is not None
+
+    skills = list(dict.fromkeys(skill for skill in SKILL_KEYWORDS if appears_as_skill(skill)))
     cgpa_match = re.search(r"(?:cgpa|gpa|score)[:\s]*([0-9]\.[0-9]{1,2})", text, re.IGNORECASE)
     degree = next((degree for degree in ["B.Tech", "M.Tech", "B.E.", "M.E.", "B.Sc", "M.Sc", "MBA", "PhD", "B.Com", "B.A", "MCA", "BCA"] if degree.lower() in lowered), None)
     return jsonify({"skills": skills, "education": {"cgpa": float(cgpa_match.group(1)) if cgpa_match else None, "degree": degree}})
