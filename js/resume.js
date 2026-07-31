@@ -157,7 +157,13 @@ async function processExtractedText(text, fileName) {
 
   // Merge extracted skills with existing skills (no duplicates)
   const existing = new Set(user.profile.skills.map(s => s.toLowerCase()));
-  skills.forEach(s => { if (!existing.has(s.toLowerCase())) user.profile.skills.push(s); });
+  skills.forEach(s => {
+    const key = s.toLowerCase();
+    if (!existing.has(key)) {
+      user.profile.skills.push(s);
+      existing.add(key);
+    }
+  });
 
   if (eduInfo.cgpa && !user.profile.cgpa) user.profile.cgpa = eduInfo.cgpa;
 
