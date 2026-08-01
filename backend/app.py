@@ -5,6 +5,11 @@ import re
 from flask import Flask, jsonify, request, send_from_directory
 from jaccord import predict_careers as jaccard_predict_careers
 
+try:
+    from .dice_routes import dice_bp
+except ImportError:  # pragma: no cover - fallback for direct script execution
+    from dice_routes import dice_bp
+
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = json.loads((Path(__file__).parent / "data.json").read_text(encoding="utf-8"))
@@ -42,6 +47,7 @@ SKILL_KEYWORDS = [
 ]
 
 app = Flask(__name__)
+app.register_blueprint(dice_bp)
 
 
 def normalize(skill):
