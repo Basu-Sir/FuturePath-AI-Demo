@@ -19,6 +19,12 @@ function predictCareersJaccard(skills = [], interests = [], cgpa = 0) {
   return apiRequest('/api/careers/predict/jaccard', { skills, interests, cgpa });
 }
 
+/* Model 4 — cosine similarity. Mirrors the existing model wrappers so the
+   frontend can call it through the same recommendation orchestration. */
+function predictCareersCosine(skills = [], interests = [], cgpa = 0) {
+  return apiRequest('/api/careers/predict/cosine', { skills, interests, cgpa });
+}
+
 function getSkillGap(userSkills = [], career) {
   return apiRequest('/api/skill-gap', { skills: userSkills, careerId: career.id });
 }

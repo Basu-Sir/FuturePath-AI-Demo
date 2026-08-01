@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profile — FuturePath AI</title>
-  <meta name="description" content="Upload your resume and manage your skills, projects, CGPA, certifications and experience." />
+  <meta name="description" content="Upload your resume and manage your skills and CGPA." />
   <link rel="stylesheet" href="css/main.css" />
   <style>
     .page-header {
@@ -100,57 +100,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-    }
-
-    .list-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.7);
-      margin-bottom: 8px;
-      transition: var(--transition);
-    }
-    .list-item:hover {
-      border-color: var(--border-hover);
-      transform: translateY(-1px);
-      box-shadow: 0 10px 24px rgba(15,45,90,.06);
-    }
-    .list-item-text {
-      flex: 1;
-      font-size: 13.5px;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-    .list-item-sub {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-    .remove-item-btn {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 18px;
-      cursor: pointer;
-      transition: var(--transition);
-      line-height: 1;
-      padding: 2px 6px;
-    }
-    .remove-item-btn:hover {
-      color: var(--accent);
-    }
-
-    .add-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr auto;
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .add-row .form-input {
-      min-width: 0;
     }
 
     .cgpa-display {
@@ -329,6 +278,176 @@
       margin-top: 12px;
     }
 
+    /* ============================================================
+       BEAUTIFIED TECHNICAL SKILLS — pill badges, GitHub/LinkedIn-style
+       ============================================================ */
+    #skills-wrapper.skill-input-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(58,131,255,.05), rgba(58,131,255,.015));
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+    #skills-wrapper.skill-input-wrapper:focus-within {
+      border-color: rgba(58,131,255,.4);
+      box-shadow: 0 0 0 3px rgba(58,131,255,.08);
+    }
+    #skills-wrapper .tag.tag-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(58,131,255,.15), rgba(0,194,209,.11));
+      border: 1px solid rgba(58,131,255,.30);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary-dark);
+      letter-spacing: -.01em;
+      transition: var(--transition);
+      cursor: default;
+    }
+    #skills-wrapper .tag.tag-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(58,131,255,.20);
+      border-color: rgba(58,131,255,.55);
+      background: linear-gradient(135deg, rgba(58,131,255,.22), rgba(0,194,209,.16));
+    }
+    #skills-wrapper .tag .remove-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      font-size: 14px;
+      line-height: 1;
+      opacity: .55;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    #skills-wrapper .tag .remove-btn:hover {
+      opacity: 1;
+      color: var(--accent);
+      transform: scale(1.15);
+    }
+    #skill-input.skill-input-inner {
+      flex: 1;
+      min-width: 180px;
+      border: none;
+      background: transparent;
+      padding: 7px 4px;
+      font-size: 13.5px;
+      color: var(--text-primary);
+    }
+    #skill-input.skill-input-inner:focus { outline: none; }
+
+    /* Interests keeps the same treatment for visual consistency */
+    #interests-wrapper.skill-input-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(0,194,209,.05), rgba(0,194,209,.015));
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+    #interests-wrapper.skill-input-wrapper:focus-within {
+      border-color: rgba(0,194,209,.4);
+      box-shadow: 0 0 0 3px rgba(0,194,209,.08);
+    }
+    #interests-wrapper .tag.tag-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(0,194,209,.15), rgba(58,131,255,.08));
+      border: 1px solid rgba(0,194,209,.30);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--secondary);
+      transition: var(--transition);
+    }
+    #interests-wrapper .tag.tag-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(0,194,209,.18);
+      border-color: rgba(0,194,209,.55);
+    }
+    #interest-input.skill-input-inner {
+      flex: 1;
+      min-width: 180px;
+      border: none;
+      background: transparent;
+      padding: 7px 4px;
+      font-size: 13.5px;
+    }
+    #interest-input.skill-input-inner:focus { outline: none; }
+
+    /* ============================================================
+       BEAUTIFIED ACADEMIC DETAILS — dashboard info-card layout
+       ============================================================ */
+    .academic-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .academic-field {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(58,131,255,.05);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+    .academic-field:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(15,45,90,.07);
+    }
+    .academic-field-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(58,131,255,.13);
+      color: var(--primary-dark);
+    }
+    .academic-field-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+    .academic-field-body { flex: 1; min-width: 0; }
+    .academic-field-label {
+      display: block;
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+    .academic-input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      padding: 0;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -.01em;
+      font-family: inherit;
+    }
+    .academic-input:focus { outline: none; }
+    select.academic-input { cursor: pointer; }
+
     @media (max-width: 1180px) {
       .profile-grid { grid-template-columns: 1fr; }
       .profile-hero { grid-template-columns: auto 1fr; }
@@ -336,8 +455,8 @@
     }
     @media (max-width: 720px) {
       .profile-hero { grid-template-columns: 1fr; }
-      .add-row { grid-template-columns: 1fr; }
       .extract-stats { grid-template-columns: 1fr; }
+      .academic-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -497,55 +616,32 @@
             <div class="form-hint mt-8">Interests help improve career matching accuracy</div>
           </div>
 
-          <!-- CGPA -->
+          <!-- Academic Details -->
           <div class="section-card anim-fade-up delay-2">
             <h3>Academic Details</h3>
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">CGPA / GPA</label>
-                <input id="cgpa-input" type="number" step="0.01" min="0" max="10" class="form-input"
-                  placeholder="e.g. 8.5" />
+            <div class="academic-grid">
+              <div class="academic-field">
+                <div class="academic-field-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 8l10 5 8-4.2V15h2V8Zm-6 8.4V16c0 1.66 3.13 3 6 3s6-1.34 6-3v-4.6l-6 3.15Z"/></svg>
+                </div>
+                <div class="academic-field-body">
+                  <label class="academic-field-label" for="cgpa-input">CGPA / GPA</label>
+                  <input id="cgpa-input" type="number" step="0.01" min="0" max="10" class="academic-input"
+                    placeholder="e.g. 8.5" />
+                </div>
               </div>
-              <div class="form-group">
-                <label class="form-label">Scale</label>
-                <select id="cgpa-scale" class="form-input">
-                  <option value="10">Out of 10</option>
-                  <option value="4">Out of 4</option>
-                </select>
+              <div class="academic-field">
+                <div class="academic-field-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v2H4Zm0 14h16v2H4Zm2-10h12v6H6Z"/></svg>
+                </div>
+                <div class="academic-field-body">
+                  <label class="academic-field-label" for="cgpa-scale">Scale</label>
+                  <select id="cgpa-scale" class="academic-input">
+                    <option value="10">Out of 10</option>
+                    <option value="4">Out of 4</option>
+                  </select>
+                </div>
               </div>
-            </div>
-          </div>
-
-          <!-- Projects -->
-          <div class="section-card anim-fade-up delay-2">
-            <h3>Projects</h3>
-            <div id="projects-list"></div>
-            <div class="add-row">
-              <input id="project-title" type="text" class="form-input" placeholder="Project title…" />
-              <input id="project-desc" type="text" class="form-input" placeholder="Description…" />
-              <button class="btn btn-secondary btn-sm" onclick="addProject()" style="white-space:nowrap">+ Add</button>
-            </div>
-          </div>
-
-          <!-- Certifications -->
-          <div class="section-card anim-fade-up delay-3">
-            <h3>Certifications</h3>
-            <div id="certs-list"></div>
-            <div class="add-row">
-              <input id="cert-name" type="text" class="form-input" placeholder="Certification name…" />
-              <input id="cert-issuer" type="text" class="form-input" placeholder="Issued by…" />
-              <button class="btn btn-secondary btn-sm" onclick="addCert()" style="white-space:nowrap">+ Add</button>
-            </div>
-          </div>
-
-          <!-- Experience -->
-          <div class="section-card anim-fade-up delay-3">
-            <h3>Experience</h3>
-            <div id="exp-list"></div>
-            <div class="add-row">
-              <input id="exp-role" type="text" class="form-input" placeholder="Role…" />
-              <input id="exp-company" type="text" class="form-input" placeholder="Company / Duration…" />
-              <button class="btn btn-secondary btn-sm" onclick="addExp()" style="white-space:nowrap">+ Add</button>
             </div>
           </div>
         </div>
@@ -603,11 +699,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const interests = [...(p.interests || [])];
   interestsController = initSkillTagInput('interest-input', 'interests-wrapper', interests);
 
-  // Lists
-  refreshProjectsList();
-  refreshCertsList();
-  refreshExpList();
-
   // Existing resume badge
   if (p.resumeFile) {
     const card = document.getElementById('current-resume-card');
@@ -620,84 +711,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Wire up dropzone (js/resume.js) — just the drag/drop/click handlers, no re-render of shell
   initResumeUpload();
 });
-
-function renderList(containerId, items, templateFn) {
-  const el = document.getElementById(containerId);
-  if (!el) return;
-  if (!items || items.length === 0) {
-    el.innerHTML = `<p class="text-muted text-sm" style="padding:8px 0">None added yet.</p>`;
-    return;
-  }
-  el.innerHTML = items.map(templateFn).join('');
-}
-
-function refreshProjectsList() {
-  renderList('projects-list', localUser.profile.projects || [], p => `
-    <div class="list-item">
-      <div class="flex-col flex-1">
-        <div class="list-item-text">${p.title}</div>
-        <div class="list-item-sub">${p.desc}</div>
-      </div>
-      <button class="remove-item-btn" onclick="removeItem('projects','${p.id}')">×</button>
-    </div>`);
-}
-function refreshCertsList() {
-  renderList('certs-list', localUser.profile.certifications || [], c => `
-    <div class="list-item">
-      <div class="flex-col flex-1">
-        <div class="list-item-text">${c.name}</div>
-        <div class="list-item-sub">${c.issuer}</div>
-      </div>
-      <button class="remove-item-btn" onclick="removeItem('certifications','${c.id}')">×</button>
-    </div>`);
-}
-function refreshExpList() {
-  renderList('exp-list', localUser.profile.experience || [], e => `
-    <div class="list-item">
-      <div class="flex-col flex-1">
-        <div class="list-item-text">${e.role}</div>
-        <div class="list-item-sub">${e.company}</div>
-      </div>
-      <button class="remove-item-btn" onclick="removeItem('experience','${e.id}')">×</button>
-    </div>`);
-}
-
-function addProject() {
-  const title = document.getElementById('project-title').value.trim();
-  const desc  = document.getElementById('project-desc').value.trim();
-  if (!title) return;
-  localUser.profile.projects = localUser.profile.projects || [];
-  localUser.profile.projects.push({ id: generateId(), title, desc });
-  document.getElementById('project-title').value = '';
-  document.getElementById('project-desc').value  = '';
-  refreshProjectsList();
-}
-function addCert() {
-  const name   = document.getElementById('cert-name').value.trim();
-  const issuer = document.getElementById('cert-issuer').value.trim();
-  if (!name) return;
-  localUser.profile.certifications = localUser.profile.certifications || [];
-  localUser.profile.certifications.push({ id: generateId(), name, issuer });
-  document.getElementById('cert-name').value   = '';
-  document.getElementById('cert-issuer').value = '';
-  refreshCertsList();
-}
-function addExp() {
-  const role    = document.getElementById('exp-role').value.trim();
-  const company = document.getElementById('exp-company').value.trim();
-  if (!role) return;
-  localUser.profile.experience = localUser.profile.experience || [];
-  localUser.profile.experience.push({ id: generateId(), role, company });
-  document.getElementById('exp-role').value    = '';
-  document.getElementById('exp-company').value = '';
-  refreshExpList();
-}
-function removeItem(field, id) {
-  localUser.profile[field] = (localUser.profile[field] || []).filter(x => x.id !== id);
-  if (field === 'projects')       refreshProjectsList();
-  if (field === 'certifications') refreshCertsList();
-  if (field === 'experience')     refreshExpList();
-}
 
 /* Called by js/resume.js once a resume has been parsed & merged into
    localUser.profile.skills, so the Technical Skills tag input on the

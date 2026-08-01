@@ -63,7 +63,6 @@
        a one-off row style. */
     .model-body .career-card { padding: 16px; gap: 10px; }
     .model-body .career-card .career-title { font-size: 14.5px; }
-    .model-body .career-card .confidence-pct { font-size: 16px; }
     .model-body .career-card .career-rank { top: 12px; right: 12px; width: 22px; height: 22px; font-size: 11px; }
 
     .skill-tag-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
@@ -124,7 +123,7 @@
             <div class="model-badge">1</div>
             <div>
               <h2>Weighted Match</h2>
-              <p>Skill &amp; interest scoring</p>
+              <p>Model 1</p>
             </div>
           </div>
           <div class="model-body" id="model1-content"></div>
@@ -136,7 +135,7 @@
             <div class="model-badge">2</div>
             <div>
               <h2>Dice Similarity</h2>
-              <p>Derived from Model 1</p>
+              <p>Model 2</p>
             </div>
           </div>
           <div class="model-body" id="model2-content"></div>
@@ -148,29 +147,22 @@
             <div class="model-badge">3</div>
             <div>
               <h2>Jaccard Similarity</h2>
-              <p>Set-overlap scoring</p>
+              <p>Model 3</p>
             </div>
           </div>
           <div class="model-body" id="model3-content"></div>
         </section>
 
-        <!-- ============ MODEL 4 (placeholder) ============ -->
-        <section class="card model-section card-flat">
+        <!-- ============ MODEL 4 ============ -->
+        <section class="card card-gradient model-section">
           <div class="model-header">
             <div class="model-badge">4</div>
             <div>
-              <h2>Model 4</h2>
-              <p>Reserved</p>
-            </div>
-            <span class="tag tag-warning text-xs" style="margin-left:auto">Soon</span>
-          </div>
-          <div class="model-body">
-            <div class="placeholder-state">
-              <div class="ph-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M6.5 6.5l2.8 2.8m5.4 5.4 2.8 2.8m0-11l-2.8 2.8m-5.4 5.4-2.8 2.8"/></svg></div>
-              <h3>Coming soon</h3>
-              <p>Backend integration pending. This card is wired up and ready to receive results.</p>
+              <h2>Cosine Similarity</h2>
+              <p>Model 4</p>
             </div>
           </div>
+          <div class="model-body" id="model4-content"></div>
         </section>
 
       </div>
@@ -193,6 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderEmpty('model1-content', 'No skills yet', 'Add skills in your profile or upload a resume.');
     renderEmpty('model2-content', 'No skills yet', 'Add skills in your profile or upload a resume.');
     renderEmpty('model3-content', 'No skills yet', 'Add skills in your profile or upload a resume.');
+    renderEmpty('model4-content', 'No skills yet', 'Add skills in your profile or upload a resume.');
     return;
   }
 
@@ -204,14 +197,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (user.jaccardCareerCache && user.jaccardCareerCache.length > 0) renderModel3Careers(user.jaccardCareerCache);
   else renderEmpty('model3-content', 'Ready', 'Click Generate above to run every model.');
+
+  if (user.cosineCareerCache && user.cosineCareerCache.length > 0) renderModel4Careers(user.cosineCareerCache);
+  else renderEmpty('model4-content', 'Ready', 'Click Generate above to run every model.');
 });
 
 /* ============================================================
-   SINGLE ENTRY POINT — one button runs all three models.
-   Model 1 and Model 3 run in parallel (independent). Model 2
-   (Dice) is derived from Model 1's output, so it runs after
-   Model 1 resolves. Uses allSettled so one model failing
-   (e.g. Jaccard) doesn't block the others from rendering.
+   SINGLE ENTRY POINT — one button runs all four models.
+   Model 1, Model 3, and Model 4 run in parallel (independent).
+   Model 2 (Dice) is derived from Model 1's output, so it runs after
+   Model 1 resolves. Uses allSettled so one model failing doesn't block
+   the others from rendering.
    ============================================================ */
 async function generateAll() {
   const btn = document.getElementById('generate-btn');
@@ -230,10 +226,12 @@ async function generateAll() {
   renderLoading('model1-content');
   renderLoading('model2-content');
   renderLoading('model3-content');
+  renderLoading('model4-content');
 
-  const [model1Res, model3Res] = await Promise.allSettled([
+  const [model1Res, model3Res, model4Res] = await Promise.allSettled([
     predictCareers(skills, interests, cgpa),
     predictCareersJaccard(skills, interests, cgpa),
+    predictCareersCosine(skills, interests, cgpa),
   ]);
 
   const errors = [];
@@ -262,6 +260,14 @@ async function generateAll() {
   } else {
     errors.push(`Jaccard: ${model3Res.reason.message}`);
     renderEmpty('model3-content', 'Failed', model3Res.reason.message);
+  }
+
+  if (model4Res.status === 'fulfilled') {
+    user.cosineCareerCache = model4Res.value;
+    renderModel4Careers(model4Res.value);
+  } else {
+    errors.push(`Cosine: ${model4Res.reason.message}`);
+    renderEmpty('model4-content', 'Failed', model4Res.reason.message);
   }
 
   saveCurrentUser(user);
@@ -315,8 +321,12 @@ function skillTags(list, type, max = 6) {
 }
 
 /* A single career entry, built on the site's real .career-card
-   component (rank badge, gold rank-1 border, confidence bar, hover
-   glow) instead of a one-off row shape. */
+   component (rank badge, gold rank-1 border, hover glow) instead of
+   a one-off row shape. Match score / percentage are intentionally
+   not rendered here — the card now surfaces skill fit only (have /
+   learn tags), not a numeric score. The underlying `pct` value is
+   still accepted so callers don't need to change, it's just unused
+   in the markup. */
 function careerCardHTML({ id, title, pct, haveSkills = [], gapSkills = [], rank }) {
   const clickable = id != null;
   const gapBadge = gapSkills.length === 0
@@ -335,13 +345,6 @@ function careerCardHTML({ id, title, pct, haveSkills = [], gapSkills = [], rank 
        ${clickable ? `onclick="location.href='skills.html?career=${id}'"` : ''}>
     <div class="career-rank">#${rank}</div>
     <div class="career-title">${title}</div>
-    <div class="confidence-bar-wrap">
-      <div class="confidence-bar-label">
-        <span class="text-xs text-secondary">Match score</span>
-        <span class="confidence-pct">${pct}%</span>
-      </div>
-      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
-    </div>
     <div class="flex items-center gap-8 flex-wrap">${gapBadge}</div>
     ${haveRow}
     ${gapRow}
@@ -396,6 +399,20 @@ function renderModel3Careers(careers) {
     haveSkills, gapSkills: c.missingSkills || [], rank: i + 1,
   })).join('');
   document.getElementById('model3-content').innerHTML = `<div class="rec-list">${rows}</div>`;
+}
+
+/* ============================================================
+   MODEL 4 — cosine similarity (/api/careers/predict/cosine)
+   ============================================================ */
+function renderModel4Careers(careers) {
+  if (!careers || careers.length === 0) return renderEmpty('model4-content', 'Ready', 'Click Generate above to run every model.');
+  const user = getCurrentUser();
+  const haveSkills = user.profile.skills || [];
+  const rows = careers.map((c, i) => careerCardHTML({
+    id: c.id, title: c.title, pct: c.score,
+    haveSkills, gapSkills: c.missingSkills || [], rank: i + 1,
+  })).join('');
+  document.getElementById('model4-content').innerHTML = `<div class="rec-list">${rows}</div>`;
 }
 </script>
 </body>
