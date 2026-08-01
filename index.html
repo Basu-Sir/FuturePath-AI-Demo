@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FuturePath AI — Career Recommendation Engine</title>
+  <meta name="description"
+    content="FuturePath AI analyzes your skills and interests to predict the best career paths with personalized learning recommendations." />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+</head>
+
+<body>
+  <div class="bg-mesh"></div>
+  <canvas id="particles-canvas"></canvas>
+
+  <div class="auth-page">
+    <!-- LEFT: Branding -->
+    <div class="auth-left">
+      <!-- Floating decorations -->
+      <div class="floating-card fc-1">
+        <div class="fc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 7.5v9L12 21l7-4.5v-9L12 3Zm0 2.3 4.7 2.4L12 10.1 7.3 7.7 12 5.3Zm-5 3.8 4.2 2.1v4.9L7 16.9V9.1Zm10 0v7.8l-4.2 2.1v-4.9L17 9.1Z"/></svg></div>
+        <div>
+          <div class="fc-val">94%</div>
+          <div class="fc-text">Match Rate</div>
+        </div>
+      </div>
+      <div class="floating-card fc-2">
+        <div class="fc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18h16M7 15v-4m5 4V7m5 8v-2"/></svg></div>
+        <div>
+          <div class="fc-val">20+</div>
+          <div class="fc-text">Career Paths</div>
+        </div>
+      </div>
+      <div class="floating-card fc-3">
+        <div class="fc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5L12 11 4 7.5Zm8 4.5L6 9.8v4.1l6 2.6 6-2.6V9.8l-6 2.2Zm-6 4.8 6 2.4 6-2.4v-1.3l-6 2.4-6-2.4v1.3Z"/></svg></div>
+        <div>
+          <div class="fc-val">500+</div>
+          <div class="fc-text">Courses</div>
+        </div>
+      </div>
+
+      <div class="auth-brand">
+        <div class="brand-logo">
+          <div class="brand-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 7.5v9L12 21l7-4.5v-9L12 3Zm0 2.3 4.7 2.4L12 10.1 7.3 7.7 12 5.3Zm-5 3.8 4.2 2.1v4.9L7 16.9V9.1Zm10 0v7.8l-4.2 2.1v-4.9L17 9.1Z"/></svg></div>
+          <div class="brand-name">FuturePath AI</div>
+        </div>
+        <div class="brand-tagline">Career Intelligence Engine</div>
+      </div>
+
+      <div class="auth-hero">
+        <h1>Discover Your<br /><span class="gradient-text">Ideal Career Path</span><br />with AI</h1>
+        <p>Upload your resume, and our AI instantly maps your skills to the best careers — complete with gap analysis,
+          learning plans, and university recommendations.</p>
+      </div>
+
+      <div class="auth-features">
+        <div class="auth-feature delay-1">
+          <div class="auth-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5.5v6C4 16.1 7.3 20 12 22c4.7-2 8-5.9 8-10.5v-6L12 2Zm0 2.3 5.5 2.2v4.7c0 3.5-2.2 6.5-5.5 8.3-3.3-1.8-5.5-4.8-5.5-8.3V6.5L12 4.3Zm-1 4.2h2v3h3v2h-3v3h-2v-3H8v-2h3V8.5Z"/></svg></div>
+          <div class="auth-feature-text">
+            <strong>AI-Powered Career Matching</strong>
+            <span>Top 5 career predictions with confidence scores</span>
+          </div>
+        </div>
+        <div class="auth-feature delay-2">
+          <div class="auth-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h8l4 4v14H7V3Zm8 1.5V8h3.5L15 4.5ZM9 11h6v2H9Zm0 4h6v2H9Z"/></svg></div>
+          <div class="auth-feature-text">
+            <strong>Smart Resume Parsing</strong>
+            <span>Automatically extracts skills from PDF, DOCX, TXT</span>
+          </div>
+        </div>
+        <div class="auth-feature delay-3">
+          <div class="auth-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Zm0 2.2L17.3 8 12 10.8 6.7 8 12 5.2Zm-5 4.1 4.5 2.1v5.1L7 17.7v-6.4Zm10 0v6.4l-4.5 2.1v-5.1L17 9.3Z"/></svg></div>
+          <div class="auth-feature-text">
+            <strong>Skill Gap Analysis</strong>
+            <span>Know exactly what to learn next — with timelines</span>
+          </div>
+        </div>
+        <div class="auth-feature delay-4">
+          <div class="auth-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Zm0 2.2L17.3 8 12 10.8 6.7 8 12 5.2Zm-5 4.1 4.5 2.1v5.1L7 17.7v-6.4Zm10 0v6.4l-4.5 2.1v-5.1L17 9.3Z"/></svg></div>
+          <div class="auth-feature-text">
+            <strong>University Recommendations</strong>
+            <span>IITs, IIMs, MIT, Stanford & more tailored for you</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Auth Form -->
+    <div class="auth-right">
+      <div class="auth-card">
+        <!-- Tabs -->
+        <div class="auth-tabs">
+          <button class="auth-tab" data-tab="login" onclick="switchTab('login')">Sign In</button>
+          <button class="auth-tab" data-tab="register" onclick="switchTab('register')">Create Account</button>
+        </div>
+
+        <!-- ===== LOGIN PANEL ===== -->
+        <div id="login-panel">
+          <h2>Welcome back</h2>
+          <p class="auth-sub">Sign in to continue your career journey</p>
+
+          <div id="login-alert"></div>
+
+          <form id="login-form">
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input id="login-email" type="email" class="form-input" placeholder="you@example.com" autocomplete="email"
+                required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <div class="input-wrap">
+                <input id="login-password" type="password" class="form-input" placeholder="Enter your password"
+                  autocomplete="current-password" required />
+                <button type="button" class="toggle-pass" onclick="togglePass('login-password', this)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+              </div>
+            </div>
+            <label class="checkbox-row">
+              <input type="checkbox" id="login-remember" />
+              Remember me for 30 days
+            </label>
+            <button id="login-btn" type="submit" class="btn btn-primary btn-full btn-lg">
+              Sign In →
+            </button>
+          </form>
+
+          <p class="auth-footer-text">
+            Don't have an account? <a onclick="switchTab('register')">Create one free</a>
+          </p>
+        </div>
+
+        <!-- ===== REGISTER PANEL ===== -->
+        <div id="register-panel" style="display:none">
+          <h2>Join FuturePath AI</h2>
+          <p class="auth-sub">Create your free account in seconds</p>
+
+          <div id="reg-alert"></div>
+
+          <form id="register-form">
+            <div class="section-divider">Personal Info</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input id="reg-name" type="text" class="form-input" placeholder="Your Name" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input id="reg-phone" type="tel" class="form-input" placeholder="9876543210" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input id="reg-email" type="email" class="form-input" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <div class="input-wrap">
+                <input id="reg-password" type="password" class="form-input" placeholder="Min. 8 characters" required />
+                <button type="button" class="toggle-pass" onclick="togglePass('reg-password', this)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+              </div>
+              <div class="form-hint">Use a mix of letters, numbers, and symbols</div>
+            </div>
+
+            <div class="section-divider">Academic Info</div>
+            <div class="form-group">
+              <label class="form-label">College / University</label>
+              <input id="reg-college" type="text" class="form-input" placeholder="IIT Bombay, NIT Trichy, …" required />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Degree</label>
+                <select id="reg-degree" class="form-input" required>
+                  <option value="">Select degree</option>
+                  <option value="B.Tech">B.Tech</option>
+                  <option value="B.E.">B.E.</option>
+                  <option value="B.Sc">B.Sc</option>
+                  <option value="B.Com">B.Com</option>
+                  <option value="B.A">B.A</option>
+                  <option value="BCA">BCA</option>
+                  <option value="MCA">MCA</option>
+                  <option value="M.Tech">M.Tech</option>
+                  <option value="M.Sc">M.Sc</option>
+                  <option value="MBA">MBA</option>
+                  <option value="PhD">PhD</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Current Year</label>
+                <select id="reg-year" class="form-input" required>
+                  <option value="">Select year</option>
+                  <option value="1st Year">1st Year</option>
+                  <option value="2nd Year">2nd Year</option>
+                  <option value="3rd Year">3rd Year</option>
+                  <option value="4th Year">4th Year</option>
+                  <option value="Graduate">Graduate</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Branch / Specialization</label>
+              <input id="reg-branch" type="text" class="form-input" placeholder="Computer Science, ECE, Mechanical…"
+                required />
+            </div>
+
+            <button id="reg-btn" type="submit" class="btn btn-primary btn-full btn-lg" style="margin-top:8px">
+              Create Account →
+            </button>
+          </form>
+
+          <p class="auth-footer-text">
+            Already have an account? <a onclick="switchTab('login')">Sign in</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+
+</html>

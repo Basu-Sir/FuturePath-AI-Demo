@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jaccard Career Matches — FuturePath AI</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .predict-banner { background:var(--grad-card); border:1px solid rgba(108,99,255,.25); border-radius:var(--r-xl); padding:28px 32px; display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; }
+    .career-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+    .career-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--r-xl); padding:22px; }
+    .career-card:first-child { grid-column:1 / -1; border-color:rgba(255,215,0,.4); }
+    .career-title { font-size:20px; font-weight:800; } .career-domain,.career-desc,.reason { color:var(--text-secondary); font-size:13px; }
+    .career-desc { line-height:1.6; margin:14px 0; } .score { font-size:32px; font-weight:900; color:var(--primary-light); margin:16px 0 4px; }
+    .tags { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0; } .reasoning { margin-top:14px; padding:12px; border:1px solid rgba(108,99,255,.2); border-radius:var(--r-md); background:rgba(108,99,255,.07); }
+    .empty { text-align:center; padding:60px 20px; color:var(--text-secondary); }
+  </style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="app-container"><aside class="sidebar" id="sidebar"></aside><main class="main-content">
+  <header class="topbar" id="topbar"></header><div id="page-alert" style="padding:0 36px"></div>
+  <div class="page-content"><div class="predict-banner"><div><h2>Jaccard Career Matches</h2><p>Recommendations calculated from skill-set similarity only.</p></div><div class="flex gap-10 items-center"><span id="skill-count" class="tag tag-primary"></span><button id="predict-btn" class="btn btn-primary" onclick="runPrediction()">Generate Jaccard Matches</button></div></div><div id="careers-content"></div></div>
+</main></div>
+<script src="js/app.js"></script><script src="js/ai-engine.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  requireAuth(); renderSidebar('jaccard'); renderTopbar('Jaccard Matches', 'Career recommendations from Jaccard skill similarity');
+  const user=getCurrentUser(), skills=user.profile.skills||[]; document.getElementById('skill-count').textContent=`${skills.length} skills`;
+  if (!skills.length) renderEmpty('Add skills in your profile or upload a resume before generating matches.');
+  else if (user.jaccardCareerCache?.length) renderCareers(user.jaccardCareerCache); else renderEmpty('Generate your top five Jaccard-similarity career matches.');
+});
+function renderEmpty(message) { document.getElementById('careers-content').innerHTML=`<div class="empty"><h2>Ready to compare skills</h2><p>${message}</p></div>`; }
+async function runPrediction() {
+  const user=getCurrentUser(), skills=user.profile.skills||[], btn=document.getElementById('predict-btn'); if (!skills.length) return renderEmpty('Add skills before generating matches.');
+  btn.disabled=true; btn.textContent='Analyzing...';
+  try { const results=await predictCareersJaccard(skills,user.profile.interests||[],parseFloat(user.profile.cgpa)||0); user.jaccardCareerCache=results; saveCurrentUser(user); renderCareers(results); showAlert('page-alert',`Top ${results.length} Jaccard matches generated.`,'success'); }
+  catch (error) { showAlert('page-alert',error.message,'error'); } finally { btn.disabled=false; btn.textContent='Re-generate Jaccard Matches'; }
+}
+function renderCareers(careers) { document.getElementById('careers-content').innerHTML=`<div class="career-grid">${careers.map((c,index)=>`<article class="career-card"><div class="career-title">${index+1}. ${c.icon} ${c.title}</div><div class="career-domain">${c.domain}</div><div class="score">${c.score}% <span class="text-xs text-muted">Jaccard similarity</span></div><div class="progress-bar progress-xl"><div class="progress-fill" style="width:${c.score}%"></div></div><p class="career-desc">${c.description}</p><div class="text-xs text-muted">Matching skills</div><div class="tags">${(c.matchedSkills||[]).slice(0,5).map(skill=>`<span class="tag tag-success">${skill}</span>`).join('')||'<span class="tag tag-ghost">No exact matches yet</span>'}</div><div class="reasoning">${(c.reasons||[]).map(reason=>`<div class="reason">• ${reason}</div>`).join('')}</div><div class="mt-16"><a class="btn btn-secondary btn-sm" href="skills.html?career=${c.id}">Skill Gap Analysis</a></div></article>`).join('')}</div>`; }
+</script>
+</body>
+</html>

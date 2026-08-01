@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+backend/cosine_similarity/venv/
+
+# Python cache
+.pytest_cache/
+.mypy_cache/

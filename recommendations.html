@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Career Recommendations — FuturePath AI</title>
+  <meta name="description" content="All career recommendation models — weighted scoring, Dice similarity, Jaccard similarity, and more — in one place." />
+  <link rel="stylesheet" href="css/main.css" />
+  <style>
+    /* ============================================================
+       SINGLE-VIEW LAYOUT — the page itself never scrolls;
+       only the content inside each model column scrolls.
+       ============================================================ */
+    html, body { height: 100%; overflow: hidden; }
+    .main-content { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+    .topbar { flex-shrink: 0; }
+
+    .page-header {
+      flex-shrink: 0; padding: 22px 36px 16px;
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+    }
+    .page-header-copy h1 { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+    .page-header-copy p  { color: var(--text-secondary); font-size: 14px; }
+
+    #generate-btn { min-width: 220px; }
+
+    .page-content {
+      flex: 1; min-height: 0; overflow: hidden;
+      padding: 0 36px 20px; display: flex;
+    }
+
+    .models-row {
+      flex: 1; min-height: 0; width: 100%;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+    }
+
+    /* ============================================================
+       MODEL COLUMN — identical shell for all four
+       ============================================================ */
+    .model-section { display: flex; flex-direction: column; min-height: 0; }
+    .model-header {
+      flex-shrink: 0;
+      padding: 16px 18px;
+      display: flex; align-items: center; gap: 10px;
+      border-bottom: 1px solid var(--border);
+      background: var(--grad-card);
+    }
+    .model-badge {
+      width: 32px; height: 32px; border-radius: var(--r-md);
+      display: flex; align-items: center; justify-content: center;
+      font-family:'Outfit',sans-serif; font-weight: 800; font-size: 13px;
+      background: rgba(58,131,255,.12); border: 1px solid rgba(58,131,255,.28);
+      color: var(--primary-dark); flex-shrink: 0;
+    }
+    .model-header h2 { font-size: 14.5px; font-weight: 800; line-height: 1.25; }
+    .model-header p  { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+
+    .model-body { flex: 1; min-height: 0; overflow-y: auto; padding: 14px; }
+    .model-body .rec-list { display: flex; flex-direction: column; gap: 12px; }
+
+    /* Compact variant of the site's real .career-card component, so these
+       columns actually match the rest of the product instead of inventing
+       a one-off row style. */
+    .model-body .career-card { padding: 16px; gap: 10px; }
+    .model-body .career-card .career-title { font-size: 14.5px; }
+    .model-body .career-card .confidence-pct { font-size: 16px; }
+    .model-body .career-card .career-rank { top: 12px; right: 12px; width: 22px; height: 22px; font-size: 11px; }
+
+    .skill-tag-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+    .skill-tag-label {
+      font-size: 9.5px; font-weight: 800; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: .05em; margin-right: 1px;
+    }
+
+    .empty-inline, .placeholder-state {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: 100%; text-align: center; padding: 20px; gap: 10px;
+    }
+    .empty-inline h3, .placeholder-state h3 { font-size: 14px; color: var(--text-secondary); }
+    .empty-inline p, .placeholder-state p  { font-size: 12px; color: var(--text-muted); max-width: 220px; }
+    .placeholder-state .ph-icon { font-size: 34px; opacity: .5; }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media(max-width:1000px) {
+      html, body { height: auto; overflow: auto; }
+      .main-content { height: auto; overflow: visible; }
+      .page-content { overflow: visible; padding: 0 18px 24px; }
+      .models-row { grid-template-columns: 1fr 1fr; grid-auto-rows: 420px; }
+    }
+    @media(max-width:700px) {
+      .models-row { grid-template-columns: 1fr; }
+      .page-header { flex-direction: column; align-items: stretch; }
+      #generate-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="app-container">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main-content">
+    <header class="topbar" id="topbar"></header>
+
+    <div id="page-alert" style="padding:0 36px"></div>
+
+    <div class="page-header">
+      <div class="page-header-copy">
+        <h1>Career Recommendations</h1>
+        <p>One click runs every model — weighted match, Dice similarity, and Jaccard similarity — side by side.</p>
+      </div>
+      <button class="btn btn-primary btn-lg" id="generate-btn" onclick="generateAll()">
+        Generate Recommendations
+      </button>
+    </div>
+
+    <div class="page-content">
+      <div class="models-row">
+
+        <!-- ============ MODEL 1 ============ -->
+        <section class="card card-gradient model-section">
+          <div class="model-header">
+            <div class="model-badge">1</div>
+            <div>
+              <h2>Weighted Match</h2>
+              <p>Skill &amp; interest scoring</p>
+            </div>
+          </div>
+          <div class="model-body" id="model1-content"></div>
+        </section>
+
+        <!-- ============ MODEL 2 ============ -->
+        <section class="card card-gradient model-section">
+          <div class="model-header">
+            <div class="model-badge">2</div>
+            <div>
+              <h2>Dice Similarity</h2>
+              <p>Derived from Model 1</p>
+            </div>
+          </div>
+          <div class="model-body" id="model2-content"></div>
+        </section>
+
+        <!-- ============ MODEL 3 ============ -->
+        <section class="card card-gradient model-section">
+          <div class="model-header">
+            <div class="model-badge">3</div>
+            <div>
+              <h2>Jaccard Similarity</h2>
+              <p>Set-overlap scoring</p>
+            </div>
+          </div>
+          <div class="model-body" id="model3-content"></div>
+        </section>
+
+        <!-- ============ MODEL 4 ============ -->
+        <section class="card card-gradient model-section">
+          <div class="model-header">
+            <div class="model-badge">4</div>
+            <div>
+              <h2>Cosine Similarity</h2>
+              <p>Semantic + skill + interest scoring</p>
+            </div>
+          </div>
+          <div class="model-body" id="model4-content"></div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/ai-engine.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  requireAuth();
+  renderSidebar('recommendations');
+  renderTopbar('Career Recommendations', 'All recommendation models, unified on one page');
+
+  const user = getCurrentUser();
+  const skills = user.profile.skills || [];
+
+  if (skills.length === 0) {
+    renderEmpty('model1-content', 'No skills yet', 'Add skills in your profile or upload a resume.');
+    renderEmpty('model2-content', 'No skills yet', 'Add skills in your profile or upload a resume.');
+    renderEmpty('model3-content', 'No skills yet', 'Add skills in your profile or upload a resume.');
+    renderEmpty('model4-content', 'No skills yet', 'Add skills in your profile or upload a resume.');
+    return;
+  }
+
+  if (user.careerCache && user.careerCache.length > 0) renderModel1Careers(user.careerCache);
+  else renderEmpty('model1-content', 'Ready', 'Click Generate above to run every model.');
+
+  if (user.diceCache && user.diceCache.length > 0) renderModel2Dice(user.diceCache);
+  else renderEmpty('model2-content', 'Ready', 'Click Generate above to run every model.');
+
+  if (user.jaccardCareerCache && user.jaccardCareerCache.length > 0) renderModel3Careers(user.jaccardCareerCache);
+  else renderEmpty('model3-content', 'Ready', 'Click Generate above to run every model.');
+
+  if (user.cosineCareerCache && user.cosineCareerCache.length > 0) renderModel4Careers(user.cosineCareerCache);
+  else renderEmpty('model4-content', 'Ready', 'Click Generate above to run every model.');
+});
+
+/* ============================================================
+   SINGLE ENTRY POINT — one button runs all four models.
+   Model 1, Model 3, and Model 4 run in parallel (independent).
+   Model 2 (Dice) is derived from Model 1's output, so it runs after
+   Model 1 resolves. Uses allSettled so one model failing doesn't block
+   the others from rendering.
+   ============================================================ */
+async function generateAll() {
+  const btn = document.getElementById('generate-btn');
+  const user = getCurrentUser();
+  const skills    = user.profile.skills    || [];
+  const interests = user.profile.interests || [];
+  const cgpa      = parseFloat(user.profile.cgpa) || 0;
+
+  if (skills.length === 0) {
+    showAlert('page-alert', 'Add skills to your profile before generating recommendations.', 'error');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div> Generating...';
+  renderLoading('model1-content');
+  renderLoading('model2-content');
+  renderLoading('model3-content');
+  renderLoading('model4-content');
+
+  const [model1Res, model3Res, model4Res] = await Promise.allSettled([
+    predictCareers(skills, interests, cgpa),
+    predictCareersJaccard(skills, interests, cgpa),
+    predictCareersCosine(skills, interests, cgpa),
+  ]);
+
+  const errors = [];
+
+  if (model1Res.status === 'fulfilled') {
+    user.careerCache = model1Res.value;
+    renderModel1Careers(model1Res.value);
+
+    try {
+      const dicePayload = await getDiceRecommendations(skills, model1Res.value);
+      user.diceCache = dicePayload.recommendations || [];
+      renderModel2Dice(user.diceCache);
+    } catch (err) {
+      errors.push(`Dice: ${err.message}`);
+      renderEmpty('model2-content', 'Unavailable', err.message);
+    }
+  } else {
+    errors.push(`Weighted match: ${model1Res.reason.message}`);
+    renderEmpty('model1-content', 'Failed', model1Res.reason.message);
+    renderEmpty('model2-content', 'No matches yet', 'Weighted match must succeed first.');
+  }
+
+  if (model3Res.status === 'fulfilled') {
+    user.jaccardCareerCache = model3Res.value;
+    renderModel3Careers(model3Res.value);
+  } else {
+    errors.push(`Jaccard: ${model3Res.reason.message}`);
+    renderEmpty('model3-content', 'Failed', model3Res.reason.message);
+  }
+
+  if (model4Res.status === 'fulfilled') {
+    user.cosineCareerCache = model4Res.value;
+    renderModel4Careers(model4Res.value);
+  } else {
+    errors.push(`Cosine: ${model4Res.reason.message}`);
+    renderEmpty('model4-content', 'Failed', model4Res.reason.message);
+  }
+
+  saveCurrentUser(user);
+  btn.disabled = false;
+  btn.innerHTML = 'Generate Recommendations';
+
+  if (errors.length) showAlert('page-alert', `${errors.join(' · ')}`, 'error');
+  else showAlert('page-alert', 'Recommendations generated across all models.', 'success');
+}
+
+function renderLoading(containerId) {
+  document.getElementById(containerId).innerHTML = `
+    <div class="empty-inline">
+      <div class="spinner spinner-lg"></div>
+      <p>Generating...</p>
+    </div>`;
+}
+
+function renderEmpty(containerId, title, message) {
+  document.getElementById(containerId).innerHTML = `
+    <div class="empty-inline"><h3>${title}</h3><p>${message}</p></div>`;
+}
+
+function findCareerByTitle(title, list) {
+  return (list || []).find(c => (c.title || '').toLowerCase() === String(title || '').toLowerCase());
+}
+
+/* Skill objects can arrive as plain strings or as objects like
+   {name: 'Docker'} / {skill: 'Docker'} depending on which endpoint
+   produced them. Normalize once, here, instead of assuming a shape
+   and printing "[object Object]" when it's wrong. */
+function skillLabel(item) {
+  if (typeof item === 'string') return item;
+  if (item && typeof item === 'object') return item.name || item.skill || item.title || '';
+  return '';
+}
+
+/* Renders skill pills using the site's real .tag component, capped
+   at `max` with a "+N more" pill — matches theme instead of a
+   bespoke chip style. */
+function skillTags(list, type, max = 6) {
+  const names = (list || []).map(skillLabel).filter(Boolean);
+  if (!names.length) return '';
+  const cls  = type === 'have' ? 'tag-success' : 'tag-danger';
+  const icon = type === 'have' ? '✓' : '+';
+  const shown = names.slice(0, max);
+  const extra = names.length - shown.length;
+  let html = shown.map(s => `<span class="tag ${cls} text-xs">${icon} ${s}</span>`).join('');
+  if (extra > 0) html += `<span class="tag tag-ghost text-xs">+${extra} more</span>`;
+  return html;
+}
+
+/* A single career entry, built on the site's real .career-card
+   component (rank badge, gold rank-1 border, confidence bar, hover
+   glow) instead of a one-off row shape. */
+function careerCardHTML({ id, title, pct, haveSkills = [], gapSkills = [], rank }) {
+  const clickable = id != null;
+  const gapBadge = gapSkills.length === 0
+    ? '<span class="tag tag-success text-xs">Full match</span>'
+    : `<span class="tag tag-danger text-xs">${gapSkills.length} to learn</span>`;
+
+  const haveRow = haveSkills.length
+    ? `<div class="skill-tag-row"><span class="skill-tag-label">Have</span>${skillTags(haveSkills, 'have')}</div>`
+    : '';
+  const gapRow = gapSkills.length
+    ? `<div class="skill-tag-row"><span class="skill-tag-label">Learn</span>${skillTags(gapSkills, 'gap')}</div>`
+    : '';
+
+  return `
+  <div class="career-card${rank === 1 ? ' rank-1' : ''}"
+       ${clickable ? `onclick="location.href='skills.html?career=${id}'"` : ''}>
+    <div class="career-rank">#${rank}</div>
+    <div class="career-title">${title}</div>
+    <div class="confidence-bar-wrap">
+      <div class="confidence-bar-label">
+        <span class="text-xs text-secondary">Match score</span>
+        <span class="confidence-pct">${pct}%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+    </div>
+    <div class="flex items-center gap-8 flex-wrap">${gapBadge}</div>
+    ${haveRow}
+    ${gapRow}
+  </div>`;
+}
+
+/* ============================================================
+   MODEL 1 — weighted skill-match (/api/careers/predict)
+   ============================================================ */
+function renderModel1Careers(careers) {
+  if (!careers || careers.length === 0) return renderEmpty('model1-content', 'Ready', 'Click Generate above to run every model.');
+  const user = getCurrentUser();
+  const haveSkills = user.profile.skills || [];
+  const rows = careers.map((c, i) => careerCardHTML({
+    id: c.id, title: c.title, pct: c.score,
+    haveSkills, gapSkills: c.missingSkills || [], rank: i + 1,
+  })).join('');
+  document.getElementById('model1-content').innerHTML = `<div class="rec-list">${rows}</div>`;
+}
+
+/* ============================================================
+   MODEL 2 — Dice similarity (existing dice_bp endpoint)
+   ============================================================ */
+function renderModel2Dice(recommendations = []) {
+  if (!recommendations.length) return renderEmpty('model2-content', 'Ready', 'Click Generate above to run every model.');
+  const user = getCurrentUser();
+  const model1Results = user.careerCache || [];
+  const haveSkills = user.profile.skills || [];
+  const rows = recommendations.map((item, i) => {
+    const matched = findCareerByTitle(item.title, model1Results);
+    return careerCardHTML({
+      id: matched ? matched.id : null,
+      title: item.title || 'Role',
+      pct: Math.round((item.score || 0) * 100),
+      haveSkills,
+      gapSkills: matched ? (matched.missingSkills || []) : [],
+      rank: i + 1,
+    });
+  }).join('');
+  document.getElementById('model2-content').innerHTML = `<div class="rec-list">${rows}</div>`;
+}
+
+/* ============================================================
+   MODEL 3 — Jaccard similarity (/api/careers/predict/jaccard)
+   ============================================================ */
+function renderModel3Careers(careers) {
+  if (!careers || careers.length === 0) return renderEmpty('model3-content', 'Ready', 'Click Generate above to run every model.');
+  const user = getCurrentUser();
+  const haveSkills = user.profile.skills || [];
+  const rows = careers.map((c, i) => careerCardHTML({
+    id: c.id, title: c.title, pct: c.score,
+    haveSkills, gapSkills: c.missingSkills || [], rank: i + 1,
+  })).join('');
+  document.getElementById('model3-content').innerHTML = `<div class="rec-list">${rows}</div>`;
+}
+
+/* ============================================================
+   MODEL 4 — cosine similarity (/api/careers/predict/cosine)
+   ============================================================ */
+function renderModel4Careers(careers) {
+  if (!careers || careers.length === 0) return renderEmpty('model4-content', 'Ready', 'Click Generate above to run every model.');
+  const user = getCurrentUser();
+  const haveSkills = user.profile.skills || [];
+  const rows = careers.map((c, i) => careerCardHTML({
+    id: c.id, title: c.title, pct: c.score,
+    haveSkills, gapSkills: c.missingSkills || [], rank: i + 1,
+  })).join('');
+  document.getElementById('model4-content').innerHTML = `<div class="rec-list">${rows}</div>`;
+}
+</script>
+</body>
+</html>

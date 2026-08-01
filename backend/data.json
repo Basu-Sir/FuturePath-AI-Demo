@@ -1,0 +1,3307 @@
+{
+  "careers": [
+    {
+      "id": "data-scientist",
+      "title": "Data Scientist",
+      "domain": "Data & AI",
+      "icon": "🔬",
+      "color": "#6c63ff",
+      "description": "Analyze complex datasets to extract insights and build predictive models that drive business decisions.",
+      "avgSalary": "₹8L – ₹30L",
+      "growth": "Very High",
+      "requiredSkills": [
+        {
+          "name": "Python",
+          "weight": 10,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 10
+        },
+        {
+          "name": "Machine Learning",
+          "weight": 10,
+          "time": "3-4 months",
+          "difficulty": "Hard",
+          "importance": 10
+        },
+        {
+          "name": "Statistics",
+          "weight": 9,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 9
+        },
+        {
+          "name": "SQL",
+          "weight": 8,
+          "time": "1 month",
+          "difficulty": "Easy",
+          "importance": 8
+        },
+        {
+          "name": "Data Visualization",
+          "weight": 7,
+          "time": "3-4 weeks",
+          "difficulty": "Easy",
+          "importance": 7
+        },
+        {
+          "name": "Pandas",
+          "weight": 7,
+          "time": "3 weeks",
+          "difficulty": "Easy",
+          "importance": 7
+        },
+        {
+          "name": "Deep Learning",
+          "weight": 8,
+          "time": "4-6 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "TensorFlow",
+          "weight": 7,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 7
+        },
+        {
+          "name": "NumPy",
+          "weight": 6,
+          "time": "2 weeks",
+          "difficulty": "Easy",
+          "importance": 6
+        },
+        {
+          "name": "Feature Engineering",
+          "weight": 7,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 7
+        }
+      ],
+      "relatedInterests": [
+        "AI",
+        "Data",
+        "Research",
+        "Mathematics",
+        "Analytics"
+      ]
+    },
+    {
+      "id": "ml-engineer",
+      "title": "Machine Learning Engineer",
+      "domain": "AI / ML",
+      "icon": "🤖",
+      "color": "#00d4ff",
+      "description": "Design and deploy machine learning systems at scale, bridging the gap between research and production.",
+      "avgSalary": "₹10L – ₹40L",
+      "growth": "Very High",
+      "requiredSkills": [
+        {
+          "name": "Python",
+          "weight": 10,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 10
+        },
+        {
+          "name": "Machine Learning",
+          "weight": 10,
+          "time": "3-4 months",
+          "difficulty": "Hard",
+          "importance": 10
+        },
+        {
+          "name": "Deep Learning",
+          "weight": 9,
+          "time": "4-6 months",
+          "difficulty": "Hard",
+          "importance": 9
+        },
+        {
+          "name": "TensorFlow",
+          "weight": 8,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "PyTorch",
+          "weight": 8,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "Docker",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Kubernetes",
+          "weight": 6,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 6
+        },
+        {
+          "name": "MLOps",
+          "weight": 7,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 7
+        },
+        {
+          "name": "REST APIs",
+          "weight": 6,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 6
+        },
+        {
+          "name": "Git",
+          "weight": 6,
+          "time": "1-2 weeks",
+          "difficulty": "Easy",
+          "importance": 6
+        }
+      ],
+      "relatedInterests": [
+        "AI",
+        "Engineering",
+        "Research",
+        "Software"
+      ]
+    },
+    {
+      "id": "fullstack-dev",
+      "title": "Full Stack Developer",
+      "domain": "Software Engineering",
+      "icon": "💻",
+      "color": "#00e5a0",
+      "description": "Build end-to-end web applications, handling both client-side and server-side development.",
+      "avgSalary": "₹5L – ₹25L",
+      "growth": "High",
+      "requiredSkills": [
+        {
+          "name": "JavaScript",
+          "weight": 10,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 10
+        },
+        {
+          "name": "React",
+          "weight": 9,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 9
+        },
+        {
+          "name": "Node.js",
+          "weight": 9,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 9
+        },
+        {
+          "name": "HTML/CSS",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Easy",
+          "importance": 7
+        },
+        {
+          "name": "SQL",
+          "weight": 7,
+          "time": "1 month",
+          "difficulty": "Easy",
+          "importance": 7
+        },
+        {
+          "name": "REST APIs",
+          "weight": 8,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 8
+        },
+        {
+          "name": "Git",
+          "weight": 7,
+          "time": "1-2 weeks",
+          "difficulty": "Easy",
+          "importance": 7
+        },
+        {
+          "name": "MongoDB",
+          "weight": 6,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 6
+        },
+        {
+          "name": "TypeScript",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Docker",
+          "weight": 5,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 5
+        }
+      ],
+      "relatedInterests": [
+        "Web",
+        "Software",
+        "Design",
+        "Entrepreneurship"
+      ]
+    },
+    {
+      "id": "frontend-dev",
+      "title": "Frontend Developer",
+      "domain": "Web Development",
+      "icon": "🎨",
+      "color": "#ff6b6b",
+      "description": "Craft beautiful, performant user interfaces and experiences using modern web technologies.",
+      "avgSalary": "₹4L – ₹20L",
+      "growth": "High",
+      "requiredSkills": [
+        {
+          "name": "JavaScript",
+          "weight": 10,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 10
+        },
+        {
+          "name": "React",
+          "weight": 9,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 9
+        },
+        {
+          "name": "HTML/CSS",
+          "weight": 9,
+          "time": "1-2 months",
+          "difficulty": "Easy",
+          "importance": 9
+        },
+        {
+          "name": "TypeScript",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "UI/UX Design",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Responsive Design",
+          "weight": 7,
+          "time": "2-3 weeks",
+          "difficulty": "Easy",
+          "importance": 7
+        },
+        {
+          "name": "Git",
+          "weight": 6,
+          "time": "1-2 weeks",
+          "difficulty": "Easy",
+          "importance": 6
+        },
+        {
+          "name": "Next.js",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Redux",
+          "weight": 5,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 5
+        },
+        {
+          "name": "Testing/Jest",
+          "weight": 5,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 5
+        }
+      ],
+      "relatedInterests": [
+        "Design",
+        "Web",
+        "UI/UX",
+        "Creativity"
+      ]
+    },
+    {
+      "id": "backend-dev",
+      "title": "Backend Developer",
+      "domain": "Software Engineering",
+      "icon": "⚙️",
+      "color": "#ffb347",
+      "description": "Build robust server-side systems, APIs, and database architectures that power applications.",
+      "avgSalary": "₹5L – ₹22L",
+      "growth": "High",
+      "requiredSkills": [
+        {
+          "name": "Python",
+          "weight": 8,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 8
+        },
+        {
+          "name": "Node.js",
+          "weight": 9,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 9
+        },
+        {
+          "name": "SQL",
+          "weight": 9,
+          "time": "1 month",
+          "difficulty": "Easy",
+          "importance": 9
+        },
+        {
+          "name": "REST APIs",
+          "weight": 10,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 10
+        },
+        {
+          "name": "MongoDB",
+          "weight": 7,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Docker",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Git",
+          "weight": 7,
+          "time": "1-2 weeks",
+          "difficulty": "Easy",
+          "importance": 7
+        },
+        {
+          "name": "Redis",
+          "weight": 6,
+          "time": "2-3 weeks",
+          "difficulty": "Medium",
+          "importance": 6
+        },
+        {
+          "name": "System Design",
+          "weight": 7,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 7
+        },
+        {
+          "name": "Linux",
+          "weight": 6,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 6
+        }
+      ],
+      "relatedInterests": [
+        "Software",
+        "Systems",
+        "Architecture"
+      ]
+    },
+    {
+      "id": "devops-engineer",
+      "title": "DevOps / SRE Engineer",
+      "domain": "Infrastructure",
+      "icon": "🔧",
+      "color": "#a855f7",
+      "description": "Automate and manage infrastructure, CI/CD pipelines, and cloud deployments for reliability.",
+      "avgSalary": "₹7L – ₹30L",
+      "growth": "Very High",
+      "requiredSkills": [
+        {
+          "name": "Docker",
+          "weight": 10,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 10
+        },
+        {
+          "name": "Kubernetes",
+          "weight": 9,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 9
+        },
+        {
+          "name": "Linux",
+          "weight": 9,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 9
+        },
+        {
+          "name": "CI/CD",
+          "weight": 9,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 9
+        },
+        {
+          "name": "AWS",
+          "weight": 8,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "Terraform",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Hard",
+          "importance": 7
+        },
+        {
+          "name": "Python",
+          "weight": 7,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Monitoring/Grafana",
+          "weight": 6,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 6
+        },
+        {
+          "name": "Shell Scripting",
+          "weight": 7,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Git",
+          "weight": 7,
+          "time": "1-2 weeks",
+          "difficulty": "Easy",
+          "importance": 7
+        }
+      ],
+      "relatedInterests": [
+        "Systems",
+        "Automation",
+        "Cloud",
+        "Engineering"
+      ]
+    },
+    {
+      "id": "cybersecurity",
+      "title": "Cybersecurity Analyst",
+      "domain": "Security",
+      "icon": "🛡️",
+      "color": "#ff4757",
+      "description": "Protect organizations from cyber threats by monitoring, analyzing, and responding to security incidents.",
+      "avgSalary": "₹6L – ₹28L",
+      "growth": "Very High",
+      "requiredSkills": [
+        {
+          "name": "Networking",
+          "weight": 10,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 10
+        },
+        {
+          "name": "Linux",
+          "weight": 9,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 9
+        },
+        {
+          "name": "Python",
+          "weight": 7,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Ethical Hacking",
+          "weight": 9,
+          "time": "3-4 months",
+          "difficulty": "Hard",
+          "importance": 9
+        },
+        {
+          "name": "SIEM Tools",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Cryptography",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Hard",
+          "importance": 7
+        },
+        {
+          "name": "Incident Response",
+          "weight": 8,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "Penetration Testing",
+          "weight": 8,
+          "time": "3-4 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "Risk Assessment",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Firewalls & IDS",
+          "weight": 6,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 6
+        }
+      ],
+      "relatedInterests": [
+        "Security",
+        "Networking",
+        "Systems"
+      ]
+    },
+    {
+      "id": "cloud-architect",
+      "title": "Cloud Architect",
+      "domain": "Cloud Computing",
+      "icon": "☁️",
+      "color": "#1e90ff",
+      "description": "Design scalable, resilient cloud infrastructure solutions across AWS, Azure, and GCP platforms.",
+      "avgSalary": "₹12L – ₹45L",
+      "growth": "Very High",
+      "requiredSkills": [
+        {
+          "name": "AWS",
+          "weight": 10,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 10
+        },
+        {
+          "name": "Azure",
+          "weight": 8,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "GCP",
+          "weight": 7,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 7
+        },
+        {
+          "name": "Docker",
+          "weight": 8,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 8
+        },
+        {
+          "name": "Kubernetes",
+          "weight": 8,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "Terraform",
+          "weight": 8,
+          "time": "1-2 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "System Design",
+          "weight": 9,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 9
+        },
+        {
+          "name": "Networking",
+          "weight": 7,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "CI/CD",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Cost Optimization",
+          "weight": 6,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 6
+        }
+      ],
+      "relatedInterests": [
+        "Cloud",
+        "Architecture",
+        "Infrastructure"
+      ]
+    },
+    {
+      "id": "nlp-engineer",
+      "title": "NLP Engineer",
+      "domain": "AI / NLP",
+      "icon": "🗣️",
+      "color": "#2ed573",
+      "description": "Build systems that understand and generate human language — from chatbots to text analytics.",
+      "avgSalary": "₹9L – ₹38L",
+      "growth": "Very High",
+      "requiredSkills": [
+        {
+          "name": "Python",
+          "weight": 10,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 10
+        },
+        {
+          "name": "Deep Learning",
+          "weight": 9,
+          "time": "4-6 months",
+          "difficulty": "Hard",
+          "importance": 9
+        },
+        {
+          "name": "NLP",
+          "weight": 10,
+          "time": "3-4 months",
+          "difficulty": "Hard",
+          "importance": 10
+        },
+        {
+          "name": "Transformers/BERT",
+          "weight": 9,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 9
+        },
+        {
+          "name": "Machine Learning",
+          "weight": 8,
+          "time": "3-4 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "Linguistics",
+          "weight": 6,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 6
+        },
+        {
+          "name": "Text Mining",
+          "weight": 7,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "TensorFlow",
+          "weight": 7,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 7
+        },
+        {
+          "name": "Statistics",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "LangChain",
+          "weight": 7,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 7
+        }
+      ],
+      "relatedInterests": [
+        "AI",
+        "Language",
+        "Research",
+        "Linguistics"
+      ]
+    },
+    {
+      "id": "data-analyst",
+      "title": "Data Analyst",
+      "domain": "Data & Analytics",
+      "icon": "📊",
+      "color": "#ffa502",
+      "description": "Transform raw data into actionable insights through analysis, visualization, and reporting.",
+      "avgSalary": "₹4L – ₹16L",
+      "growth": "High",
+      "requiredSkills": [
+        {
+          "name": "SQL",
+          "weight": 10,
+          "time": "1 month",
+          "difficulty": "Easy",
+          "importance": 10
+        },
+        {
+          "name": "Excel",
+          "weight": 8,
+          "time": "2-3 weeks",
+          "difficulty": "Easy",
+          "importance": 8
+        },
+        {
+          "name": "Python",
+          "weight": 7,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Data Visualization",
+          "weight": 9,
+          "time": "3-4 weeks",
+          "difficulty": "Easy",
+          "importance": 9
+        },
+        {
+          "name": "Tableau",
+          "weight": 7,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Power BI",
+          "weight": 7,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Statistics",
+          "weight": 8,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 8
+        },
+        {
+          "name": "Pandas",
+          "weight": 6,
+          "time": "3 weeks",
+          "difficulty": "Easy",
+          "importance": 6
+        },
+        {
+          "name": "Business Intelligence",
+          "weight": 6,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 6
+        },
+        {
+          "name": "Communication",
+          "weight": 5,
+          "time": "Ongoing",
+          "difficulty": "Soft",
+          "importance": 5
+        }
+      ],
+      "relatedInterests": [
+        "Data",
+        "Business",
+        "Analytics",
+        "Finance"
+      ]
+    },
+    {
+      "id": "product-manager",
+      "title": "Product Manager",
+      "domain": "Product",
+      "icon": "🗺️",
+      "color": "#ff6348",
+      "description": "Define product vision, prioritize features, and coordinate cross-functional teams to ship great products.",
+      "avgSalary": "₹8L – ₹35L",
+      "growth": "High",
+      "requiredSkills": [
+        {
+          "name": "Product Strategy",
+          "weight": 10,
+          "time": "3-6 months",
+          "difficulty": "Hard",
+          "importance": 10
+        },
+        {
+          "name": "User Research",
+          "weight": 9,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 9
+        },
+        {
+          "name": "Agile/Scrum",
+          "weight": 8,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 8
+        },
+        {
+          "name": "Data Analytics",
+          "weight": 8,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 8
+        },
+        {
+          "name": "SQL",
+          "weight": 6,
+          "time": "1 month",
+          "difficulty": "Easy",
+          "importance": 6
+        },
+        {
+          "name": "Wireframing",
+          "weight": 7,
+          "time": "3-4 weeks",
+          "difficulty": "Easy",
+          "importance": 7
+        },
+        {
+          "name": "Communication",
+          "weight": 9,
+          "time": "Ongoing",
+          "difficulty": "Soft",
+          "importance": 9
+        },
+        {
+          "name": "Stakeholder Mgmt",
+          "weight": 8,
+          "time": "Ongoing",
+          "difficulty": "Soft",
+          "importance": 8
+        },
+        {
+          "name": "A/B Testing",
+          "weight": 7,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Market Analysis",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 7
+        }
+      ],
+      "relatedInterests": [
+        "Business",
+        "Design",
+        "Strategy",
+        "Entrepreneurship"
+      ]
+    },
+    {
+      "id": "blockchain-dev",
+      "title": "Blockchain Developer",
+      "domain": "Web3 / Blockchain",
+      "icon": "🔗",
+      "color": "#f9ca24",
+      "description": "Build decentralized applications, smart contracts, and blockchain infrastructure.",
+      "avgSalary": "₹8L – ₹40L",
+      "growth": "High",
+      "requiredSkills": [
+        {
+          "name": "Solidity",
+          "weight": 10,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 10
+        },
+        {
+          "name": "Ethereum",
+          "weight": 9,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 9
+        },
+        {
+          "name": "JavaScript",
+          "weight": 8,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 8
+        },
+        {
+          "name": "Smart Contracts",
+          "weight": 9,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 9
+        },
+        {
+          "name": "Web3.js",
+          "weight": 8,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 8
+        },
+        {
+          "name": "Cryptography",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Hard",
+          "importance": 7
+        },
+        {
+          "name": "DeFi",
+          "weight": 6,
+          "time": "1-2 months",
+          "difficulty": "Hard",
+          "importance": 6
+        },
+        {
+          "name": "Node.js",
+          "weight": 6,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 6
+        },
+        {
+          "name": "Git",
+          "weight": 5,
+          "time": "1-2 weeks",
+          "difficulty": "Easy",
+          "importance": 5
+        },
+        {
+          "name": "Rust",
+          "weight": 6,
+          "time": "3-4 months",
+          "difficulty": "Hard",
+          "importance": 6
+        }
+      ],
+      "relatedInterests": [
+        "Blockchain",
+        "Finance",
+        "Cryptography",
+        "Web3"
+      ]
+    },
+    {
+      "id": "embedded-systems",
+      "title": "Embedded Systems Engineer",
+      "domain": "Hardware / IoT",
+      "icon": "🔌",
+      "color": "#05c46b",
+      "description": "Develop firmware and software for embedded systems, microcontrollers, and IoT devices.",
+      "avgSalary": "₹5L – ₹20L",
+      "growth": "Medium",
+      "requiredSkills": [
+        {
+          "name": "C/C++",
+          "weight": 10,
+          "time": "3-4 months",
+          "difficulty": "Hard",
+          "importance": 10
+        },
+        {
+          "name": "Microcontrollers",
+          "weight": 9,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 9
+        },
+        {
+          "name": "RTOS",
+          "weight": 8,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "Electronics",
+          "weight": 8,
+          "time": "3-4 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "IoT",
+          "weight": 7,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Linux",
+          "weight": 6,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 6
+        },
+        {
+          "name": "Python",
+          "weight": 5,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 5
+        },
+        {
+          "name": "PCB Design",
+          "weight": 6,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 6
+        },
+        {
+          "name": "Assembly",
+          "weight": 5,
+          "time": "1-2 months",
+          "difficulty": "Hard",
+          "importance": 5
+        },
+        {
+          "name": "Debugging",
+          "weight": 7,
+          "time": "Ongoing",
+          "difficulty": "Medium",
+          "importance": 7
+        }
+      ],
+      "relatedInterests": [
+        "Hardware",
+        "Electronics",
+        "Robotics",
+        "IoT"
+      ]
+    },
+    {
+      "id": "mobile-dev",
+      "title": "Mobile App Developer",
+      "domain": "Mobile",
+      "icon": "📱",
+      "color": "#eccc68",
+      "description": "Build cross-platform or native mobile apps for iOS and Android that reach millions of users.",
+      "avgSalary": "₹4L – ₹22L",
+      "growth": "High",
+      "requiredSkills": [
+        {
+          "name": "React Native",
+          "weight": 9,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 9
+        },
+        {
+          "name": "Flutter",
+          "weight": 9,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 9
+        },
+        {
+          "name": "JavaScript",
+          "weight": 8,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 8
+        },
+        {
+          "name": "Dart",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Java",
+          "weight": 6,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 6
+        },
+        {
+          "name": "Swift",
+          "weight": 6,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 6
+        },
+        {
+          "name": "REST APIs",
+          "weight": 8,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 8
+        },
+        {
+          "name": "UI/UX Design",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Firebase",
+          "weight": 7,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Git",
+          "weight": 6,
+          "time": "1-2 weeks",
+          "difficulty": "Easy",
+          "importance": 6
+        }
+      ],
+      "relatedInterests": [
+        "Mobile",
+        "Design",
+        "Software",
+        "Startup"
+      ]
+    },
+    {
+      "id": "game-dev",
+      "title": "Game Developer",
+      "domain": "Gaming",
+      "icon": "🎮",
+      "color": "#ff4757",
+      "description": "Create immersive games using engines like Unity or Unreal — from mobile games to AAA titles.",
+      "avgSalary": "₹4L – ₹20L",
+      "growth": "Medium",
+      "requiredSkills": [
+        {
+          "name": "C#",
+          "weight": 9,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 9
+        },
+        {
+          "name": "Unity",
+          "weight": 10,
+          "time": "3-4 months",
+          "difficulty": "Hard",
+          "importance": 10
+        },
+        {
+          "name": "C++",
+          "weight": 8,
+          "time": "3-4 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "Unreal Engine",
+          "weight": 8,
+          "time": "3-4 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "3D Math",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Hard",
+          "importance": 7
+        },
+        {
+          "name": "Physics Simulation",
+          "weight": 6,
+          "time": "1-2 months",
+          "difficulty": "Hard",
+          "importance": 6
+        },
+        {
+          "name": "Game Design",
+          "weight": 8,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 8
+        },
+        {
+          "name": "Shader Programming",
+          "weight": 6,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 6
+        },
+        {
+          "name": "Git",
+          "weight": 5,
+          "time": "1-2 weeks",
+          "difficulty": "Easy",
+          "importance": 5
+        },
+        {
+          "name": "Animation",
+          "weight": 6,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 6
+        }
+      ],
+      "relatedInterests": [
+        "Gaming",
+        "Design",
+        "Creativity",
+        "Animation"
+      ]
+    },
+    {
+      "id": "ux-designer",
+      "title": "UX/UI Designer",
+      "domain": "Design",
+      "icon": "✏️",
+      "color": "#ff6b81",
+      "description": "Design intuitive user experiences through research, wireframing, prototyping, and testing.",
+      "avgSalary": "₹4L – ₹18L",
+      "growth": "High",
+      "requiredSkills": [
+        {
+          "name": "UI/UX Design",
+          "weight": 10,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 10
+        },
+        {
+          "name": "Figma",
+          "weight": 10,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 10
+        },
+        {
+          "name": "User Research",
+          "weight": 9,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 9
+        },
+        {
+          "name": "Wireframing",
+          "weight": 8,
+          "time": "3-4 weeks",
+          "difficulty": "Easy",
+          "importance": 8
+        },
+        {
+          "name": "Prototyping",
+          "weight": 8,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 8
+        },
+        {
+          "name": "Design Systems",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Typography",
+          "weight": 6,
+          "time": "2-3 weeks",
+          "difficulty": "Easy",
+          "importance": 6
+        },
+        {
+          "name": "Accessibility",
+          "weight": 6,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 6
+        },
+        {
+          "name": "HTML/CSS",
+          "weight": 5,
+          "time": "1-2 months",
+          "difficulty": "Easy",
+          "importance": 5
+        },
+        {
+          "name": "Usability Testing",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 7
+        }
+      ],
+      "relatedInterests": [
+        "Design",
+        "Creativity",
+        "Psychology",
+        "Art"
+      ]
+    },
+    {
+      "id": "ai-researcher",
+      "title": "AI Research Scientist",
+      "domain": "Research / AI",
+      "icon": "🧪",
+      "color": "#8e44ad",
+      "description": "Push the boundaries of AI by developing novel algorithms, models, and theoretical frameworks.",
+      "avgSalary": "₹12L – ₹60L",
+      "growth": "Very High",
+      "requiredSkills": [
+        {
+          "name": "Python",
+          "weight": 10,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 10
+        },
+        {
+          "name": "Deep Learning",
+          "weight": 10,
+          "time": "4-6 months",
+          "difficulty": "Hard",
+          "importance": 10
+        },
+        {
+          "name": "Machine Learning",
+          "weight": 10,
+          "time": "3-4 months",
+          "difficulty": "Hard",
+          "importance": 10
+        },
+        {
+          "name": "Mathematics",
+          "weight": 10,
+          "time": "6+ months",
+          "difficulty": "Hard",
+          "importance": 10
+        },
+        {
+          "name": "Research Writing",
+          "weight": 8,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "PyTorch",
+          "weight": 9,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 9
+        },
+        {
+          "name": "Statistics",
+          "weight": 9,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 9
+        },
+        {
+          "name": "Reinforcement Learning",
+          "weight": 8,
+          "time": "3-4 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "Computer Vision",
+          "weight": 7,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 7
+        },
+        {
+          "name": "Linear Algebra",
+          "weight": 8,
+          "time": "1-2 months",
+          "difficulty": "Hard",
+          "importance": 8
+        }
+      ],
+      "relatedInterests": [
+        "Research",
+        "AI",
+        "Mathematics",
+        "Academia"
+      ]
+    },
+    {
+      "id": "bi-analyst",
+      "title": "Business Intelligence Analyst",
+      "domain": "Business Analytics",
+      "icon": "📈",
+      "color": "#27ae60",
+      "description": "Transform business data into strategic insights using BI tools, dashboards, and reporting.",
+      "avgSalary": "₹5L – ₹20L",
+      "growth": "Medium",
+      "requiredSkills": [
+        {
+          "name": "SQL",
+          "weight": 10,
+          "time": "1 month",
+          "difficulty": "Easy",
+          "importance": 10
+        },
+        {
+          "name": "Power BI",
+          "weight": 9,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 9
+        },
+        {
+          "name": "Tableau",
+          "weight": 8,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 8
+        },
+        {
+          "name": "Excel",
+          "weight": 8,
+          "time": "2-3 weeks",
+          "difficulty": "Easy",
+          "importance": 8
+        },
+        {
+          "name": "Data Modeling",
+          "weight": 7,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Business Analysis",
+          "weight": 8,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 8
+        },
+        {
+          "name": "Python",
+          "weight": 5,
+          "time": "2-3 months",
+          "difficulty": "Medium",
+          "importance": 5
+        },
+        {
+          "name": "ETL Processes",
+          "weight": 6,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 6
+        },
+        {
+          "name": "Communication",
+          "weight": 7,
+          "time": "Ongoing",
+          "difficulty": "Soft",
+          "importance": 7
+        },
+        {
+          "name": "Statistics",
+          "weight": 6,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 6
+        }
+      ],
+      "relatedInterests": [
+        "Business",
+        "Finance",
+        "Analytics",
+        "Data"
+      ]
+    },
+    {
+      "id": "dba",
+      "title": "Database Administrator",
+      "domain": "Data Engineering",
+      "icon": "🗄️",
+      "color": "#3498db",
+      "description": "Design, implement, and maintain database systems ensuring performance, security, and reliability.",
+      "avgSalary": "₹4L – ₹18L",
+      "growth": "Medium",
+      "requiredSkills": [
+        {
+          "name": "SQL",
+          "weight": 10,
+          "time": "1 month",
+          "difficulty": "Easy",
+          "importance": 10
+        },
+        {
+          "name": "MySQL",
+          "weight": 8,
+          "time": "3-4 weeks",
+          "difficulty": "Easy",
+          "importance": 8
+        },
+        {
+          "name": "PostgreSQL",
+          "weight": 8,
+          "time": "3-4 weeks",
+          "difficulty": "Easy",
+          "importance": 8
+        },
+        {
+          "name": "MongoDB",
+          "weight": 7,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Database Design",
+          "weight": 9,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 9
+        },
+        {
+          "name": "Performance Tuning",
+          "weight": 8,
+          "time": "2-3 months",
+          "difficulty": "Hard",
+          "importance": 8
+        },
+        {
+          "name": "Backup & Recovery",
+          "weight": 7,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 7
+        },
+        {
+          "name": "Linux",
+          "weight": 6,
+          "time": "3-4 weeks",
+          "difficulty": "Medium",
+          "importance": 6
+        },
+        {
+          "name": "Security",
+          "weight": 6,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 6
+        },
+        {
+          "name": "Data Warehousing",
+          "weight": 6,
+          "time": "1-2 months",
+          "difficulty": "Medium",
+          "importance": 6
+        }
+      ],
+      "relatedInterests": [
+        "Data",
+        "Systems",
+        "Engineering"
+      ]
+    },
+    {
+  "id": "ai-engineer",
+  "title": "AI Engineer",
+  "domain": "Artificial Intelligence",
+  "icon": "🧠",
+  "color": "#7c3aed",
+  "description": "Develop, deploy, and optimize AI-powered applications using machine learning, deep learning, and modern AI frameworks.",
+  "avgSalary": "₹10L – ₹45L",
+  "growth": "Very High",
+  "requiredSkills": [
+    {
+      "name": "Python",
+      "weight": 10,
+      "time": "2-3 months",
+      "difficulty": "Medium",
+      "importance": 10
+    },
+    {
+      "name": "Machine Learning",
+      "weight": 10,
+      "time": "3-4 months",
+      "difficulty": "Hard",
+      "importance": 10
+    },
+    {
+      "name": "Deep Learning",
+      "weight": 10,
+      "time": "4-6 months",
+      "difficulty": "Hard",
+      "importance": 10
+    },
+    {
+      "name": "PyTorch",
+      "weight": 9,
+      "time": "2-3 months",
+      "difficulty": "Hard",
+      "importance": 9
+    },
+    {
+      "name": "TensorFlow",
+      "weight": 9,
+      "time": "2-3 months",
+      "difficulty": "Hard",
+      "importance": 9
+    },
+    {
+      "name": "Computer Vision",
+      "weight": 8,
+      "time": "2-3 months",
+      "difficulty": "Hard",
+      "importance": 8
+    },
+    {
+      "name": "Natural Language Processing",
+      "weight": 8,
+      "time": "2-3 months",
+      "difficulty": "Hard",
+      "importance": 8
+    },
+    {
+      "name": "MLOps",
+      "weight": 8,
+      "time": "2 months",
+      "difficulty": "Hard",
+      "importance": 8
+    },
+    {
+      "name": "Docker",
+      "weight": 7,
+      "time": "1 month",
+      "difficulty": "Medium",
+      "importance": 7
+    },
+    {
+      "name": "Git",
+      "weight": 6,
+      "time": "2 weeks",
+      "difficulty": "Easy",
+      "importance": 6
+    },
+    {
+      "name": "REST APIs",
+      "weight": 7,
+      "time": "3 weeks",
+      "difficulty": "Medium",
+      "importance": 7
+    },
+    {
+      "name": "Mathematics",
+      "weight": 9,
+      "time": "3 months",
+      "difficulty": "Hard",
+      "importance": 9
+    }
+  ],
+  "relatedInterests": [
+    "Artificial Intelligence",
+    "Research",
+    "Mathematics",
+    "Automation",
+    "Software",
+    "Innovation"
+  ]
+  },
+  {
+  "id": "generative-ai-engineer",
+  "title": "Generative AI Engineer",
+  "domain": "Generative AI",
+  "icon": "✨",
+  "color": "#ec4899",
+  "description": "Build intelligent applications powered by Large Language Models, diffusion models, and multimodal AI systems.",
+  "avgSalary": "₹15L – ₹60L",
+  "growth": "Extremely High",
+  "requiredSkills": [
+    {
+      "name": "Python",
+      "weight": 10,
+      "time": "2-3 months",
+      "difficulty": "Medium",
+      "importance": 10
+    },
+    {
+      "name": "Large Language Models",
+      "weight": 10,
+      "time": "2-3 months",
+      "difficulty": "Hard",
+      "importance": 10
+    },
+    {
+      "name": "Prompt Engineering",
+      "weight": 9,
+      "time": "3 weeks",
+      "difficulty": "Easy",
+      "importance": 9
+    },
+    {
+      "name": "LangChain",
+      "weight": 9,
+      "time": "1 month",
+      "difficulty": "Medium",
+      "importance": 9
+    },
+    {
+      "name": "Vector Databases",
+      "weight": 9,
+      "time": "1 month",
+      "difficulty": "Medium",
+      "importance": 9
+    },
+    {
+      "name": "RAG",
+      "weight": 10,
+      "time": "1 month",
+      "difficulty": "Hard",
+      "importance": 10
+    },
+    {
+      "name": "Transformers",
+      "weight": 10,
+      "time": "2 months",
+      "difficulty": "Hard",
+      "importance": 10
+    },
+    {
+      "name": "PyTorch",
+      "weight": 8,
+      "time": "2 months",
+      "difficulty": "Hard",
+      "importance": 8
+    },
+    {
+      "name": "Hugging Face",
+      "weight": 9,
+      "time": "3 weeks",
+      "difficulty": "Medium",
+      "importance": 9
+    },
+    {
+      "name": "FastAPI",
+      "weight": 7,
+      "time": "3 weeks",
+      "difficulty": "Medium",
+      "importance": 7
+    },
+    {
+      "name": "Docker",
+      "weight": 7,
+      "time": "1 month",
+      "difficulty": "Medium",
+      "importance": 7
+    },
+    {
+      "name": "Cloud Deployment",
+      "weight": 8,
+      "time": "2 months",
+      "difficulty": "Medium",
+      "importance": 8
+    }
+  ],
+  "relatedInterests": [
+    "AI",
+    "Language",
+    "Innovation",
+    "Research",
+    "Automation",
+    "Startups"
+  ]
+},
+{
+  "id": "llm-engineer",
+  "title": "LLM Engineer",
+  "domain": "Artificial Intelligence",
+  "icon": "💬",
+  "color": "#06b6d4",
+  "description": "Design, fine-tune, evaluate, and deploy Large Language Models for enterprise-grade AI applications.",
+  "avgSalary": "₹18L – ₹70L",
+  "growth": "Extremely High",
+  "requiredSkills": [
+    {
+      "name": "Python",
+      "weight": 10,
+      "time": "2 months",
+      "difficulty": "Medium",
+      "importance": 10
+    },
+    {
+      "name": "Transformers",
+      "weight": 10,
+      "time": "2 months",
+      "difficulty": "Hard",
+      "importance": 10
+    },
+    {
+      "name": "Large Language Models",
+      "weight": 10,
+      "time": "2 months",
+      "difficulty": "Hard",
+      "importance": 10
+    },
+    {
+      "name": "Prompt Engineering",
+      "weight": 9,
+      "time": "3 weeks",
+      "difficulty": "Easy",
+      "importance": 9
+    },
+    {
+      "name": "RAG",
+      "weight": 10,
+      "time": "1 month",
+      "difficulty": "Hard",
+      "importance": 10
+    },
+    {
+      "name": "Vector Databases",
+      "weight": 9,
+      "time": "1 month",
+      "difficulty": "Medium",
+      "importance": 9
+    },
+    {
+      "name": "Fine-tuning",
+      "weight": 9,
+      "time": "2 months",
+      "difficulty": "Hard",
+      "importance": 9
+    },
+    {
+      "name": "LoRA/QLoRA",
+      "weight": 8,
+      "time": "1 month",
+      "difficulty": "Hard",
+      "importance": 8
+    },
+    {
+      "name": "Hugging Face",
+      "weight": 9,
+      "time": "3 weeks",
+      "difficulty": "Medium",
+      "importance": 9
+    },
+    {
+      "name": "PyTorch",
+      "weight": 9,
+      "time": "2 months",
+      "difficulty": "Hard",
+      "importance": 9
+    },
+    {
+      "name": "MLOps",
+      "weight": 8,
+      "time": "2 months",
+      "difficulty": "Hard",
+      "importance": 8
+    },
+    {
+      "name": "Docker",
+      "weight": 7,
+      "time": "1 month",
+      "difficulty": "Medium",
+      "importance": 7
+    }
+  ],
+  "relatedInterests": [
+    "Artificial Intelligence",
+    "Language",
+    "Research",
+    "Cloud",
+    "Automation",
+    "Software"
+  ]
+},
+{
+  "id": "computer-vision-engineer",
+  "title": "Computer Vision Engineer",
+  "domain": "Artificial Intelligence",
+  "icon": "📷",
+  "color": "#14b8a6",
+  "description": "Develop AI systems capable of understanding, analyzing, and interpreting images and videos using deep learning.",
+  "avgSalary": "₹12L – ₹50L",
+  "growth": "Very High",
+  "requiredSkills": [
+    {
+      "name": "Python",
+      "weight": 10,
+      "time": "2 months",
+      "difficulty": "Medium",
+      "importance": 10
+    },
+    {
+      "name": "OpenCV",
+      "weight": 10,
+      "time": "2 months",
+      "difficulty": "Medium",
+      "importance": 10
+    },
+    {
+      "name": "Deep Learning",
+      "weight": 10,
+      "time": "4 months",
+      "difficulty": "Hard",
+      "importance": 10
+    },
+    {
+      "name": "PyTorch",
+      "weight": 9,
+      "time": "2 months",
+      "difficulty": "Hard",
+      "importance": 9
+    },
+    {
+      "name": "TensorFlow",
+      "weight": 8,
+      "time": "2 months",
+      "difficulty": "Hard",
+      "importance": 8
+    },
+    {
+      "name": "CNNs",
+      "weight": 10,
+      "time": "2 months",
+      "difficulty": "Hard",
+      "importance": 10
+    },
+    {
+      "name": "Image Processing",
+      "weight": 9,
+      "time": "1 month",
+      "difficulty": "Medium",
+      "importance": 9
+    },
+    {
+      "name": "Object Detection",
+      "weight": 9,
+      "time": "2 months",
+      "difficulty": "Hard",
+      "importance": 9
+    },
+    {
+      "name": "Segmentation",
+      "weight": 8,
+      "time": "2 months",
+      "difficulty": "Hard",
+      "importance": 8
+    },
+    {
+      "name": "Mathematics",
+      "weight": 8,
+      "time": "2 months",
+      "difficulty": "Hard",
+      "importance": 8
+    },
+    {
+      "name": "CUDA",
+      "weight": 7,
+      "time": "1 month",
+      "difficulty": "Hard",
+      "importance": 7
+    },
+    {
+      "name": "Linux",
+      "weight": 6,
+      "time": "3 weeks",
+      "difficulty": "Medium",
+      "importance": 6
+    }
+  ],
+  "relatedInterests": [
+    "Artificial Intelligence",
+    "Vision",
+    "Robotics",
+    "Research",
+    "Healthcare",
+    "Automation"
+  ]
+},
+{
+  "id": "robotics-engineer",
+  "title": "Robotics Engineer",
+  "domain": "Robotics",
+  "icon": "🤖",
+  "color": "#0f766e",
+  "description": "Design, build, and program robotic systems for manufacturing, healthcare, agriculture, logistics, and autonomous applications.",
+  "avgSalary": "₹8L – ₹40L",
+  "growth": "Very High",
+  "requiredSkills": [
+    {"name":"Python","weight":10,"time":"2 months","difficulty":"Medium","importance":10},
+    {"name":"C++","weight":10,"time":"3 months","difficulty":"Hard","importance":10},
+    {"name":"ROS","weight":10,"time":"2 months","difficulty":"Hard","importance":10},
+    {"name":"Embedded Systems","weight":9,"time":"2 months","difficulty":"Hard","importance":9},
+    {"name":"Control Systems","weight":9,"time":"2 months","difficulty":"Hard","importance":9},
+    {"name":"Computer Vision","weight":8,"time":"2 months","difficulty":"Hard","importance":8},
+    {"name":"Sensor Fusion","weight":8,"time":"2 months","difficulty":"Hard","importance":8},
+    {"name":"Kinematics","weight":8,"time":"2 months","difficulty":"Hard","importance":8},
+    {"name":"Electronics","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"Linux","weight":7,"time":"1 month","difficulty":"Medium","importance":7},
+    {"name":"Git","weight":6,"time":"2 weeks","difficulty":"Easy","importance":6},
+    {"name":"CAD","weight":7,"time":"2 months","difficulty":"Medium","importance":7}
+  ],
+  "relatedInterests":[
+    "Robotics",
+    "Engineering",
+    "Automation",
+    "Electronics",
+    "Artificial Intelligence",
+    "Manufacturing"
+  ]
+},
+{
+  "id":"robotics-software-engineer",
+  "title":"Robotics Software Engineer",
+  "domain":"Robotics",
+  "icon":"🦾",
+  "color":"#0891b2",
+  "description":"Develop software that powers robotic systems, autonomous machines, and industrial automation.",
+  "avgSalary":"₹10L – ₹45L",
+  "growth":"Very High",
+  "requiredSkills":[
+    {"name":"Python","weight":10,"time":"2 months","difficulty":"Medium","importance":10},
+    {"name":"C++","weight":10,"time":"3 months","difficulty":"Hard","importance":10},
+    {"name":"ROS","weight":10,"time":"2 months","difficulty":"Hard","importance":10},
+    {"name":"Linux","weight":9,"time":"1 month","difficulty":"Medium","importance":9},
+    {"name":"Algorithms","weight":9,"time":"2 months","difficulty":"Hard","importance":9},
+    {"name":"Computer Vision","weight":8,"time":"2 months","difficulty":"Hard","importance":8},
+    {"name":"Embedded Systems","weight":8,"time":"2 months","difficulty":"Hard","importance":8},
+    {"name":"Sensor Fusion","weight":8,"time":"2 months","difficulty":"Hard","importance":8},
+    {"name":"Git","weight":7,"time":"2 weeks","difficulty":"Easy","importance":7},
+    {"name":"Docker","weight":7,"time":"1 month","difficulty":"Medium","importance":7},
+    {"name":"Machine Learning","weight":8,"time":"3 months","difficulty":"Hard","importance":8},
+    {"name":"Real-Time Systems","weight":8,"time":"2 months","difficulty":"Hard","importance":8}
+  ],
+  "relatedInterests":[
+    "Robotics",
+    "Programming",
+    "Automation",
+    "Artificial Intelligence",
+    "Software",
+    "Engineering"
+  ]
+},
+{
+  "id":"iot-engineer",
+  "title":"IoT Engineer",
+  "domain":"Internet of Things",
+  "icon":"📡",
+  "color":"#2563eb",
+  "description":"Build connected devices, embedded systems, and smart infrastructure using cloud-connected sensors and communication protocols.",
+  "avgSalary":"₹7L – ₹30L",
+  "growth":"High",
+  "requiredSkills":[
+    {"name":"Python","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"C","weight":10,"time":"3 months","difficulty":"Medium","importance":10},
+    {"name":"Embedded Systems","weight":10,"time":"2 months","difficulty":"Hard","importance":10},
+    {"name":"Microcontrollers","weight":10,"time":"2 months","difficulty":"Medium","importance":10},
+    {"name":"Arduino","weight":8,"time":"1 month","difficulty":"Easy","importance":8},
+    {"name":"ESP32","weight":8,"time":"3 weeks","difficulty":"Easy","importance":8},
+    {"name":"MQTT","weight":9,"time":"2 weeks","difficulty":"Medium","importance":9},
+    {"name":"Networking","weight":9,"time":"2 months","difficulty":"Medium","importance":9},
+    {"name":"Cloud Computing","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"Linux","weight":7,"time":"1 month","difficulty":"Medium","importance":7},
+    {"name":"PCB Basics","weight":7,"time":"1 month","difficulty":"Medium","importance":7},
+    {"name":"Sensors","weight":8,"time":"1 month","difficulty":"Easy","importance":8}
+  ],
+  "relatedInterests":[
+    "Electronics",
+    "Smart Devices",
+    "Automation",
+    "Engineering",
+    "Networking",
+    "Innovation"
+  ]
+},
+{
+  "id":"ar-vr-developer",
+  "title":"AR/VR Developer",
+  "domain":"Extended Reality",
+  "icon":"🥽",
+  "color":"#9333ea",
+  "description":"Create immersive augmented reality and virtual reality experiences for gaming, healthcare, education, and industry.",
+  "avgSalary":"₹8L – ₹35L",
+  "growth":"High",
+  "requiredSkills":[
+    {"name":"Unity","weight":10,"time":"3 months","difficulty":"Medium","importance":10},
+    {"name":"C#","weight":10,"time":"2 months","difficulty":"Medium","importance":10},
+    {"name":"3D Mathematics","weight":9,"time":"2 months","difficulty":"Hard","importance":9},
+    {"name":"Blender","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"Unreal Engine","weight":8,"time":"3 months","difficulty":"Hard","importance":8},
+    {"name":"OpenXR","weight":8,"time":"1 month","difficulty":"Medium","importance":8},
+    {"name":"Computer Graphics","weight":9,"time":"2 months","difficulty":"Hard","importance":9},
+    {"name":"Git","weight":6,"time":"2 weeks","difficulty":"Easy","importance":6},
+    {"name":"UI Design","weight":7,"time":"1 month","difficulty":"Medium","importance":7},
+    {"name":"Animation","weight":7,"time":"2 months","difficulty":"Medium","importance":7},
+    {"name":"Physics Simulation","weight":8,"time":"2 months","difficulty":"Hard","importance":8},
+    {"name":"Optimization","weight":8,"time":"1 month","difficulty":"Medium","importance":8}
+  ],
+  "relatedInterests":[
+    "Gaming",
+    "Design",
+    "Virtual Reality",
+    "Creativity",
+    "Technology",
+    "Graphics"
+  ]
+},
+{
+  "id":"qa-automation-engineer",
+  "title":"QA Automation Engineer",
+  "domain":"Software Testing",
+  "icon":"✅",
+  "color":"#16a34a",
+  "description":"Develop automated testing frameworks to ensure software quality, reliability, and performance across applications.",
+  "avgSalary":"₹6L – ₹25L",
+  "growth":"High",
+  "requiredSkills":[
+    {"name":"Java","weight":9,"time":"2 months","difficulty":"Medium","importance":9},
+    {"name":"Python","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"Selenium","weight":10,"time":"2 months","difficulty":"Medium","importance":10},
+    {"name":"Playwright","weight":9,"time":"1 month","difficulty":"Medium","importance":9},
+    {"name":"Cypress","weight":8,"time":"1 month","difficulty":"Medium","importance":8},
+    {"name":"JUnit","weight":8,"time":"3 weeks","difficulty":"Easy","importance":8},
+    {"name":"API Testing","weight":9,"time":"1 month","difficulty":"Medium","importance":9},
+    {"name":"Postman","weight":8,"time":"2 weeks","difficulty":"Easy","importance":8},
+    {"name":"SQL","weight":8,"time":"1 month","difficulty":"Easy","importance":8},
+    {"name":"Git","weight":6,"time":"2 weeks","difficulty":"Easy","importance":6},
+    {"name":"CI/CD","weight":8,"time":"1 month","difficulty":"Medium","importance":8},
+    {"name":"Jenkins","weight":7,"time":"1 month","difficulty":"Medium","importance":7}
+  ],
+  "relatedInterests":[
+    "Software",
+    "Quality",
+    "Automation",
+    "Problem Solving",
+    "Programming",
+    "Technology"
+  ]
+},
+{
+  "id":"site-reliability-engineer",
+  "title":"Site Reliability Engineer",
+  "domain":"Cloud Infrastructure",
+  "icon":"☁️",
+  "color":"#2563eb",
+  "description":"Ensure highly available, scalable, and reliable software systems by combining software engineering with IT operations.",
+  "avgSalary":"₹12L – ₹50L",
+  "growth":"Very High",
+  "requiredSkills":[
+    {"name":"Linux","weight":10,"time":"2 months","difficulty":"Medium","importance":10},
+    {"name":"Docker","weight":9,"time":"1 month","difficulty":"Medium","importance":9},
+    {"name":"Kubernetes","weight":10,"time":"3 months","difficulty":"Hard","importance":10},
+    {"name":"AWS","weight":10,"time":"3 months","difficulty":"Hard","importance":10},
+    {"name":"Terraform","weight":9,"time":"2 months","difficulty":"Hard","importance":9},
+    {"name":"Python","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"Bash Scripting","weight":9,"time":"1 month","difficulty":"Medium","importance":9},
+    {"name":"CI/CD","weight":9,"time":"1 month","difficulty":"Medium","importance":9},
+    {"name":"Monitoring","weight":9,"time":"1 month","difficulty":"Medium","importance":9},
+    {"name":"Prometheus","weight":8,"time":"1 month","difficulty":"Medium","importance":8},
+    {"name":"Grafana","weight":8,"time":"3 weeks","difficulty":"Easy","importance":8},
+    {"name":"Networking","weight":8,"time":"2 months","difficulty":"Medium","importance":8}
+  ],
+  "relatedInterests":[
+    "Cloud",
+    "Automation",
+    "Infrastructure",
+    "Programming",
+    "DevOps",
+    "Technology"
+  ]
+},
+{
+  "id":"software-architect",
+  "title":"Software Architect",
+  "domain":"Software Engineering",
+  "icon":"🏛️",
+  "color":"#7c3aed",
+  "description":"Design scalable software systems, define architecture, and guide engineering teams in building robust applications.",
+  "avgSalary":"₹20L – ₹80L",
+  "growth":"Very High",
+  "requiredSkills":[
+    {"name":"System Design","weight":10,"time":"4 months","difficulty":"Hard","importance":10},
+    {"name":"Java","weight":9,"time":"4 months","difficulty":"Medium","importance":9},
+    {"name":"Python","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"Microservices","weight":10,"time":"3 months","difficulty":"Hard","importance":10},
+    {"name":"Cloud Computing","weight":9,"time":"2 months","difficulty":"Medium","importance":9},
+    {"name":"Design Patterns","weight":9,"time":"2 months","difficulty":"Hard","importance":9},
+    {"name":"SQL","weight":8,"time":"1 month","difficulty":"Easy","importance":8},
+    {"name":"NoSQL","weight":8,"time":"1 month","difficulty":"Medium","importance":8},
+    {"name":"Docker","weight":8,"time":"1 month","difficulty":"Medium","importance":8},
+    {"name":"Kubernetes","weight":8,"time":"2 months","difficulty":"Hard","importance":8},
+    {"name":"Leadership","weight":9,"time":"Ongoing","difficulty":"Medium","importance":9},
+    {"name":"Git","weight":6,"time":"2 weeks","difficulty":"Easy","importance":6}
+  ],
+  "relatedInterests":[
+    "Software",
+    "Leadership",
+    "Architecture",
+    "Technology",
+    "Innovation",
+    "Programming"
+  ]
+},
+{
+  "id":"big-data-engineer",
+  "title":"Big Data Engineer",
+  "domain":"Big Data",
+  "icon":"📊",
+  "color":"#0891b2",
+  "description":"Develop large-scale distributed data processing systems capable of handling massive datasets efficiently.",
+  "avgSalary":"₹10L – ₹45L",
+  "growth":"Very High",
+  "requiredSkills":[
+    {"name":"Python","weight":9,"time":"2 months","difficulty":"Medium","importance":9},
+    {"name":"SQL","weight":10,"time":"1 month","difficulty":"Easy","importance":10},
+    {"name":"Apache Spark","weight":10,"time":"3 months","difficulty":"Hard","importance":10},
+    {"name":"Hadoop","weight":9,"time":"2 months","difficulty":"Hard","importance":9},
+    {"name":"Kafka","weight":9,"time":"2 months","difficulty":"Hard","importance":9},
+    {"name":"Hive","weight":8,"time":"1 month","difficulty":"Medium","importance":8},
+    {"name":"Airflow","weight":8,"time":"1 month","difficulty":"Medium","importance":8},
+    {"name":"AWS","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"Linux","weight":7,"time":"1 month","difficulty":"Medium","importance":7},
+    {"name":"Data Warehousing","weight":9,"time":"2 months","difficulty":"Medium","importance":9},
+    {"name":"ETL Pipelines","weight":10,"time":"2 months","difficulty":"Medium","importance":10},
+    {"name":"Docker","weight":7,"time":"1 month","difficulty":"Medium","importance":7}
+  ],
+  "relatedInterests":[
+    "Big Data",
+    "Analytics",
+    "Cloud",
+    "Engineering",
+    "Databases",
+    "Technology"
+  ]
+},
+{
+  "id":"database-developer",
+  "title":"Database Developer",
+  "domain":"Database Systems",
+  "icon":"🗄️",
+  "color":"#16a34a",
+  "description":"Develop, optimize, and maintain databases that securely store and efficiently retrieve business data.",
+  "avgSalary":"₹7L – ₹30L",
+  "growth":"High",
+  "requiredSkills":[
+    {"name":"SQL","weight":10,"time":"1 month","difficulty":"Easy","importance":10},
+    {"name":"PL/SQL","weight":9,"time":"1 month","difficulty":"Medium","importance":9},
+    {"name":"Database Design","weight":10,"time":"2 months","difficulty":"Medium","importance":10},
+    {"name":"Normalization","weight":9,"time":"1 month","difficulty":"Medium","importance":9},
+    {"name":"MySQL","weight":9,"time":"1 month","difficulty":"Easy","importance":9},
+    {"name":"PostgreSQL","weight":8,"time":"1 month","difficulty":"Medium","importance":8},
+    {"name":"Oracle Database","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"MongoDB","weight":7,"time":"1 month","difficulty":"Medium","importance":7},
+    {"name":"Performance Tuning","weight":9,"time":"2 months","difficulty":"Hard","importance":9},
+    {"name":"Backup and Recovery","weight":8,"time":"1 month","difficulty":"Medium","importance":8},
+    {"name":"Python","weight":7,"time":"2 months","difficulty":"Medium","importance":7},
+    {"name":"Git","weight":6,"time":"2 weeks","difficulty":"Easy","importance":6}
+  ],
+  "relatedInterests":[
+    "Databases",
+    "Programming",
+    "Analytics",
+    "Problem Solving",
+    "Technology",
+    "Data"
+  ]
+},
+{
+  "id":"erp-consultant",
+  "title":"ERP Consultant",
+  "domain":"Enterprise Software",
+  "icon":"🏢",
+  "color":"#2563eb",
+  "description":"Implement, customize, and optimize Enterprise Resource Planning (ERP) systems to streamline business operations across finance, supply chain, HR, and manufacturing.",
+  "avgSalary":"₹8L – ₹35L",
+  "growth":"High",
+  "requiredSkills":[
+    {"name":"ERP Systems","weight":10,"time":"3 months","difficulty":"Medium","importance":10},
+    {"name":"SAP","weight":10,"time":"4 months","difficulty":"Hard","importance":10},
+    {"name":"Oracle ERP","weight":9,"time":"3 months","difficulty":"Hard","importance":9},
+    {"name":"Business Process Analysis","weight":9,"time":"2 months","difficulty":"Medium","importance":9},
+    {"name":"SQL","weight":8,"time":"1 month","difficulty":"Easy","importance":8},
+    {"name":"Data Migration","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"Project Management","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"Business Intelligence","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"Excel","weight":7,"time":"2 weeks","difficulty":"Easy","importance":7},
+    {"name":"Documentation","weight":7,"time":"2 weeks","difficulty":"Easy","importance":7},
+    {"name":"Communication","weight":9,"time":"Ongoing","difficulty":"Easy","importance":9},
+    {"name":"Change Management","weight":8,"time":"1 month","difficulty":"Medium","importance":8}
+  ],
+  "relatedInterests":[
+    "Business",
+    "Technology",
+    "Management",
+    "Enterprise",
+    "Consulting",
+    "Problem Solving"
+  ]
+},
+{
+  "id":"salesforce-developer",
+  "title":"Salesforce Developer",
+  "domain":"CRM Development",
+  "icon":"☁️",
+  "color":"#00a1e0",
+  "description":"Develop and customize Salesforce CRM solutions using Apex, Lightning, and cloud technologies to automate business workflows.",
+  "avgSalary":"₹9L – ₹40L",
+  "growth":"Very High",
+  "requiredSkills":[
+    {"name":"Salesforce","weight":10,"time":"3 months","difficulty":"Medium","importance":10},
+    {"name":"Apex","weight":10,"time":"2 months","difficulty":"Medium","importance":10},
+    {"name":"Lightning Web Components","weight":9,"time":"2 months","difficulty":"Medium","importance":9},
+    {"name":"SOQL","weight":9,"time":"1 month","difficulty":"Easy","importance":9},
+    {"name":"JavaScript","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"HTML","weight":7,"time":"2 weeks","difficulty":"Easy","importance":7},
+    {"name":"CSS","weight":7,"time":"2 weeks","difficulty":"Easy","importance":7},
+    {"name":"REST APIs","weight":8,"time":"1 month","difficulty":"Medium","importance":8},
+    {"name":"Git","weight":6,"time":"2 weeks","difficulty":"Easy","importance":6},
+    {"name":"SQL","weight":7,"time":"1 month","difficulty":"Easy","importance":7},
+    {"name":"CRM Concepts","weight":8,"time":"1 month","difficulty":"Easy","importance":8},
+    {"name":"Agile","weight":7,"time":"2 weeks","difficulty":"Easy","importance":7}
+  ],
+  "relatedInterests":[
+    "Cloud",
+    "Business",
+    "Programming",
+    "Enterprise",
+    "Automation",
+    "Technology"
+  ]
+},
+{
+  "id":"ai-product-manager",
+  "title":"AI Product Manager",
+  "domain":"Artificial Intelligence",
+  "icon":"🧩",
+  "color":"#9333ea",
+  "description":"Lead the strategy, planning, and delivery of AI-powered products by bridging engineering, business, and user needs.",
+  "avgSalary":"₹18L – ₹70L",
+  "growth":"Extremely High",
+  "requiredSkills":[
+    {"name":"Product Management","weight":10,"time":"3 months","difficulty":"Medium","importance":10},
+    {"name":"Artificial Intelligence","weight":9,"time":"2 months","difficulty":"Medium","importance":9},
+    {"name":"Machine Learning","weight":8,"time":"3 months","difficulty":"Hard","importance":8},
+    {"name":"Data Analysis","weight":9,"time":"2 months","difficulty":"Medium","importance":9},
+    {"name":"SQL","weight":7,"time":"1 month","difficulty":"Easy","importance":7},
+    {"name":"Market Research","weight":8,"time":"1 month","difficulty":"Easy","importance":8},
+    {"name":"User Experience","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"Roadmapping","weight":9,"time":"1 month","difficulty":"Medium","importance":9},
+    {"name":"Agile","weight":8,"time":"2 weeks","difficulty":"Easy","importance":8},
+    {"name":"Communication","weight":10,"time":"Ongoing","difficulty":"Easy","importance":10},
+    {"name":"Leadership","weight":10,"time":"Ongoing","difficulty":"Medium","importance":10},
+    {"name":"Stakeholder Management","weight":9,"time":"1 month","difficulty":"Medium","importance":9}
+  ],
+  "relatedInterests":[
+    "Artificial Intelligence",
+    "Leadership",
+    "Business",
+    "Innovation",
+    "Technology",
+    "Strategy"
+  ]
+},
+{
+  "id":"technical-product-manager",
+  "title":"Technical Product Manager",
+  "domain":"Product Management",
+  "icon":"📋",
+  "color":"#ea580c",
+  "description":"Manage the development of complex software products by combining technical expertise with product strategy and customer needs.",
+  "avgSalary":"₹15L – ₹60L",
+  "growth":"Very High",
+  "requiredSkills":[
+    {"name":"Product Management","weight":10,"time":"3 months","difficulty":"Medium","importance":10},
+    {"name":"System Design","weight":9,"time":"3 months","difficulty":"Hard","importance":9},
+    {"name":"Software Development","weight":8,"time":"3 months","difficulty":"Medium","importance":8},
+    {"name":"SQL","weight":7,"time":"1 month","difficulty":"Easy","importance":7},
+    {"name":"Agile","weight":9,"time":"2 weeks","difficulty":"Easy","importance":9},
+    {"name":"Scrum","weight":8,"time":"2 weeks","difficulty":"Easy","importance":8},
+    {"name":"API Design","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"Roadmapping","weight":9,"time":"1 month","difficulty":"Medium","importance":9},
+    {"name":"Data Analysis","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"Communication","weight":10,"time":"Ongoing","difficulty":"Easy","importance":10},
+    {"name":"Leadership","weight":10,"time":"Ongoing","difficulty":"Medium","importance":10},
+    {"name":"Risk Management","weight":8,"time":"1 month","difficulty":"Medium","importance":8}
+  ],
+  "relatedInterests":[
+    "Technology",
+    "Leadership",
+    "Software",
+    "Business",
+    "Innovation",
+    "Strategy"
+  ]
+},
+{
+  "id":"prompt-engineer",
+  "title":"Prompt Engineer",
+  "domain":"Generative AI",
+  "icon":"📝",
+  "color":"#ec4899",
+  "description":"Design, evaluate, and optimize prompts that enable Large Language Models and multimodal AI systems to produce accurate, reliable, and useful outputs.",
+  "avgSalary":"₹12L – ₹55L",
+  "growth":"Extremely High",
+  "requiredSkills":[
+    {"name":"Prompt Engineering","weight":10,"time":"1 month","difficulty":"Easy","importance":10},
+    {"name":"Large Language Models","weight":10,"time":"2 months","difficulty":"Medium","importance":10},
+    {"name":"Natural Language Processing","weight":9,"time":"2 months","difficulty":"Hard","importance":9},
+    {"name":"Python","weight":8,"time":"2 months","difficulty":"Medium","importance":8},
+    {"name":"LangChain","weight":9,"time":"1 month","difficulty":"Medium","importance":9},
+    {"name":"RAG","weight":9,"time":"1 month","difficulty":"Hard","importance":9},
+    {"name":"Vector Databases","weight":8,"time":"1 month","difficulty":"Medium","importance":8},
+    {"name":"AI Evaluation","weight":8,"time":"1 month","difficulty":"Medium","importance":8},
+    {"name":"Prompt Optimization","weight":10,"time":"3 weeks","difficulty":"Easy","importance":10},
+    {"name":"Hugging Face","weight":8,"time":"1 month","difficulty":"Medium","importance":8},
+    {"name":"API Integration","weight":7,"time":"1 month","difficulty":"Medium","importance":7},
+    {"name":"Communication","weight":8,"time":"Ongoing","difficulty":"Easy","importance":8}
+  ],
+  "relatedInterests":[
+    "Artificial Intelligence",
+    "Language",
+    "Creativity",
+    "Research",
+    "Technology",
+    "Innovation"
+  ]
+}
+  ],
+  "courses": [
+    {
+      "id": "c1",
+      "skill": "Python",
+      "title": "Python for Everybody",
+      "provider": "Coursera",
+      "providerIcon": "📘",
+      "duration": "4 months",
+      "difficulty": "Beginner",
+      "cost": "Free audit",
+      "url": "https://www.coursera.org/specializations/python",
+      "rating": 4.8
+    },
+    {
+      "id": "c2",
+      "skill": "Python",
+      "title": "Complete Python Bootcamp",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "22 hours",
+      "difficulty": "Beginner",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/complete-python-bootcamp/",
+      "rating": 4.7
+    },
+    {
+      "id": "c3",
+      "skill": "Python",
+      "title": "NPTEL Python",
+      "provider": "NPTEL",
+      "providerIcon": "🇮🇳",
+      "duration": "12 weeks",
+      "difficulty": "Beginner",
+      "cost": "Free",
+      "url": "https://nptel.ac.in",
+      "rating": 4.5
+    },
+    {
+      "id": "c4",
+      "skill": "Machine Learning",
+      "title": "Machine Learning by Andrew Ng",
+      "provider": "Coursera",
+      "providerIcon": "📘",
+      "duration": "3 months",
+      "difficulty": "Intermediate",
+      "cost": "Free audit",
+      "url": "https://www.coursera.org/learn/machine-learning",
+      "rating": 4.9
+    },
+    {
+      "id": "c5",
+      "skill": "Machine Learning",
+      "title": "ML A-Z: Hands-On Python & R",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "43 hours",
+      "difficulty": "Intermediate",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/machinelearning/",
+      "rating": 4.6
+    },
+    {
+      "id": "c6",
+      "skill": "Deep Learning",
+      "title": "Deep Learning Specialization",
+      "provider": "Coursera",
+      "providerIcon": "📘",
+      "duration": "5 months",
+      "difficulty": "Advanced",
+      "cost": "Free audit",
+      "url": "https://www.coursera.org/specializations/deep-learning",
+      "rating": 4.9
+    },
+    {
+      "id": "c7",
+      "skill": "Deep Learning",
+      "title": "Practical Deep Learning",
+      "provider": "fast.ai",
+      "providerIcon": "🔥",
+      "duration": "8 weeks",
+      "difficulty": "Intermediate",
+      "cost": "Free",
+      "url": "https://course.fast.ai/",
+      "rating": 4.8
+    },
+    {
+      "id": "c8",
+      "skill": "TensorFlow",
+      "title": "TensorFlow Developer Certificate",
+      "provider": "Coursera",
+      "providerIcon": "📘",
+      "duration": "4 months",
+      "difficulty": "Intermediate",
+      "cost": "Free audit",
+      "url": "https://www.coursera.org/professional-certificates/tensorflow-in-practice",
+      "rating": 4.7
+    },
+    {
+      "id": "c9",
+      "skill": "PyTorch",
+      "title": "PyTorch for Deep Learning",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "20 hours",
+      "difficulty": "Intermediate",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/pytorch-for-deep-learning-and-computer-vision/",
+      "rating": 4.6
+    },
+    {
+      "id": "c10",
+      "skill": "SQL",
+      "title": "SQL for Data Science",
+      "provider": "Coursera",
+      "providerIcon": "📘",
+      "duration": "4 weeks",
+      "difficulty": "Beginner",
+      "cost": "Free audit",
+      "url": "https://www.coursera.org/learn/sql-for-data-science",
+      "rating": 4.6
+    },
+    {
+      "id": "c11",
+      "skill": "SQL",
+      "title": "MySQL Bootcamp",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "20 hours",
+      "difficulty": "Beginner",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/the-ultimate-mysql-bootcamp-go-from-sql-beginner-to-expert/",
+      "rating": 4.7
+    },
+    {
+      "id": "c12",
+      "skill": "JavaScript",
+      "title": "The Complete JavaScript Course",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "69 hours",
+      "difficulty": "Beginner",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/the-complete-javascript-course/",
+      "rating": 4.8
+    },
+    {
+      "id": "c13",
+      "skill": "JavaScript",
+      "title": "JavaScript Algorithms & DS",
+      "provider": "freeCodeCamp",
+      "providerIcon": "💻",
+      "duration": "Self-paced",
+      "difficulty": "Intermediate",
+      "cost": "Free",
+      "url": "https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/",
+      "rating": 4.7
+    },
+    {
+      "id": "c14",
+      "skill": "React",
+      "title": "React — The Complete Guide",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "48 hours",
+      "difficulty": "Intermediate",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/react-the-complete-guide-incl-redux/",
+      "rating": 4.8
+    },
+    {
+      "id": "c15",
+      "skill": "React",
+      "title": "Frontend Masters React",
+      "provider": "Frontend Masters",
+      "providerIcon": "🖥️",
+      "duration": "Self-paced",
+      "difficulty": "Intermediate",
+      "cost": "$39/mo",
+      "url": "https://frontendmasters.com/",
+      "rating": 4.7
+    },
+    {
+      "id": "c16",
+      "skill": "Node.js",
+      "title": "Node.js, Express, MongoDB Bootcamp",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "42 hours",
+      "difficulty": "Intermediate",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/nodejs-express-mongodb-bootcamp/",
+      "rating": 4.8
+    },
+    {
+      "id": "c17",
+      "skill": "Docker",
+      "title": "Docker & Kubernetes: The Practical Guide",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "24 hours",
+      "difficulty": "Intermediate",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/docker-kubernetes-the-practical-guide/",
+      "rating": 4.7
+    },
+    {
+      "id": "c18",
+      "skill": "Docker",
+      "title": "Docker for Beginners",
+      "provider": "YouTube",
+      "providerIcon": "▶️",
+      "duration": "Self-paced",
+      "difficulty": "Beginner",
+      "cost": "Free",
+      "url": "https://youtube.com",
+      "rating": 4.5
+    },
+    {
+      "id": "c19",
+      "skill": "Kubernetes",
+      "title": "Kubernetes for Developers",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "16 hours",
+      "difficulty": "Advanced",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/learn-kubernetes/",
+      "rating": 4.6
+    },
+    {
+      "id": "c20",
+      "skill": "AWS",
+      "title": "AWS Certified Solutions Architect",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "25 hours",
+      "difficulty": "Intermediate",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c03/",
+      "rating": 4.7
+    },
+    {
+      "id": "c21",
+      "skill": "AWS",
+      "title": "AWS Cloud Practitioner Essentials",
+      "provider": "AWS",
+      "providerIcon": "☁️",
+      "duration": "6 hours",
+      "difficulty": "Beginner",
+      "cost": "Free",
+      "url": "https://aws.amazon.com/training/",
+      "rating": 4.6
+    },
+    {
+      "id": "c22",
+      "skill": "Data Visualization",
+      "title": "Data Visualization with Python",
+      "provider": "Coursera",
+      "providerIcon": "📘",
+      "duration": "3 weeks",
+      "difficulty": "Beginner",
+      "cost": "Free audit",
+      "url": "https://www.coursera.org/learn/python-for-data-visualization",
+      "rating": 4.5
+    },
+    {
+      "id": "c23",
+      "skill": "Data Visualization",
+      "title": "Tableau for Beginners",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "8 hours",
+      "difficulty": "Beginner",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/tableau10/",
+      "rating": 4.6
+    },
+    {
+      "id": "c24",
+      "skill": "Statistics",
+      "title": "Statistics with Python",
+      "provider": "Coursera",
+      "providerIcon": "📘",
+      "duration": "5 months",
+      "difficulty": "Intermediate",
+      "cost": "Free audit",
+      "url": "https://www.coursera.org/specializations/statistics-with-python",
+      "rating": 4.6
+    },
+    {
+      "id": "c25",
+      "skill": "NLP",
+      "title": "Natural Language Processing Specialization",
+      "provider": "Coursera",
+      "providerIcon": "📘",
+      "duration": "4 months",
+      "difficulty": "Advanced",
+      "cost": "Free audit",
+      "url": "https://www.coursera.org/specializations/natural-language-processing",
+      "rating": 4.7
+    },
+    {
+      "id": "c26",
+      "skill": "HTML/CSS",
+      "title": "Responsive Web Design",
+      "provider": "freeCodeCamp",
+      "providerIcon": "💻",
+      "duration": "Self-paced",
+      "difficulty": "Beginner",
+      "cost": "Free",
+      "url": "https://www.freecodecamp.org/learn/2022/responsive-web-design/",
+      "rating": 4.7
+    },
+    {
+      "id": "c27",
+      "skill": "UI/UX Design",
+      "title": "Google UX Design Certificate",
+      "provider": "Coursera",
+      "providerIcon": "📘",
+      "duration": "6 months",
+      "difficulty": "Beginner",
+      "cost": "Free audit",
+      "url": "https://www.coursera.org/professional-certificates/google-ux-design",
+      "rating": 4.8
+    },
+    {
+      "id": "c28",
+      "skill": "Figma",
+      "title": "Figma UI/UX Design Essentials",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "12 hours",
+      "difficulty": "Beginner",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/figma-ux-ui-design-user-experience-tutorial-course/",
+      "rating": 4.7
+    },
+    {
+      "id": "c29",
+      "skill": "System Design",
+      "title": "System Design Interview",
+      "provider": "Educative",
+      "providerIcon": "📚",
+      "duration": "Self-paced",
+      "difficulty": "Advanced",
+      "cost": "$49/mo",
+      "url": "https://www.educative.io/courses/grokking-the-system-design-interview",
+      "rating": 4.8
+    },
+    {
+      "id": "c30",
+      "skill": "Git",
+      "title": "Git & GitHub — Complete Guide",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "6 hours",
+      "difficulty": "Beginner",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/git-and-github-bootcamp/",
+      "rating": 4.7
+    },
+    {
+      "id": "c31",
+      "skill": "Linux",
+      "title": "Linux Command Line Basics",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "5 hours",
+      "difficulty": "Beginner",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/the-linux-command-line-bootcamp/",
+      "rating": 4.7
+    },
+    {
+      "id": "c32",
+      "skill": "Networking",
+      "title": "Google IT Support Professional",
+      "provider": "Coursera",
+      "providerIcon": "📘",
+      "duration": "6 months",
+      "difficulty": "Beginner",
+      "cost": "Free audit",
+      "url": "https://www.coursera.org/professional-certificates/google-it-support",
+      "rating": 4.8
+    },
+    {
+      "id": "c33",
+      "skill": "Ethical Hacking",
+      "title": "Ethical Hacking — Beginner to Expert",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "26 hours",
+      "difficulty": "Intermediate",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/learn-ethical-hacking-from-scratch/",
+      "rating": 4.7
+    },
+    {
+      "id": "c34",
+      "skill": "Solidity",
+      "title": "Ethereum and Solidity: The Complete Guide",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "24 hours",
+      "difficulty": "Intermediate",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/ethereum-and-solidity-the-complete-developers-guide/",
+      "rating": 4.6
+    },
+    {
+      "id": "c35",
+      "skill": "Flutter",
+      "title": "Flutter & Dart Complete Course",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "29 hours",
+      "difficulty": "Intermediate",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/flutter-bootcamp-with-dart/",
+      "rating": 4.8
+    },
+    {
+      "id": "c36",
+      "skill": "React Native",
+      "title": "React Native — The Practical Guide",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "33 hours",
+      "difficulty": "Intermediate",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/react-native-the-practical-guide/",
+      "rating": 4.7
+    },
+    {
+      "id": "c37",
+      "skill": "Agile/Scrum",
+      "title": "Agile Fundamentals: Scrum & Kanban",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "5 hours",
+      "difficulty": "Beginner",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/agile-fundamentals-scrum-kanban-and-more/",
+      "rating": 4.6
+    },
+    {
+      "id": "c38",
+      "skill": "Power BI",
+      "title": "Power BI Desktop for Business Intelligence",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "18 hours",
+      "difficulty": "Beginner",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/microsoft-power-bi-up-running-with-power-bi-desktop/",
+      "rating": 4.7
+    },
+    {
+      "id": "c39",
+      "skill": "Mathematics",
+      "title": "Mathematics for Machine Learning",
+      "provider": "Coursera",
+      "providerIcon": "📘",
+      "duration": "4 months",
+      "difficulty": "Intermediate",
+      "cost": "Free audit",
+      "url": "https://www.coursera.org/specializations/mathematics-machine-learning",
+      "rating": 4.7
+    },
+    {
+      "id": "c40",
+      "skill": "C/C++",
+      "title": "C++ Nanodegree Program",
+      "provider": "Udacity",
+      "providerIcon": "🎓",
+      "duration": "3 months",
+      "difficulty": "Intermediate",
+      "cost": "Paid",
+      "url": "https://www.udacity.com/course/c-plus-plus-nanodegree--nd213",
+      "rating": 4.6
+    },
+    {
+      "id": "c41",
+      "skill": "Unity",
+      "title": "Complete C# Unity Game Developer 3D",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "24 hours",
+      "difficulty": "Intermediate",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/unitycourse2/",
+      "rating": 4.7
+    },
+    {
+      "id": "c42",
+      "skill": "MLOps",
+      "title": "Machine Learning Engineering for Production",
+      "provider": "Coursera",
+      "providerIcon": "📘",
+      "duration": "4 months",
+      "difficulty": "Advanced",
+      "cost": "Free audit",
+      "url": "https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops",
+      "rating": 4.6
+    },
+    {
+      "id": "c43",
+      "skill": "Terraform",
+      "title": "HashiCorp Terraform Associate",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "15 hours",
+      "difficulty": "Intermediate",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/terraform-beginner-to-advanced/",
+      "rating": 4.7
+    },
+    {
+      "id": "c44",
+      "skill": "Pandas",
+      "title": "Data Analysis with Pandas and Python",
+      "provider": "Udemy",
+      "providerIcon": "🎓",
+      "duration": "19 hours",
+      "difficulty": "Beginner",
+      "cost": "₹449",
+      "url": "https://www.udemy.com/course/data-analysis-with-pandas/",
+      "rating": 4.6
+    },
+    {
+  "id": "c45",
+  "skill": "LangChain",
+  "title": "LangChain for LLM Application Development",
+  "provider": "DeepLearning.AI",
+  "providerIcon": "📘",
+  "duration": "Self-paced (~1.5 hours)",
+  "difficulty": "Intermediate",
+  "cost": "Free",
+  "url": "https://www.deeplearning.ai/short-courses/langchain-for-llm-application-development/",
+  "rating": 4.9
+},
+{
+  "id": "c46",
+  "skill": "LangChain",
+  "title": "Developing LLM Applications with LangChain",
+  "provider": "Coursera",
+  "providerIcon": "📘",
+  "duration": "Approx. 18 hours",
+  "difficulty": "Intermediate",
+  "cost": "Free audit",
+  "url": "https://www.coursera.org/learn/developing-llm-applications-with-langchain",
+  "rating": 4.8
+},
+{
+  "id": "c47",
+  "skill": "RAG",
+  "title": "Building and Evaluating Advanced RAG Applications",
+  "provider": "DeepLearning.AI",
+  "providerIcon": "📘",
+  "duration": "Self-paced",
+  "difficulty": "Advanced",
+  "cost": "Free",
+  "url": "https://www.deeplearning.ai/short-courses/building-evaluating-advanced-rag/",
+  "rating": 4.9
+},
+{
+  "id": "c48",
+  "skill": "RAG",
+  "title": "Retrieval Augmented Generation (RAG) with LangChain",
+  "provider": "Coursera",
+  "providerIcon": "📘",
+  "duration": "Approx. 10 hours",
+  "difficulty": "Intermediate",
+  "cost": "Free audit",
+  "url": "https://www.coursera.org/projects/retrieval-augmented-generation-rag-langchain",
+  "rating": 4.7
+},
+{
+  "id": "c49",
+  "skill": "Hugging Face",
+  "title": "Hugging Face NLP Course",
+  "provider": "Hugging Face",
+  "providerIcon": "🤗",
+  "duration": "Self-paced",
+  "difficulty": "Intermediate",
+  "cost": "Free",
+  "url": "https://huggingface.co/learn/nlp-course",
+  "rating": 4.9
+},
+{
+  "id": "c50",
+  "skill": "Hugging Face",
+  "title": "Open Source Models with Hugging Face",
+  "provider": "DeepLearning.AI",
+  "providerIcon": "📘",
+  "duration": "Self-paced",
+  "difficulty": "Intermediate",
+  "cost": "Free",
+  "url": "https://www.deeplearning.ai/short-courses/open-source-models-hugging-face/",
+  "rating": 4.8
+},
+{
+  "id": "c51",
+  "skill": "Prompt Engineering",
+  "title": "ChatGPT Prompt Engineering for Developers",
+  "provider": "DeepLearning.AI",
+  "providerIcon": "📘",
+  "duration": "Self-paced",
+  "difficulty": "Beginner",
+  "cost": "Free",
+  "url": "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/",
+  "rating": 4.9
+},
+{
+  "id": "c52",
+  "skill": "Prompt Engineering",
+  "title": "Prompt Engineering for ChatGPT",
+  "provider": "Coursera",
+  "providerIcon": "📘",
+  "duration": "Approx. 18 hours",
+  "difficulty": "Beginner",
+  "cost": "Free audit",
+  "url": "https://www.coursera.org/learn/prompt-engineering",
+  "rating": 4.8
+},
+{
+  "id": "c53",
+  "skill": "Vector Databases",
+  "title": "Vector Databases: From Embeddings to Applications",
+  "provider": "DeepLearning.AI",
+  "providerIcon": "📘",
+  "duration": "Self-paced",
+  "difficulty": "Intermediate",
+  "cost": "Free",
+  "url": "https://www.deeplearning.ai/short-courses/vector-databases-embeddings-applications/",
+  "rating": 4.9
+},
+{
+  "id": "c54",
+  "skill": "Vector Databases",
+  "title": "Pinecone Documentation & Learning",
+  "provider": "Pinecone",
+  "providerIcon": "🌲",
+  "duration": "Self-paced",
+  "difficulty": "Intermediate",
+  "cost": "Free",
+  "url": "https://docs.pinecone.io/",
+  "rating": 4.7
+},
+{
+  "id": "c55",
+  "skill": "Apache Spark",
+  "title": "Introduction to Apache Spark™",
+  "provider": "Databricks",
+  "providerIcon": "🧱",
+  "duration": "2 hours",
+  "difficulty": "Beginner",
+  "cost": "Free",
+  "url": "https://customer-academy.databricks.com/learn/course/external/view/elearning/3901/introduction-to-apache-spark",
+  "rating": 4.8
+},
+{
+  "id": "c56",
+  "skill": "Apache Spark",
+  "title": "Developing Applications with Apache Spark™",
+  "provider": "Databricks",
+  "providerIcon": "🧱",
+  "duration": "3 hours",
+  "difficulty": "Intermediate",
+  "cost": "Paid",
+  "url": "https://gds.databricks.com/learn/course/external/view/elearning/3962/developing-applications-with-apache-spark",
+  "rating": 4.9
+},
+{
+  "id": "c57",
+  "skill": "Apache Kafka",
+  "title": "Kafka 101",
+  "provider": "Confluent",
+  "providerIcon": "🟠",
+  "duration": "Self-paced",
+  "difficulty": "Beginner",
+  "cost": "Free",
+  "url": "https://developer.confluent.io/courses/apache-kafka/kafka-101/",
+  "rating": 4.9
+},
+{
+  "id": "c58",
+  "skill": "Apache Kafka",
+  "title": "Learn Apache Kafka for Beginners v3",
+  "provider": "Udemy",
+  "providerIcon": "🎓",
+  "duration": "8 hours",
+  "difficulty": "Beginner",
+  "cost": "₹449",
+  "url": "https://www.udemy.com/course/apache-kafka/",
+  "rating": 4.8
+},
+{
+  "id": "c59",
+  "skill": "Apache Airflow",
+  "title": "Apache Airflow Fundamentals",
+  "provider": "Astronomer Academy",
+  "providerIcon": "🚀",
+  "duration": "Self-paced",
+  "difficulty": "Beginner",
+  "cost": "Free",
+  "url": "https://academy.astronomer.io/",
+  "rating": 4.8
+},
+{
+  "id": "c60",
+  "skill": "Apache Airflow",
+  "title": "The Complete Hands-On Introduction to Apache Airflow",
+  "provider": "Udemy",
+  "providerIcon": "🎓",
+  "duration": "9 hours",
+  "difficulty": "Intermediate",
+  "cost": "₹449",
+  "url": "https://www.udemy.com/course/the-complete-hands-on-course-to-master-apache-airflow/",
+  "rating": 4.7
+},
+{
+  "id": "c61",
+  "skill": "ETL Pipelines",
+  "title": "ETL and Data Pipelines with Shell, Airflow and Kafka",
+  "provider": "Coursera",
+  "providerIcon": "📘",
+  "duration": "Approx. 13 hours",
+  "difficulty": "Intermediate",
+  "cost": "Free audit",
+  "url": "https://www.coursera.org/learn/etl-and-data-pipelines-shell-airflow-kafka",
+  "rating": 4.8
+},
+{
+  "id": "c62",
+  "skill": "ETL Pipelines",
+  "title": "Building Modern Data Pipelines",
+  "provider": "Databricks",
+  "providerIcon": "🧱",
+  "duration": "Self-paced",
+  "difficulty": "Intermediate",
+  "cost": "Free",
+  "url": "https://customer-academy.databricks.com/",
+  "rating": 4.7
+},
+{
+  "id": "c63",
+  "skill": "Data Modeling",
+  "title": "Data Modeling in Power BI",
+  "provider": "Microsoft Learn",
+  "providerIcon": "🟦",
+  "duration": "4 hours",
+  "difficulty": "Intermediate",
+  "cost": "Free",
+  "url": "https://learn.microsoft.com/en-us/training/",
+  "rating": 4.8
+},
+{
+  "id": "c64",
+  "skill": "Data Modeling",
+  "title": "Data Warehouse Fundamentals for Beginners",
+  "provider": "Udemy",
+  "providerIcon": "🎓",
+  "duration": "10 hours",
+  "difficulty": "Intermediate",
+  "cost": "₹449",
+  "url": "https://www.udemy.com/course/data-warehouse-fundamentals/",
+  "rating": 4.7
+}
+  ]
+}

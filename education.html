@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Higher Education — FuturePath AI</title>
+  <meta name="description"
+    content="University recommendations, entrance exams, and scholarships for your target career." />
+  <link rel="stylesheet" href="css/main.css" />
+  <style>
+    .edu-tabs {
+      display: flex;
+      gap: 4px;
+      background: rgba(255, 255, 255, .04);
+      border-radius: var(--r-md);
+      padding: 4px;
+      margin-bottom: 24px;
+      width: fit-content;
+    }
+
+    .edu-tab {
+      padding: 9px 20px;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      background: transparent;
+      color: var(--text-secondary);
+    }
+
+    .edu-tab.active {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .3);
+    }
+
+    .type-filter {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tf-btn {
+      padding: 7px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .tf-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary-light);
+    }
+
+    .tf-btn.active {
+      background: rgba(108, 99, 255, .18);
+      border-color: var(--primary);
+      color: var(--primary-light);
+    }
+
+    .uni-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .uni-card-full {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .uni-card-full:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .uc-header {
+      padding: 18px 20px;
+      background: linear-gradient(135deg, rgba(108, 99, 255, .08), rgba(0, 212, 255, .04));
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .uc-flag {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-size: 20px;
+    }
+
+    .uc-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+
+    .uc-loc {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .uc-rank {
+      margin-top: 8px;
+    }
+
+    .uc-body {
+      padding: 16px 20px;
+    }
+
+    .uc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .04);
+      font-size: 13px;
+    }
+
+    .uc-row:last-child {
+      border-bottom: none;
+    }
+
+    .uc-key {
+      color: var(--text-secondary);
+    }
+
+    .uc-val {
+      font-weight: 600;
+      color: var(--text-primary);
+      max-width: 180px;
+      text-align: right;
+    }
+
+    .programs-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 10px;
+    }
+
+    .uc-footer {
+      padding: 12px 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+    }
+
+    /* Exam cards */
+    .exam-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .exam-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 20px;
+      transition: var(--transition);
+    }
+
+    .exam-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .exam-card .ec-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .exam-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--r-sm);
+      background: rgba(108, 99, 255, .15);
+      border: 1px solid rgba(108, 99, 255, .25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--primary-light);
+      flex-shrink: 0;
+    }
+
+    .ec-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+
+    .ec-full {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .ec-desc {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .ec-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Scholarship cards */
+    .sch-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .sch-card {
+      background: linear-gradient(135deg, rgba(255, 215, 0, .06), rgba(108, 99, 255, .05));
+      border: 1px solid rgba(255, 215, 0, .2);
+      border-radius: var(--r-lg);
+      padding: 18px 20px;
+      transition: var(--transition);
+    }
+
+    .sch-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 215, 0, .4);
+    }
+
+    .sch-name {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .sch-amount {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--warning);
+      margin-bottom: 8px;
+    }
+
+    .sch-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .country-icon-india {}
+
+    .country-icon-abroad {}
+  </style>
+</head>
+
+<body>
+  <div class="bg-mesh"></div>
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main-content">
+      <header class="topbar" id="topbar"></header>
+
+      <div class="page-content">
+        <!-- Tabs -->
+        <div class="edu-tabs">
+          <button class="edu-tab active" onclick="switchEduTab('universities')">Universities</button>
+          <button class="edu-tab" onclick="switchEduTab('exams')">Entrance Exams</button>
+          <button class="edu-tab" onclick="switchEduTab('scholarships')">Scholarships</button>
+        </div>
+
+        <!-- UNIVERSITIES PANEL -->
+        <div id="tab-universities" class="tab-panel active">
+          <div class="type-filter">
+            <button class="tf-btn active" onclick="filterUni('all')">All Universities</button>
+            <button class="tf-btn" onclick="filterUni('Indian')">Indian</button>
+            <button class="tf-btn" onclick="filterUni('Foreign')">International</button>
+          </div>
+          <div id="uni-grid" class="uni-grid"></div>
+        </div>
+
+        <!-- EXAMS PANEL -->
+        <div id="tab-exams" class="tab-panel">
+          <div class="type-filter">
+            <button class="tf-btn active" onclick="filterExam('all')">All Exams</button>
+            <button class="tf-btn" onclick="filterExam('Indian')">Indian</button>
+            <button class="tf-btn" onclick="filterExam('Foreign')">International</button>
+          </div>
+          <div id="exam-grid" class="exam-grid"></div>
+        </div>
+
+        <!-- SCHOLARSHIPS PANEL -->
+        <div id="tab-scholarships" class="tab-panel">
+          <div id="sch-grid" class="sch-grid"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/education.js"></script>
+  <script>
+    let currentUniFilter = 'all';
+    let currentExamFilter = 'all';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      requireAuth();
+      renderSidebar('education');
+      renderTopbar('Higher Education', 'Universities, entrance exams & scholarships for your career');
+
+      renderUniversities('all');
+      renderExams('all');
+      renderScholarships();
+    });
+
+    function switchEduTab(tab) {
+      document.querySelectorAll('.edu-tab').forEach((t, i) => {
+        const tabs = ['universities', 'exams', 'scholarships'];
+        t.classList.toggle('active', tabs[i] === tab);
+      });
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('tab-' + tab).classList.add('active');
+    }
+
+    function filterUni(type) {
+      currentUniFilter = type;
+      document.querySelectorAll('.type-filter .tf-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      renderUniversities(type);
+    }
+
+    function filterExam(type) {
+      currentExamFilter = type;
+      document.querySelectorAll('#tab-exams .tf-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      renderExams(type);
+    }
+
+    function renderUniversities(type) {
+      const list = type === 'all' ? UNIVERSITIES : UNIVERSITIES.filter(u => u.type === type);
+      const flags = { 'Indian': 'IN', 'Foreign': 'INT' };
+
+      document.getElementById('uni-grid').innerHTML = list.map(u => `
+    <div class="uni-card-full anim-fade-in">
+      <div class="uc-header">
+        <div class="uc-flag">${flags[u.type]}</div>
+        <div class="uc-name">${u.name}</div>
+        <div class="uc-loc">${u.location}</div>
+        <div class="uc-rank"><span class="tag tag-primary text-xs">${u.ranking}</span></div>
+      </div>
+      <div class="uc-body">
+        <div class="uc-row">
+          <span class="uc-key">Tuition Fees</span>
+          <span class="uc-val">${u.fees}</span>
+        </div>
+        <div class="uc-row">
+          <span class="uc-key">Avg Placement</span>
+          <span class="uc-val">${u.placement}</span>
+        </div>
+        <div class="uc-row">
+          <span class="uc-key">Entrance Exams</span>
+          <span class="uc-val">${u.exams.join(', ')}</span>
+        </div>
+        <div class="uc-row">
+          <span class="uc-key">Scholarships</span>
+          <span class="uc-val">${u.scholarship}</span>
+        </div>
+        <div style="margin-top:10px">
+          <div class="text-xs text-muted mb-6">Available Programs:</div>
+          <div class="programs-list">
+            ${u.programs.map(p => `<span class="tag tag-ghost text-xs">${p}</span>`).join('')}
+          </div>
+        </div>
+      </div>
+      <div class="uc-footer">
+        <a href="${u.url}" target="_blank" class="btn btn-secondary btn-sm">Visit Website →</a>
+      </div>
+    </div>`).join('');
+    }
+
+    function renderExams(type) {
+      const list = type === 'all' ? ENTRANCE_EXAMS : ENTRANCE_EXAMS.filter(e => e.type === type);
+      document.getElementById('exam-grid').innerHTML = list.map(e => `
+    <div class="exam-card anim-fade-in">
+      <div class="ec-top">
+        <div class="exam-logo">${e.name}</div>
+        <div>
+          <div class="ec-name">${e.name}</div>
+          <div class="ec-full">${e.full}</div>
+        </div>
+      </div>
+      <p class="ec-desc">${e.desc}</p>
+      <div class="ec-meta">
+        <span class="tag tag-ghost text-xs">${e.month}</span>
+        <span class="tag tag-ghost text-xs">${e.frequency}</span>
+        <span class="tag tag-cyan text-xs">${e.eligibility}</span>
+      </div>
+      <div class="flex flex-wrap gap-5 mt-10">
+        ${e.forDomains.map(d => `<span class="tag tag-primary text-xs">${d}</span>`).join('')}
+      </div>
+    </div>`).join('');
+    }
+
+    function renderScholarships() {
+      document.getElementById('sch-grid').innerHTML = SCHOLARSHIPS.map(s => `
+    <div class="sch-card anim-fade-in">
+      <div class="sch-name">${s.name}</div>
+      <div class="sch-amount">${s.amount}</div>
+      <div class="flex gap-8 flex-wrap">
+        <span class="tag tag-ghost text-xs">${s.country}</span>
+        <span class="tag tag-ghost text-xs">${s.provider}</span>
+      </div>
+    </div>`).join('');
+    }
+  </script>
+</body>
+
+</html>
