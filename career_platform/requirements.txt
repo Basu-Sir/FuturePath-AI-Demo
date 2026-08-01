@@ -1,0 +1,21 @@
+# --- Web server (combined_app.py) ---
+Flask
+
+# --- Model 1: vector cosine engine (models/model1_vector_cosine) ---
+numpy
+pandas
+scikit-learn
+xgboost          # optional: only used by CareerRecommender.fit_feedback*()
+requests
+
+# Real transformer embeddings for Model 1 (recommended -- auto-detected,
+# falls back automatically to a zero-network TF-IDF backend if this isn't
+# installed or there's no internet access to download the model weights):
+sentence-transformers
+
+# --- Model 2: rule-based engine (models/model2_rule_based) ---
+# (uses only the Python standard library: json, re, pathlib -- no extra
+# packages beyond Flask, already listed above)
+
+# --- Models 3 & 4: placeholders ---
+# Add whatever this model's own implementation needs once it's built.
