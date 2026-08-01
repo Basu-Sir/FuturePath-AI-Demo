@@ -6,6 +6,11 @@ from flask import Flask, jsonify, request, send_from_directory
 from jaccord import predict_careers as jaccard_predict_careers
 
 try:
+    from cosine_similarity.career_ai_engine import cosine_sim_matrix, get_best_available_backend
+except ImportError:  # pragma: no cover - fallback for direct script execution
+    from cosine_similarity.career_ai_engine import cosine_sim_matrix, get_best_available_backend
+
+try:
     from .dice_routes import dice_bp
 except ImportError:  # pragma: no cover - fallback for direct script execution
     from dice_routes import dice_bp
@@ -127,6 +132,52 @@ def predict_careers_jaccard():
         payload.get("interests", []),
         float(payload.get("cgpa", 0) or 0),
     ))
+
+
+@app.post("/api/careers/predict/cosine")
+def predict_careers_cosine():
+    """Return career-card data calculated with cosine similarity."""
+    payload = request.get_json(silent=True) or {}
+    skills = payload.get("skills", [])
+    interests = payload.get("interests", [])
+    cgpa = float(payload.get("cgpa", 0) or 0)
+
+    normalized_skills = [normalize(skill) for skill in skills]
+    corpus = [
+        f"{career['title']}. {career['description']}. "
+        f"Skills: {', '.join(skill['name'] for skill in career['requiredSkills'])}. "
+        f"Interests: {', '.join(career['relatedInterests'])}."
+        for career in CAREERS
+    ]
+    backend = get_best_available_backend(corpus_for_fallback_fit=corpus)
+
+    user_text = ". ".join([*skills, *interests]) or "general work"
+    user_embedding = backend.encode([user_text])
+    career_embeddings = backend.encode(corpus)
+    similarities = cosine_sim_matrix(user_embedding, career_embeddings).flatten()
+
+    results = []
+    for career, similarity in zip(CAREERS, similarities):
+        gap = skill_gap(normalized_skills, career)
+        score = round(max(0.0, min(100.0, similarity * 100)))
+        reasons = [f"Cosine similarity: {score}%"]
+        if gap["current"]:
+            reasons.append("Shared skills: " + ", ".join(skill["name"] for skill in gap["current"][:3]))
+        if any(interest.lower() in related.lower() or related.lower() in interest.lower() for interest in interests for related in career["relatedInterests"]):
+            reasons.append("Your stated interests align with this career")
+        if cgpa >= 8.5:
+            reasons.append(f"CGPA {cgpa:.1f} supports this recommendation")
+
+        results.append({
+            **career,
+            "score": score,
+            "matchedSkills": [skill["name"] for skill in gap["current"]],
+            "missingSkills": gap["missing"],
+            "reasons": reasons,
+            "algorithm": "cosine",
+        })
+
+    return jsonify(sorted(results, key=lambda item: item["score"], reverse=True)[:5])
 
 
 @app.post("/api/skill-gap")

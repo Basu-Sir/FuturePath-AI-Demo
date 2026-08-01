@@ -1,0 +1,10 @@
+numpy
+pandas
+scikit-learn
+xgboost
+requests
+
+# Real transformer embeddings (recommended — auto-detected, falls back to
+# TF-IDF automatically if this isn't installed or there's no internet access
+# to download the model weights on first run):
+sentence-transformers
