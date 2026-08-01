@@ -3,6 +3,7 @@ import json
 import re
 
 from flask import Flask, jsonify, request, send_from_directory
+from jaccord import predict_careers as jaccard_predict_careers
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -104,7 +105,22 @@ def predict(skills, interests, cgpa):
 @app.post("/api/careers/predict")
 def predict_careers():
     payload = request.get_json(silent=True) or {}
-    return jsonify(predict(payload.get("skills", []), payload.get("interests", []), float(payload.get("cgpa", 0) or 0)))
+    return jsonify(predict(
+        payload.get("skills", []),
+        payload.get("interests", []),
+        float(payload.get("cgpa", 0) or 0),
+    ))
+
+
+@app.post("/api/careers/predict/jaccard")
+def predict_careers_jaccard():
+    """Return career-card data calculated with Jaccard similarity."""
+    payload = request.get_json(silent=True) or {}
+    return jsonify(jaccard_predict_careers(
+        payload.get("skills", []),
+        payload.get("interests", []),
+        float(payload.get("cgpa", 0) or 0),
+    ))
 
 
 @app.post("/api/skill-gap")

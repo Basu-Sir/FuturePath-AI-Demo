@@ -92,6 +92,7 @@ function formatDate(dateStr) {
 
 /* ---------- Sidebar & Topbar ---------- */
 const NAV_ITEMS = [
+  { id:'jaccard', label:'Jaccard Matches', icon:'J', href:'jaccard.html' },
   { id:'dashboard', label:'Dashboard',       icon:'🏠', href:'dashboard.html' },
   { id:'profile',   label:'My Profile',      icon:'👤', href:'profile.html'   },
   { id:'resume',    label:'Resume Upload',   icon:'📄', href:'resume.html'    },

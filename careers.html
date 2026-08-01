@@ -105,7 +105,7 @@
       <div class="predict-banner anim-fade-up">
         <div>
           <h2>🎯 AI Career Predictions</h2>
-          <p>Based on your skills, interests, and academic profile</p>
+          <p>Weighted match based on your skills, interests, and academic profile</p>
         </div>
         <div class="flex gap-10 items-center">
           <div id="skill-count-badge" class="tag tag-primary"></div>
@@ -127,13 +127,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   requireAuth();
   renderSidebar('careers');
-  renderTopbar('Career Paths', 'AI-powered top 5 career matches with confidence scores');
+  renderTopbar('Career Paths', 'Weighted skill, interest, and academic-profile matches');
 
   const user = getCurrentUser();
   const skills = user.profile.skills || [];
   document.getElementById('skill-count-badge').textContent = `${skills.length} skills`;
 
-  if (user.careerCache && user.careerCache.length > 0) {
+  if (user.careerCache && user.careerCache.length > 0 && user.careerCache[0].algorithm !== 'jaccard') {
     renderCareers(user.careerCache);
   } else if (skills.length === 0) {
     renderNoSkills();

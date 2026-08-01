@@ -12,6 +12,10 @@ function predictCareers(skills = [], interests = [], cgpa = 0) {
   return apiRequest('/api/careers/predict', { skills, interests, cgpa });
 }
 
+function predictCareersJaccard(skills = [], interests = [], cgpa = 0) {
+  return apiRequest('/api/careers/predict/jaccard', { skills, interests, cgpa });
+}
+
 function getSkillGap(userSkills = [], career) {
   return apiRequest('/api/skill-gap', { skills: userSkills, careerId: career.id });
 }
