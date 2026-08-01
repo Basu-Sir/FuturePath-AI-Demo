@@ -1,5 +1,10 @@
 /* =============================================
    js/resume.js — Resume Upload & Parsing
+   Lives inside profile.html — the dropzone occupies the LHS while
+   the RHS shows the editable profile. This file only wires up the
+   dropzone/file-input and hands off UI refresh to profile.html
+   (via window.refreshSkillsAfterResume), it does not own the page
+   shell (auth/sidebar/topbar are rendered once by the host page).
    ============================================= */
 
 let pdfJsLoaded  = false;
@@ -60,16 +65,13 @@ async function parseDOCX(file) {
   return result.value;
 }
 
-/* ---------- Main upload handler ---------- */
+/* ---------- Main upload handler ----------
+   NOTE: does NOT call requireAuth/renderSidebar/renderTopbar — the
+   host page (profile.html) already rendered the shell once. Calling
+   them again here would clobber the page title/subtitle the host set. */
 function initResumeUpload() {
-  requireAuth();
-  renderSidebar('resume');
-  renderTopbar('Resume Upload', 'Upload your resume and let AI extract your skills');
-
-  const dropzone   = document.getElementById('dropzone');
-  const fileInput  = document.getElementById('resume-file');
-  const uploadArea = document.getElementById('upload-area');
-  const resultArea = document.getElementById('result-area');
+  const dropzone  = document.getElementById('dropzone');
+  const fileInput = document.getElementById('resume-file');
 
   if (!dropzone) return;
 
@@ -92,12 +94,12 @@ function initResumeUpload() {
 async function handleFileUpload(file) {
   const MAX_MB = 10;
   if (file.size > MAX_MB * 1024 * 1024) {
-    return showAlert('upload-alert', `File too large. Max size is ${MAX_MB}MB.`, 'error');
+    return showAlert('page-alert', `File too large. Max size is ${MAX_MB}MB.`, 'error');
   }
 
   const ext = file.name.split('.').pop().toLowerCase();
   if (!['pdf','docx','txt'].includes(ext)) {
-    return showAlert('upload-alert', 'Invalid file type. Please upload PDF, DOCX, or TXT.', 'error');
+    return showAlert('page-alert', 'Invalid file type. Please upload PDF, DOCX, or TXT.', 'error');
   }
 
   // Show progress
@@ -107,7 +109,7 @@ async function handleFileUpload(file) {
     const text = await parseFile(file);
     await processExtractedText(text, file.name);
   } catch (err) {
-    showAlert('upload-alert', `Parsing failed: ${err.message}`, 'error');
+    showAlert('page-alert', `Parsing failed: ${err.message}`, 'error');
     resetUploadArea();
   }
 }
@@ -126,10 +128,13 @@ function showUploadProgress(file) {
 function resetUploadArea() {
   const dropzone = document.getElementById('dropzone');
   dropzone.innerHTML = dropzoneInnerHTML();
+  const fileInput = document.getElementById('resume-file');
+  if (fileInput) fileInput.value = '';
 }
 
 function dropzoneInnerHTML() {
   return `
+    <input id="resume-file" type="file" accept=".pdf,.docx,.txt" style="display:none" />
     <div class="dropzone-icon">📄</div>
     <h3 class="dropzone-title">Drop your resume here</h3>
     <p class="dropzone-sub">PDF, DOCX, or TXT • Max 10MB</p>
@@ -169,20 +174,26 @@ async function processExtractedText(text, fileName) {
 
   saveCurrentUser(user);
   renderExtractionResults(skills, text, wordCount, fileName);
+
+  // Reflect the merged skills (and any newly-picked-up CGPA/resume badge)
+  // in the profile form on the right without a page reload.
+  if (typeof window.refreshSkillsAfterResume === 'function') {
+    window.refreshSkillsAfterResume();
+  }
 }
 
 function renderExtractionResults(skills, text, wordCount, fileName) {
-  const dropzone  = document.getElementById('dropzone');
+  const dropzone   = document.getElementById('dropzone');
   const resultArea = document.getElementById('result-area');
   if (!resultArea) return;
 
   // Success state in dropzone
   dropzone.innerHTML = `
     <div style="text-align:center">
-      <div style="font-size:48px; margin-bottom:12px">✅</div>
-      <div style="font-weight:700; color:var(--success); font-size:16px; margin-bottom:4px">${fileName}</div>
+      <div style="font-size:40px; margin-bottom:10px">✅</div>
+      <div style="font-weight:700; color:var(--success); font-size:15px; margin-bottom:4px">${fileName}</div>
       <div style="font-size:13px; color:var(--text-muted)">${wordCount.toLocaleString()} words parsed</div>
-      <button class="btn btn-ghost btn-sm mt-12" onclick="location.reload()">Upload Another</button>
+      <button class="btn btn-ghost btn-sm mt-12" onclick="resetUploadArea()">Upload Another</button>
     </div>
   `;
 
@@ -191,11 +202,14 @@ function renderExtractionResults(skills, text, wordCount, fileName) {
 
   const skillsHTML = skills.length > 0
     ? skills.map(s => `<span class="tag tag-success">${s}</span>`).join('')
-    : '<span class="text-muted text-sm">No recognizable skills found. Try adding them manually in your profile.</span>';
+    : '<span class="text-muted text-sm">No recognizable skills found. Try adding them manually below.</span>';
 
   document.getElementById('extracted-skills-list').innerHTML = skillsHTML;
   document.getElementById('extracted-skill-count').textContent = skills.length;
   document.getElementById('extracted-word-count').textContent  = wordCount.toLocaleString();
+  const extExt = fileName.split('.').pop().toUpperCase();
+  const pagesEl = document.getElementById('extracted-pages');
+  if (pagesEl) pagesEl.textContent = extExt;
 
-  showAlert('upload-alert', `✅ Resume parsed! ${skills.length} skills extracted and merged into your profile.`, 'success');
+  showAlert('page-alert', `✅ Resume parsed! ${skills.length} skills extracted and merged into your profile.`, 'success');
 }

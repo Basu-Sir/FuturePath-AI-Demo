@@ -91,12 +91,17 @@ function formatDate(dateStr) {
 }
 
 /* ---------- Sidebar & Topbar ---------- */
+/* Model 1 (weighted match), Model 2 (Dice), and Model 3 (Jaccard) used to be
+   spread across careers.html / jaccard.html with separate nav entries. They
+   now live together on recommendations.html, so there is a single nav item
+   for all of them instead of one per model.
+   Profile and Resume Upload have likewise been merged into one page
+   (profile.html — resume dropzone on the left, editable profile on the
+   right), so there is a single 'profile' nav entry instead of two. */
 const NAV_ITEMS = [
-  { id:'jaccard', label:'Jaccard Matches', icon:'J', href:'jaccard.html' },
   { id:'dashboard', label:'Dashboard',       icon:'🏠', href:'dashboard.html' },
-  { id:'profile',   label:'My Profile',      icon:'👤', href:'profile.html'   },
-  { id:'resume',    label:'Resume Upload',   icon:'📄', href:'resume.html'    },
-  { id:'careers',   label:'Career Paths',    icon:'🎯', href:'careers.html'   },
+  { id:'profile',   label:'Profile',         icon:'👤', href:'profile.html'   },
+  { id:'recommendations', label:'Career Recommendations', icon:'🎯', href:'recommendations.html' },
   { id:'skills',    label:'Skill Gap',       icon:'📊', href:'skills.html'    },
   { id:'learning',  label:'Learning Paths',  icon:'📚', href:'learning.html'  },
   { id:'education', label:'Higher Education',icon:'🎓', href:'education.html' },

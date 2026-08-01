@@ -3,38 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Profile — FuturePath AI</title>
-  <meta name="description" content="Edit your profile: skills, projects, CGPA, certifications and experience." />
+  <title>Profile — FuturePath AI</title>
+  <meta name="description" content="Upload your resume and manage your skills, projects, CGPA, certifications and experience." />
   <link rel="stylesheet" href="css/main.css" />
   <style>
+    /* ---------- Profile (right column) ---------- */
     .profile-hero {
-      display: flex; gap: 24px; align-items: center;
-      background: var(--grad-card); border: 1px solid rgba(108,99,255,.2);
-      border-radius: var(--r-xl); padding: 28px 32px; margin-bottom: 28px;
+      display: flex; gap: 20px; align-items: center; flex-wrap: wrap;
+      background: var(--grad-card); border: 1px solid rgba(58,131,255,.2);
+      border-radius: var(--r-xl); padding: 24px 26px; margin-bottom: 20px;
     }
     .profile-avatar-lg {
-      width: 80px; height: 80px; border-radius: 50%;
+      width: 68px; height: 68px; border-radius: 50%;
       background: var(--grad-primary);
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 800; color: #fff;
-      flex-shrink: 0; box-shadow: 0 8px 24px rgba(108,99,255,.4);
+      font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 800; color: #fff;
+      flex-shrink: 0; box-shadow: 0 8px 24px rgba(58,131,255,.32);
     }
-    .profile-meta h2   { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
-    .profile-meta .sub { font-size: 14px; color: var(--text-secondary); }
+    .profile-meta h2   { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .profile-meta .sub { font-size: 13px; color: var(--text-secondary); }
 
-    .section-card { background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--r-lg); padding: 24px; margin-bottom: 20px; }
-    .section-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 18px;
-      display: flex; align-items: center; gap: 8px; }
+    .section-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 22px; margin-bottom: 18px;
+      box-shadow: var(--shadow-card);
+    }
+    .section-card h3 {
+      font-size: 15px; font-weight: 700; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
 
     .list-item {
       display: flex; align-items: center; gap: 12px;
       padding: 10px 14px; border-radius: var(--r-md);
-      border: 1px solid var(--border); background: rgba(255,255,255,.03);
+      border: 1px solid var(--border); background: rgba(255,255,255,.5);
       margin-bottom: 8px; transition: var(--transition);
     }
     .list-item:hover { border-color: var(--border-hover); }
-    .list-item-text { flex: 1; font-size: 14px; }
+    .list-item-text { flex: 1; font-size: 13.5px; font-weight: 600; color: var(--text-primary); }
     .list-item-sub  { font-size: 12px; color: var(--text-muted); }
     .remove-item-btn {
       background: none; border: none; color: var(--text-muted);
@@ -43,26 +49,62 @@
     }
     .remove-item-btn:hover { color: var(--accent); }
 
-    .add-row { display: flex; gap: 10px; margin-top: 10px; }
+    .add-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    .add-row .form-input { flex: 1; min-width: 120px; }
 
     .cgpa-display {
-      font-family: 'Outfit', sans-serif; font-size: 48px; font-weight: 800;
+      font-family: 'Outfit', sans-serif; font-size: 40px; font-weight: 800;
       background: var(--grad-primary);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       line-height: 1;
     }
-    .cgpa-max { font-size: 20px; color: var(--text-muted); font-family: 'Inter', sans-serif;
-      font-weight: 400; -webkit-text-fill-color: var(--text-muted); }
 
-    .save-bar {
-      position: fixed; bottom: 24px; right: 40px; z-index: 200;
-      background: rgba(10,10,26,.95); border: 1px solid rgba(108,99,255,.3);
-      border-radius: var(--r-xl); padding: 14px 20px;
-      display: flex; align-items: center; gap: 14px;
-      backdrop-filter: blur(20px); box-shadow: 0 8px 32px rgba(0,0,0,.5);
-      animation: slideLeft .3s ease;
+    /* ---------- Resume (left column) ---------- */
+    .dropzone {
+      border: 2px dashed rgba(58,131,255,.35);
+      border-radius: var(--r-lg);
+      padding: 40px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      background: rgba(58,131,255,.04);
     }
-    .save-bar p { font-size: 14px; color: var(--text-secondary); }
+    .dropzone:hover, .dropzone.drag-over {
+      border-color: var(--primary);
+      background: rgba(58,131,255,.09);
+      box-shadow: 0 0 32px rgba(58,131,255,.14);
+    }
+    .dropzone.drag-over { transform: scale(1.005); }
+    .dropzone-icon  { font-size: 42px; margin-bottom: 12px; }
+    .dropzone-title { font-family:'Outfit',sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .dropzone-sub   { font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; }
+    .dropzone-formats { display: flex; gap: 8px; justify-content: center; }
+
+    .extract-stats {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin: 18px 0;
+    }
+    .extract-stat {
+      background: rgba(58,131,255,.08); border: 1px solid rgba(58,131,255,.18);
+      border-radius: var(--r-md); padding: 14px; text-align: center;
+    }
+    .extract-stat .es-val {
+      font-family: 'Outfit',sans-serif; font-size: 24px; font-weight: 800;
+      background: var(--grad-primary);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .extract-stat .es-label { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+    .tips-card {
+      background: rgba(0,194,209,.05); border: 1px solid rgba(0,194,209,.2);
+      border-radius: var(--r-lg); padding: 18px 20px;
+    }
+    .tips-card h4 { font-size: 13px; font-weight: 700; color: var(--secondary); margin-bottom: 12px; }
+    .tip-item { display: flex; gap: 10px; margin-bottom: 9px; font-size: 13px; color: var(--text-secondary); }
+    .tip-item::before { content: '✓'; color: var(--success); font-weight: 700; flex-shrink: 0; }
+
+    .save-footer {
+      display: flex; justify-content: center; margin-top: 8px;
+    }
   </style>
 </head>
 <body>
@@ -73,36 +115,148 @@
     <header class="topbar" id="topbar"></header>
     <div id="page-alert" style="padding:0 36px"></div>
 
-    <div class="page-content">
-      <!-- Profile hero -->
-      <div class="profile-hero anim-fade-up">
-        <div class="profile-avatar-lg" id="profile-avatar"></div>
-        <div class="profile-meta">
-          <h2 id="profile-name"></h2>
-          <div class="sub" id="profile-college"></div>
-          <div class="sub" id="profile-degree-branch"></div>
-          <div class="flex gap-8 mt-8" id="profile-tags"></div>
-        </div>
-        <div style="margin-left:auto; text-align:right">
-          <div class="cgpa-display" id="cgpa-display">—</div>
-          <div style="font-size:13px; color:var(--text-muted); margin-top:2px">CGPA</div>
-        </div>
-      </div>
+    <div class="page-header">
+      <h1>Profile</h1>
+      <p>Upload your resume and manage your skills, projects, and academic details</p>
+    </div>
 
-      <div class="grid-2">
-        <!-- LEFT COLUMN -->
+    <div class="page-content">
+      <div class="grid-2 gap-24" style="align-items:start">
+
+        <!-- ============ LEFT: RESUME ============ -->
         <div>
+          <div class="section-card anim-fade-up">
+            <h3>📄 Resume</h3>
+
+            <div id="dropzone" class="dropzone mb-16">
+              <input id="resume-file" type="file" accept=".pdf,.docx,.txt" style="display:none" />
+              <div class="dropzone-icon">📄</div>
+              <h3 class="dropzone-title">Drop your resume here</h3>
+              <p class="dropzone-sub">PDF, DOCX, or TXT • Max 10MB</p>
+              <div class="dropzone-formats">
+                <span class="tag tag-ghost">PDF</span>
+                <span class="tag tag-ghost">DOCX</span>
+                <span class="tag tag-ghost">TXT</span>
+              </div>
+            </div>
+
+            <!-- Current resume badge -->
+            <div id="current-resume-card" style="display:none"
+              class="flex items-center gap-12 card card-flat mb-16">
+              <div style="font-size:28px">📎</div>
+              <div style="flex:1">
+                <div style="font-weight:600; font-size:13.5px" id="resume-filename"></div>
+                <div style="font-size:12px; color:var(--text-muted)" id="resume-date"></div>
+              </div>
+              <span class="tag tag-success">Active</span>
+            </div>
+
+            <!-- Extraction results -->
+            <div id="result-area" style="display:none">
+              <div class="extract-stats">
+                <div class="extract-stat">
+                  <div class="es-val" id="extracted-skill-count">0</div>
+                  <div class="es-label">Skills Found</div>
+                </div>
+                <div class="extract-stat">
+                  <div class="es-val" id="extracted-word-count">0</div>
+                  <div class="es-label">Words Parsed</div>
+                </div>
+                <div class="extract-stat">
+                  <div class="es-val" id="extracted-pages">—</div>
+                  <div class="es-label">File Type</div>
+                </div>
+              </div>
+
+              <div style="font-size:13px; font-weight:700; margin-bottom:10px">✅ Extracted Skills</div>
+              <div id="extracted-skills-list" class="flex flex-wrap gap-6 mb-16"></div>
+
+              <a href="recommendations.html" class="btn btn-secondary w-full">
+                🎯 Get Career Predictions →
+              </a>
+            </div>
+          </div>
+
+          <div class="tips-card mb-16">
+            <h4>💡 Tips for best results</h4>
+            <div class="tip-item">Use a clean, text-based PDF — avoid image-only scans</div>
+            <div class="tip-item">Include a Skills section with individual skill names</div>
+            <div class="tip-item">Mention technologies used in each project</div>
+            <div class="tip-item">Include your CGPA/GPA for academic scoring</div>
+            <div class="tip-item">Add certifications with provider names</div>
+          </div>
+
+          <div class="card card-flat mb-16">
+            <h3 style="font-size:14px; font-weight:700; margin-bottom:14px">🔍 What AI extracts</h3>
+            <div class="flex flex-col gap-12">
+              <div class="flex items-center gap-12">
+                <span style="font-size:18px">💡</span>
+                <div>
+                  <div style="font-size:13.5px; font-weight:600">Technical Skills</div>
+                  <div class="text-muted text-sm">Languages, frameworks, tools</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-12">
+                <span style="font-size:18px">🎓</span>
+                <div>
+                  <div style="font-size:13.5px; font-weight:600">Education Details</div>
+                  <div class="text-muted text-sm">Degree, CGPA, institution</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-12">
+                <span style="font-size:18px">💼</span>
+                <div>
+                  <div style="font-size:13.5px; font-weight:600">Experience</div>
+                  <div class="text-muted text-sm">Roles, companies, duration</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-12">
+                <span style="font-size:18px">🛠️</span>
+                <div>
+                  <div style="font-size:13.5px; font-weight:600">Projects</div>
+                  <div class="text-muted text-sm">Technologies mentioned in projects</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-flat" style="background:rgba(255,107,129,.04); border-color:rgba(255,107,129,.15)">
+            <h4 style="font-size:13px; font-weight:700; color:var(--accent); margin-bottom:8px">🔒 Privacy Note</h4>
+            <p class="text-sm text-secondary">
+              Your resume is processed entirely in your browser. No data is sent to any server.
+              All information is stored locally on your device only.
+            </p>
+          </div>
+        </div>
+
+        <!-- ============ RIGHT: PROFILE ============ -->
+        <div>
+          <!-- Hero -->
+          <div class="profile-hero anim-fade-up">
+            <div class="profile-avatar-lg" id="profile-avatar"></div>
+            <div class="profile-meta" style="flex:1">
+              <h2 id="profile-name"></h2>
+              <div class="sub" id="profile-college"></div>
+              <div class="sub" id="profile-degree-branch"></div>
+              <div class="flex gap-8 mt-8 flex-wrap" id="profile-tags"></div>
+            </div>
+            <div style="text-align:right">
+              <div class="cgpa-display" id="cgpa-display">—</div>
+              <div style="font-size:12px; color:var(--text-muted); margin-top:2px">CGPA</div>
+            </div>
+          </div>
+
           <!-- Skills -->
           <div class="section-card anim-fade-up delay-1">
             <h3>💡 Technical Skills</h3>
             <div class="skill-input-wrapper" id="skills-wrapper">
               <input id="skill-input" class="skill-input-inner" placeholder="Type a skill and press Enter…" />
             </div>
-            <div class="form-hint mt-8">Press Enter or comma to add each skill</div>
+            <div class="form-hint mt-8">Press Enter or comma to add each skill — resume uploads merge in automatically</div>
           </div>
 
           <!-- Interests -->
-          <div class="section-card anim-fade-up delay-2">
+          <div class="section-card anim-fade-up delay-1">
             <h3>⭐ Interests</h3>
             <div class="skill-input-wrapper" id="interests-wrapper">
               <input id="interest-input" class="skill-input-inner" placeholder="AI, Data Science, Web Dev…" />
@@ -128,12 +282,9 @@
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- RIGHT COLUMN -->
-        <div>
           <!-- Projects -->
-          <div class="section-card anim-fade-up delay-1">
+          <div class="section-card anim-fade-up delay-2">
             <h3>🛠️ Projects</h3>
             <div id="projects-list"></div>
             <div class="add-row">
@@ -144,7 +295,7 @@
           </div>
 
           <!-- Certifications -->
-          <div class="section-card anim-fade-up delay-2">
+          <div class="section-card anim-fade-up delay-3">
             <h3>🏆 Certifications</h3>
             <div id="certs-list"></div>
             <div class="add-row">
@@ -167,7 +318,7 @@
         </div>
       </div>
 
-      <div class="flex justify-center mt-24">
+      <div class="save-footer">
         <button class="btn btn-primary btn-lg" onclick="saveProfile()">💾 Save Profile</button>
       </div>
     </div>
@@ -175,6 +326,8 @@
 </div>
 
 <script src="js/app.js"></script>
+<script src="js/ai-engine.js"></script>
+<script src="js/resume.js"></script>
 <script>
 let skillsController, interestsController;
 let localUser;
@@ -182,7 +335,7 @@ let localUser;
 document.addEventListener('DOMContentLoaded', () => {
   requireAuth();
   renderSidebar('profile');
-  renderTopbar('My Profile', 'Update your skills, projects, and academic details');
+  renderTopbar('Profile', 'Upload your resume and manage your skills, projects, and academic details');
 
   localUser = getCurrentUser();
   const p = localUser.profile;
@@ -217,7 +370,35 @@ document.addEventListener('DOMContentLoaded', () => {
   interestsController = initSkillTagInput('interest-input', 'interests-wrapper', interests);
 
   // Lists
-  renderList('projects-list', p.projects || [], 'project', p => `
+  refreshProjectsList();
+  refreshCertsList();
+  refreshExpList();
+
+  // Existing resume badge
+  if (p.resumeFile) {
+    const card = document.getElementById('current-resume-card');
+    card.style.display = 'flex';
+    document.getElementById('resume-filename').textContent = p.resumeFile;
+    document.getElementById('resume-date').textContent = p.resumeDate
+      ? 'Uploaded on ' + formatDate(p.resumeDate) : '';
+  }
+
+  // Wire up dropzone (js/resume.js) — just the drag/drop/click handlers, no re-render of shell
+  initResumeUpload();
+});
+
+function renderList(containerId, items, templateFn) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  if (!items || items.length === 0) {
+    el.innerHTML = `<p class="text-muted text-sm" style="padding:8px 0">None added yet.</p>`;
+    return;
+  }
+  el.innerHTML = items.map(templateFn).join('');
+}
+
+function refreshProjectsList() {
+  renderList('projects-list', localUser.profile.projects || [], p => `
     <div class="list-item">
       <div class="flex-col flex-1">
         <div class="list-item-text">${p.title}</div>
@@ -225,7 +406,9 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
       <button class="remove-item-btn" onclick="removeItem('projects','${p.id}')">×</button>
     </div>`);
-  renderList('certs-list', p.certifications || [], 'cert', c => `
+}
+function refreshCertsList() {
+  renderList('certs-list', localUser.profile.certifications || [], c => `
     <div class="list-item">
       <div class="flex-col flex-1">
         <div class="list-item-text">${c.name}</div>
@@ -233,7 +416,9 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
       <button class="remove-item-btn" onclick="removeItem('certifications','${c.id}')">×</button>
     </div>`);
-  renderList('exp-list', p.experience || [], 'exp', e => `
+}
+function refreshExpList() {
+  renderList('exp-list', localUser.profile.experience || [], e => `
     <div class="list-item">
       <div class="flex-col flex-1">
         <div class="list-item-text">${e.role}</div>
@@ -241,16 +426,6 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
       <button class="remove-item-btn" onclick="removeItem('experience','${e.id}')">×</button>
     </div>`);
-});
-
-function renderList(containerId, items, prefix, templateFn) {
-  const el = document.getElementById(containerId);
-  if (!el) return;
-  if (items.length === 0) {
-    el.innerHTML = `<p class="text-muted text-sm" style="padding:8px 0">None added yet.</p>`;
-    return;
-  }
-  el.innerHTML = items.map(templateFn).join('');
 }
 
 function addProject() {
@@ -271,14 +446,7 @@ function addCert() {
   localUser.profile.certifications.push({ id: generateId(), name, issuer });
   document.getElementById('cert-name').value   = '';
   document.getElementById('cert-issuer').value = '';
-  renderList('certs-list', localUser.profile.certifications, 'cert', c => `
-    <div class="list-item">
-      <div class="flex-col flex-1">
-        <div class="list-item-text">${c.name}</div>
-        <div class="list-item-sub">${c.issuer}</div>
-      </div>
-      <button class="remove-item-btn" onclick="removeItem('certifications','${c.id}')">×</button>
-    </div>`);
+  refreshCertsList();
 }
 function addExp() {
   const role    = document.getElementById('exp-role').value.trim();
@@ -288,36 +456,34 @@ function addExp() {
   localUser.profile.experience.push({ id: generateId(), role, company });
   document.getElementById('exp-role').value    = '';
   document.getElementById('exp-company').value = '';
-  renderList('exp-list', localUser.profile.experience, 'exp', e => `
-    <div class="list-item">
-      <div class="flex-col flex-1">
-        <div class="list-item-text">${e.role}</div>
-        <div class="list-item-sub">${e.company}</div>
-      </div>
-      <button class="remove-item-btn" onclick="removeItem('experience','${e.id}')">×</button>
-    </div>`);
-}
-function refreshProjectsList() {
-  renderList('projects-list', localUser.profile.projects, 'project', p => `
-    <div class="list-item">
-      <div class="flex-col flex-1">
-        <div class="list-item-text">${p.title}</div>
-        <div class="list-item-sub">${p.desc}</div>
-      </div>
-      <button class="remove-item-btn" onclick="removeItem('projects','${p.id}')">×</button>
-    </div>`);
+  refreshExpList();
 }
 function removeItem(field, id) {
   localUser.profile[field] = (localUser.profile[field] || []).filter(x => x.id !== id);
   if (field === 'projects')       refreshProjectsList();
-  if (field === 'certifications') renderList('certs-list', localUser.profile.certifications, 'cert', c => `
-    <div class="list-item"><div class="flex-col flex-1"><div class="list-item-text">${c.name}</div>
-    <div class="list-item-sub">${c.issuer}</div></div>
-    <button class="remove-item-btn" onclick="removeItem('certifications','${c.id}')">×</button></div>`);
-  if (field === 'experience')     renderList('exp-list', localUser.profile.experience, 'exp', e => `
-    <div class="list-item"><div class="flex-col flex-1"><div class="list-item-text">${e.role}</div>
-    <div class="list-item-sub">${e.company}</div></div>
-    <button class="remove-item-btn" onclick="removeItem('experience','${e.id}')">×</button></div>`);
+  if (field === 'certifications') refreshCertsList();
+  if (field === 'experience')     refreshExpList();
+}
+
+/* Called by js/resume.js once a resume has been parsed & merged into
+   localUser.profile.skills, so the Technical Skills tag input on the
+   right reflects the merge without a page reload. */
+function refreshSkillsAfterResume() {
+  localUser = getCurrentUser();
+  const wrapper = document.getElementById('skills-wrapper');
+  wrapper.querySelectorAll('.tag').forEach(t => t.remove());
+  skillsController = initSkillTagInput('skill-input', 'skills-wrapper', [...(localUser.profile.skills || [])]);
+
+  if (localUser.profile.cgpa) {
+    document.getElementById('cgpa-input').value = localUser.profile.cgpa;
+    document.getElementById('cgpa-display').textContent = parseFloat(localUser.profile.cgpa).toFixed(2);
+  }
+
+  const card = document.getElementById('current-resume-card');
+  card.style.display = 'flex';
+  document.getElementById('resume-filename').textContent = localUser.profile.resumeFile;
+  document.getElementById('resume-date').textContent = localUser.profile.resumeDate
+    ? 'Uploaded on ' + formatDate(localUser.profile.resumeDate) : '';
 }
 
 function saveProfile() {

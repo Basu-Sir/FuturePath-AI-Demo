@@ -12,6 +12,9 @@ function predictCareers(skills = [], interests = [], cgpa = 0) {
   return apiRequest('/api/careers/predict', { skills, interests, cgpa });
 }
 
+/* Model 3 — Jaccard similarity. This was being called from recommendations.html
+   but was never actually defined, so every click threw a silent ReferenceError
+   and the card just sat on "Ready" forever. Mirrors predictCareers(). */
 function predictCareersJaccard(skills = [], interests = [], cgpa = 0) {
   return apiRequest('/api/careers/predict/jaccard', { skills, interests, cgpa });
 }
@@ -22,6 +25,22 @@ function getSkillGap(userSkills = [], career) {
 
 function getLearningRecommendations(missingSkills = []) {
   return apiRequest('/api/learning-recommendations', { missingSkills });
+}
+
+function getDiceRecommendations(candidateSkills = [], jobs = [], topN = 5) {
+  const normalizedJobs = (jobs || []).map(job => ({
+    job_id: job.id || job.job_id,
+    title: job.title || job.name,
+    required_skills: (job.requiredSkills || job.required_skills || [])
+      .map(skill => typeof skill === 'string' ? skill : (skill.name || ''))
+      .filter(Boolean),
+  }));
+
+  return apiRequest('/api/recommend/dice', {
+    candidate_skills: candidateSkills,
+    jobs: normalizedJobs,
+    top_n: topN,
+  });
 }
 
 function analyzeResume(text) {
