@@ -108,10 +108,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (careers.length === 0) {
     document.getElementById('learning-content').innerHTML = `
       <div class="no-courses">
-        <div class="nc-icon">📚</div>
+        <div class="nc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5ZM6 5v12a.5.5 0 0 1-.5-.5V5.5A.5.5 0 0 1 6 5Zm4 3h6M10 11h6M10 15h3"/></svg></div>
         <h3>No Predictions Yet</h3>
         <p>Run career predictions first to get personalized course recommendations.</p>
-        <a href="careers.html" class="btn btn-primary" style="margin-top:16px">🎯 Get Predictions →</a>
+        <a href="recommendations.html" class="btn btn-primary" style="margin-top:16px">Get Predictions →</a>
       </div>`;
     return;
   }
@@ -147,7 +147,7 @@ function renderLearningPage(careers, missingByCareer, targetCareer, courses) {
           <h3>Learning path for: ${targetCareer.title}</h3>
           <p>${missingByCareer[targetCareer.id]?.missing.length || 0} missing skills · ${courses.length} courses recommended</p>
         </div>
-        <a href="careers.html" class="btn btn-ghost btn-sm" style="margin-left:auto">← All Careers</a>
+        <a href="recommendations.html" class="btn btn-ghost btn-sm" style="margin-left:auto">Back to Recommendations</a>
       </div>` : ''}
 
     <div class="stats-row">
@@ -183,7 +183,7 @@ function renderLearningPage(careers, missingByCareer, targetCareer, courses) {
 
     ${courses.length === 0 ? `
       <div class="no-courses">
-        <div class="nc-icon">🔍</div>
+        <div class="nc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 1 0 4.7 13.1l3.9 3.9 1.4-1.4-3.9-3.9A7.5 7.5 0 0 0 10.5 3Z"/></svg></div>
         <h3>No courses found</h3>
         <p>We don't have courses for these specific skills yet. Try browsing Coursera or Udemy directly.</p>
       </div>` : ''}`;
@@ -204,12 +204,12 @@ function courseCardHTML(c) {
       </div>
     </div>
     <div class="cc-meta">
-      <span class="tag tag-ghost text-xs">📌 ${c.skill}</span>
+      <span class="tag tag-ghost text-xs">${c.skill}</span>
       <span class="tag tag-${diffClass[c.difficulty] || 'ghost'} text-xs">${c.difficulty}</span>
       <span class="tag ${isFree ? 'tag-success' : 'tag-ghost'} text-xs">
-        ${isFree ? '🆓 Free' : '💰 ' + c.cost}
+        ${isFree ? 'Free' : c.cost}
       </span>
-      <span class="tag tag-ghost text-xs">⏱️ ${c.duration}</span>
+      <span class="tag tag-ghost text-xs">${c.duration}</span>
     </div>
     <div class="cc-footer">
       <div class="cc-rating">${stars} <span style="color:var(--text-muted)">${c.rating}</span></div>

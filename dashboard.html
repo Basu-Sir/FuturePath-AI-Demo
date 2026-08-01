@@ -253,31 +253,31 @@
         <!-- Welcome banner -->
         <div class="welcome-banner anim-fade-up" id="welcome-banner">
           <div class="welcome-left">
-            <h2 id="welcome-heading">Welcome back! 👋</h2>
+            <h2 id="welcome-heading">Welcome back</h2>
             <p>Your career intelligence dashboard is ready. Complete your profile to get personalized predictions.</p>
           </div>
-          <div class="welcome-emoji">🚀</div>
+          <div class="welcome-emoji"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 7.5v9L12 21l7-4.5v-9L12 3Zm0 2.3 4.7 2.4L12 10.1 7.3 7.7 12 5.3Zm-5 3.8 4.2 2.1v4.9L7 16.9V9.1Zm10 0v7.8l-4.2 2.1v-4.9L17 9.1Z"/></svg></div>
         </div>
 
         <!-- Stats -->
         <div class="grid-4 mb-24">
           <div class="stat-card v anim-fade-up delay-1">
-            <div class="stat-icon">💡</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h7V4h2v9h7v2h-7v7h-2v-7H4z"/></svg></div>
             <div class="stat-value" id="stat-skills">0</div>
             <div class="stat-label">Skills Identified</div>
           </div>
           <div class="stat-card c anim-fade-up delay-2">
-            <div class="stat-icon">🎯</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Zm0 2.3 4.7 2.4L12 10.1 7.3 7.7 12 5.3Zm-5 3.8 4.2 2.1v4.9L7 16.9V9.1Zm10 0v7.8l-4.2 2.1v-4.9L17 9.1Z"/></svg></div>
             <div class="stat-value" id="stat-careers">0</div>
             <div class="stat-label">Career Matches</div>
           </div>
           <div class="stat-card r anim-fade-up delay-3">
-            <div class="stat-icon">📚</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5ZM6 5v12a.5.5 0 0 1-.5-.5V5.5A.5.5 0 0 1 6 5Zm4 3h6M10 11h6M10 15h3"/></svg></div>
             <div class="stat-value" id="stat-courses">0</div>
             <div class="stat-label">Courses Ready</div>
           </div>
           <div class="stat-card g anim-fade-up delay-4">
-            <div class="stat-icon">📊</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16M8 16V9m4 7V5m4 11v-4"/></svg></div>
             <div class="stat-value" id="stat-score">0%</div>
             <div class="stat-label">Profile Complete</div>
           </div>
@@ -304,28 +304,28 @@
             </div>
             <div class="quick-actions p-0">
               <a href="resume.html" class="qa-card">
-                <div class="qa-icon">📄</div>
+                <div class="qa-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Zm0 0v5h5"/><path d="M9 13h6M9 17h4"/></svg></div>
                 <div>
                   <div class="qa-title">Upload Resume</div>
                   <div class="qa-sub">PDF, DOCX, TXT</div>
                 </div>
               </a>
               <a href="careers.html" class="qa-card">
-                <div class="qa-icon">🎯</div>
+                <div class="qa-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Zm0 2.3 4.7 2.4L12 10.1 7.3 7.7 12 5.3Zm-5 3.8 4.2 2.1v4.9L7 16.9V9.1Zm10 0v7.8l-4.2 2.1v-4.9L17 9.1Z"/></svg></div>
                 <div>
                   <div class="qa-title">Get Predictions</div>
                   <div class="qa-sub">AI career matches</div>
                 </div>
               </a>
               <a href="profile.html" class="qa-card">
-                <div class="qa-icon">👤</div>
+                <div class="qa-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5Z"/></svg></div>
                 <div>
                   <div class="qa-title">Edit Profile</div>
                   <div class="qa-sub">Skills & projects</div>
                 </div>
               </a>
               <a href="education.html" class="qa-card">
-                <div class="qa-icon">🎓</div>
+                <div class="qa-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10 12 5l9 5-9 5-9-5Zm9 5v4M6 12.5v3.2M18 12.5v3.2"/></svg></div>
                 <div>
                   <div class="qa-title">Higher Ed</div>
                   <div class="qa-sub">IITs, MIT, Stanford</div>
@@ -385,7 +385,7 @@
       renderTopbar('Dashboard', `Welcome back, ${user.name.split(' ')[0]}!`);
 
       document.getElementById('welcome-heading').textContent =
-        `Welcome back, ${user.name.split(' ')[0]}! 👋`;
+        `Welcome back, ${user.name.split(' ')[0]}`;
 
       const skills = user.profile.skills || [];
       const score = calcProfileScore(user);

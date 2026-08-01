@@ -63,7 +63,7 @@ function handleRegister(e) {
     saveSession(session);
 
     showAlert(alertEl, 'Account created successfully! Redirecting…', 'success');
-    setTimeout(() => { window.location.href = 'dashboard.html'; }, 1200);
+    setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
   }, 800);
 }
 
@@ -95,8 +95,8 @@ function handleLogin(e) {
     const session = { userId: user.id, token: makeJWT(user.id), expiry };
     saveSession(session);
 
-    showAlert(alertEl, `Welcome back, ${user.name.split(' ')[0]}! 🎉`, 'success');
-    setTimeout(() => { window.location.href = 'dashboard.html'; }, 900);
+    showAlert(alertEl, `Welcome back, ${user.name.split(' ')[0]}!`, 'success');
+    setTimeout(() => { window.location.href = 'profile.html'; }, 900);
   }, 700);
 }
 
@@ -122,17 +122,17 @@ function togglePass(inputId, btnEl) {
   if (!inp) return;
   if (inp.type === 'password') {
     inp.type = 'text';
-    if (btnEl) btnEl.textContent = '🙈';
+    if (btnEl) btnEl.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.58 10.58A2 2 0 0 0 13.42 13.42"/><path d="M9.88 5.08A10.94 10.94 0 0 1 12 5c6.5 0 10 7 10 7a17.64 17.64 0 0 1-3.18 4.12"/><path d="M6.61 6.61A17.5 17.5 0 0 0 2 12s3.5 7 10 7a9.89 9.89 0 0 0 4.15-.87"/></svg>';
   } else {
     inp.type = 'password';
-    if (btnEl) btnEl.textContent = '👁️';
+    if (btnEl) btnEl.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="3"/></svg>';
   }
 }
 
 /* ---------- Init ---------- */
 document.addEventListener('DOMContentLoaded', () => {
-  // If already logged in, skip to dashboard
-  if (getCurrentUser()) { window.location.href = 'dashboard.html'; return; }
+  // If already logged in, skip to the profile workspace
+  if (getCurrentUser()) { window.location.href = 'profile.html'; return; }
 
   // Bind forms
   const regForm   = document.getElementById('register-form');

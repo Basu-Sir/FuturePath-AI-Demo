@@ -8,85 +8,217 @@
   <link rel="stylesheet" href="css/main.css" />
   <style>
     .career-selector-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 12px;
-      margin-bottom: 28px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px,1fr));
+      gap: 12px;
+      margin-bottom: 24px;
     }
     .cs-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--r-md); padding: 14px 16px;
-      cursor: pointer; transition: var(--transition);
-      display: flex; align-items: center; gap: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 24px rgba(13,35,66,.06);
     }
-    .cs-card:hover   { border-color: var(--border-hover); transform: translateY(-2px); }
-    .cs-card.active  { border-color: var(--primary); background: rgba(108,99,255,.12);
-      box-shadow: 0 0 20px rgba(108,99,255,.2); }
-    .cs-icon  { font-size: 22px; }
-    .cs-title { font-size: 13px; font-weight: 600; }
-    .cs-score { font-size: 11px; color: var(--text-muted); }
+    .cs-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(13,35,66,.1);
+    }
+    .cs-card.active {
+      border-color: var(--primary);
+      background: rgba(58,131,255,.10);
+      box-shadow: 0 14px 30px rgba(58,131,255,.16);
+    }
+    .cs-icon {
+      font-size: 22px;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(58,131,255,.08);
+      flex-shrink: 0;
+    }
+    .cs-title { font-size: 13px; font-weight: 700; }
+    .cs-score { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 
     .gap-summary {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 16px;
+      margin-bottom: 24px;
     }
     .gap-stat {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--r-lg); padding: 18px; text-align: center;
+      background: rgba(255,255,255,.74);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 12px 28px rgba(13,35,66,.05);
     }
     .gap-stat .gs-val {
-      font-family:'Outfit',sans-serif; font-size: 30px; font-weight: 800; line-height: 1;
+      font-family:'Outfit',sans-serif;
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -.03em;
     }
     .gs-val.good    { color: var(--success); }
     .gs-val.warning { color: var(--warning); }
-    .gs-val.danger  { color: var(--accent);  }
-    .gap-stat .gs-label { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
-
-    .skills-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-
-    .skill-section { background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--r-lg); overflow: hidden; }
-    .skill-section-header {
-      padding: 16px 20px; border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; gap: 10px;
+    .gs-val.danger  { color: var(--accent); }
+    .gap-stat .gs-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
     }
-    .skill-section-header h3 { font-size: 15px; font-weight: 700; flex: 1; }
+
+    .skills-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .skill-section {
+      background: rgba(255,255,255,.8);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 34px rgba(13,35,66,.06);
+    }
+    .skill-section-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(58,131,255,.04);
+    }
+    .skill-section-header h3 {
+      font-size: 15px;
+      font-weight: 700;
+      flex: 1;
+    }
 
     .skill-row-item {
-      display: flex; align-items: center; gap: 12px;
-      padding: 13px 20px; border-bottom: 1px solid rgba(255,255,255,.04);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(58,131,255,.08);
       transition: var(--transition);
+      background: rgba(255,255,255,.55);
     }
-    .skill-row-item:hover { background: rgba(255,255,255,.03); }
-    .skill-row-item:last-child { border-bottom: none; }
-    .sri-icon { font-size: 18px; flex-shrink:0; }
-    .sri-name { font-size: 14px; font-weight: 600; flex: 1; }
-    .sri-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
-    .sri-importance { font-size: 11px; }
-    .sri-time { font-size: 11px; color: var(--text-muted); }
+    .skill-row-item:hover {
+      background: rgba(58,131,255,.05);
+    }
+    .skill-row-item:last-child {
+      border-bottom: none;
+    }
+    .sri-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(58,131,255,.08);
+    }
+    .sri-name {
+      font-size: 14px;
+      font-weight: 600;
+      flex: 1;
+    }
+    .sri-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+    .sri-time {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
 
     .diff-badge {
-      font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
     }
-    .diff-easy   { background: rgba(0,229,160,.15); color: var(--success); }
-    .diff-medium { background: rgba(255,179,71,.15); color: var(--warning); }
-    .diff-hard   { background: rgba(255,107,107,.15); color: var(--accent);  }
-    .diff-soft   { background: rgba(0,212,255,.12);  color: var(--secondary); }
+    .diff-easy   { background: rgba(20,184,138,.14); color: var(--success); }
+    .diff-medium { background: rgba(245,166,35,.16); color: var(--warning); }
+    .diff-hard   { background: rgba(255,107,129,.14); color: var(--accent); }
+    .diff-soft   { background: rgba(0,194,209,.12); color: var(--secondary); }
 
-    .importance-dots { display: flex; gap: 2px; }
-    .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.15); }
-    .dot.filled { background: var(--primary); }
+    .importance-dots {
+      display: flex;
+      gap: 2px;
+    }
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(13,35,66,.12);
+    }
+    .dot.filled {
+      background: var(--primary);
+    }
 
-    .no-cache-state { text-align:center; padding: 60px 20px; }
-    .no-cache-state .ns-icon { font-size: 56px; opacity:.4; margin-bottom:16px; }
+    .no-cache-state {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .no-cache-state .ns-icon {
+      font-size: 56px;
+      opacity: .4;
+      margin-bottom: 16px;
+    }
 
     .overall-progress-card {
-      background: var(--grad-card); border: 1px solid rgba(108,99,255,.2);
-      border-radius: var(--r-lg); padding: 20px 24px; margin-bottom: 24px;
+      background: linear-gradient(135deg, rgba(58,131,255,.12), rgba(0,194,209,.08));
+      border: 1px solid rgba(58,131,255,.20);
+      border-radius: 20px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 18px 34px rgba(58,131,255,.10);
     }
-    .opc-label { display: flex; justify-content: space-between; margin-bottom: 10px; }
-    .opc-label .label { font-size: 14px; font-weight: 600; }
+    .opc-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 14px;
+    }
+    .opc-label .label {
+      font-size: 14px;
+      font-weight: 700;
+    }
     .opc-pct {
-      font-family:'Outfit',sans-serif; font-size: 20px; font-weight: 800;
+      font-family:'Outfit',sans-serif;
+      font-size: 20px;
+      font-weight: 800;
       background: var(--grad-primary);
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+
+    @media (max-width: 900px) {
+      .skills-container,
+      .gap-summary {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -121,12 +253,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (careers.length === 0) {
     document.getElementById('gap-content').innerHTML = `
       <div class="no-cache-state">
-        <div class="ns-icon">📊</div>
+        <div class="ns-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16M8 16V9m4 7V5m4 11v-4"/></svg></div>
         <h2 style="font-size:22px; margin-bottom:8px">No Predictions Yet</h2>
         <p class="text-secondary" style="max-width:350px; margin:0 auto 20px">
           Run career predictions first so we can show your skill gap for each path.
         </p>
-        <a href="careers.html" class="btn btn-primary">🎯 Get Career Predictions →</a>
+        <a href="recommendations.html" class="btn btn-primary">Get Career Predictions →</a>
       </div>`;
     return;
   }
@@ -191,11 +323,11 @@ async function renderGapDetail(career, userSkills) {
     <div class="gap-summary">
       <div class="gap-stat">
         <div class="gs-val good">${gap.current.length}</div>
-        <div class="gs-label">Skills You Have ✅</div>
+        <div class="gs-label">Skills You Have</div>
       </div>
       <div class="gap-stat">
         <div class="gs-val danger">${gap.missing.length}</div>
-        <div class="gs-label">Skills to Learn 📚</div>
+        <div class="gs-label">Skills to Learn</div>
       </div>
       <div class="gap-stat">
         <div class="gs-val warning">~${totalTime}+</div>
@@ -208,14 +340,14 @@ async function renderGapDetail(career, userSkills) {
       <!-- Current skills -->
       <div class="skill-section">
         <div class="skill-section-header">
-          <h3>✅ Skills You Have</h3>
+          <h3>Skills You Have</h3>
           <span class="badge badge-success">${gap.current.length}</span>
         </div>
         ${gap.current.length === 0
           ? `<div class="empty-state p-0" style="padding:24px"><p class="text-muted text-sm">No matching skills yet.</p></div>`
           : gap.current.map(sk => `
             <div class="skill-row-item">
-              <div class="sri-icon">✅</div>
+              <div class="sri-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 2"/></svg></div>
               <div class="sri-name">${sk.name}</div>
               <div class="sri-meta">
                 <div class="importance-dots">${importanceDots(sk.importance)}</div>
@@ -228,14 +360,14 @@ async function renderGapDetail(career, userSkills) {
       <!-- Missing skills -->
       <div class="skill-section">
         <div class="skill-section-header">
-          <h3>❌ Skills to Learn</h3>
+          <h3>Skills to Learn</h3>
           <span class="badge" style="background:var(--accent);color:#fff">${gap.missing.length}</span>
         </div>
         ${gap.missing.length === 0
-          ? `<div class="empty-state" style="padding:24px"><p class="text-muted text-sm">🎉 You have all required skills!</p></div>`
+          ? `<div class="empty-state" style="padding:24px"><p class="text-muted text-sm">You have all required skills.</p></div>`
           : gap.missing.map(sk => `
             <div class="skill-row-item">
-              <div class="sri-icon">📌</div>
+              <div class="sri-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M9 6h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z"/></svg></div>
               <div>
                 <div class="sri-name">${sk.name}</div>
                 <div class="sri-time">⏱️ ${sk.time}</div>
@@ -252,10 +384,7 @@ async function renderGapDetail(career, userSkills) {
     <!-- Action row -->
     <div class="flex gap-12 mt-20">
       <a href="learning.html?career=${career.id}" class="btn btn-primary">
-        📚 Get Course Recommendations →
-      </a>
-      <a href="education.html?domain=${encodeURIComponent(career.domain)}" class="btn btn-secondary">
-        🎓 Higher Education Options
+        Get Course Recommendations →
       </a>
     </div>`;
 

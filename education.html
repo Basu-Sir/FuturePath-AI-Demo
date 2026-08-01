@@ -290,17 +290,17 @@
       <div class="page-content">
         <!-- Tabs -->
         <div class="edu-tabs">
-          <button class="edu-tab active" onclick="switchEduTab('universities')">🏛️ Universities</button>
-          <button class="edu-tab" onclick="switchEduTab('exams')">📝 Entrance Exams</button>
-          <button class="edu-tab" onclick="switchEduTab('scholarships')">🏆 Scholarships</button>
+          <button class="edu-tab active" onclick="switchEduTab('universities')">Universities</button>
+          <button class="edu-tab" onclick="switchEduTab('exams')">Entrance Exams</button>
+          <button class="edu-tab" onclick="switchEduTab('scholarships')">Scholarships</button>
         </div>
 
         <!-- UNIVERSITIES PANEL -->
         <div id="tab-universities" class="tab-panel active">
           <div class="type-filter">
             <button class="tf-btn active" onclick="filterUni('all')">All Universities</button>
-            <button class="tf-btn" onclick="filterUni('Indian')">🇮🇳 Indian</button>
-            <button class="tf-btn" onclick="filterUni('Foreign')">🌍 International</button>
+            <button class="tf-btn" onclick="filterUni('Indian')">Indian</button>
+            <button class="tf-btn" onclick="filterUni('Foreign')">International</button>
           </div>
           <div id="uni-grid" class="uni-grid"></div>
         </div>
@@ -309,8 +309,8 @@
         <div id="tab-exams" class="tab-panel">
           <div class="type-filter">
             <button class="tf-btn active" onclick="filterExam('all')">All Exams</button>
-            <button class="tf-btn" onclick="filterExam('Indian')">🇮🇳 Indian</button>
-            <button class="tf-btn" onclick="filterExam('Foreign')">🌍 International</button>
+            <button class="tf-btn" onclick="filterExam('Indian')">Indian</button>
+            <button class="tf-btn" onclick="filterExam('Foreign')">International</button>
           </div>
           <div id="exam-grid" class="exam-grid"></div>
         </div>
@@ -364,24 +364,24 @@
 
     function renderUniversities(type) {
       const list = type === 'all' ? UNIVERSITIES : UNIVERSITIES.filter(u => u.type === type);
-      const flags = { 'Indian': '🇮🇳', 'Foreign': '🌍' };
+      const flags = { 'Indian': 'IN', 'Foreign': 'INT' };
 
       document.getElementById('uni-grid').innerHTML = list.map(u => `
     <div class="uni-card-full anim-fade-in">
       <div class="uc-header">
         <div class="uc-flag">${flags[u.type]}</div>
         <div class="uc-name">${u.name}</div>
-        <div class="uc-loc">📍 ${u.location}</div>
+        <div class="uc-loc">${u.location}</div>
         <div class="uc-rank"><span class="tag tag-primary text-xs">${u.ranking}</span></div>
       </div>
       <div class="uc-body">
         <div class="uc-row">
           <span class="uc-key">Tuition Fees</span>
-          <span class="uc-val">💰 ${u.fees}</span>
+          <span class="uc-val">${u.fees}</span>
         </div>
         <div class="uc-row">
           <span class="uc-key">Avg Placement</span>
-          <span class="uc-val">💼 ${u.placement}</span>
+          <span class="uc-val">${u.placement}</span>
         </div>
         <div class="uc-row">
           <span class="uc-key">Entrance Exams</span>
@@ -417,9 +417,9 @@
       </div>
       <p class="ec-desc">${e.desc}</p>
       <div class="ec-meta">
-        <span class="tag tag-ghost text-xs">📅 ${e.month}</span>
-        <span class="tag tag-ghost text-xs">🔄 ${e.frequency}</span>
-        <span class="tag tag-cyan text-xs">🎓 ${e.eligibility}</span>
+        <span class="tag tag-ghost text-xs">${e.month}</span>
+        <span class="tag tag-ghost text-xs">${e.frequency}</span>
+        <span class="tag tag-cyan text-xs">${e.eligibility}</span>
       </div>
       <div class="flex flex-wrap gap-5 mt-10">
         ${e.forDomains.map(d => `<span class="tag tag-primary text-xs">${d}</span>`).join('')}
@@ -430,11 +430,11 @@
     function renderScholarships() {
       document.getElementById('sch-grid').innerHTML = SCHOLARSHIPS.map(s => `
     <div class="sch-card anim-fade-in">
-      <div class="sch-name">🏆 ${s.name}</div>
+      <div class="sch-name">${s.name}</div>
       <div class="sch-amount">${s.amount}</div>
       <div class="flex gap-8 flex-wrap">
-        <span class="tag tag-ghost text-xs">🌍 ${s.country}</span>
-        <span class="tag tag-ghost text-xs">🏢 ${s.provider}</span>
+        <span class="tag tag-ghost text-xs">${s.country}</span>
+        <span class="tag tag-ghost text-xs">${s.provider}</span>
       </div>
     </div>`).join('');
     }

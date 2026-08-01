@@ -26,7 +26,11 @@ function saveCurrentUser(updated) {
 }
 
 function requireAuth() {
-  if (!getCurrentUser()) { window.location.href = 'index.html'; }
+  if (!getCurrentUser()) {
+    window.location.href = 'index.html';
+    return false;
+  }
+  return true;
 }
 
 function logout() {
@@ -55,10 +59,10 @@ function makeJWT(userId) {
 }
 
 function showAlert(elId, msg, type = 'error') {
-  const icons = { error:'❌', success:'✅', info:'ℹ️', warning:'⚠️' };
+  const icons = { error:'!', success:'✓', info:'i', warning:'!' };
   const el = document.getElementById(elId);
   if (!el) return;
-  el.innerHTML = `<div class="alert alert-${type}">${icons[type] || 'ℹ️'} ${msg}</div>`;
+  el.innerHTML = `<div class="alert alert-${type}"><span class="alert-badge">${icons[type] || 'i'}</span>${msg}</div>`;
   if (type !== 'info') setTimeout(() => { if(el) el.innerHTML = ''; }, 4000);
 }
 
@@ -99,30 +103,31 @@ function formatDate(dateStr) {
    (profile.html — resume dropzone on the left, editable profile on the
    right), so there is a single 'profile' nav entry instead of two. */
 const NAV_ITEMS = [
-  { id:'dashboard', label:'Dashboard',       icon:'🏠', href:'dashboard.html' },
-  { id:'profile',   label:'Profile',         icon:'👤', href:'profile.html'   },
-  { id:'recommendations', label:'Career Recommendations', icon:'🎯', href:'recommendations.html' },
-  { id:'skills',    label:'Skill Gap',       icon:'📊', href:'skills.html'    },
-  { id:'learning',  label:'Learning Paths',  icon:'📚', href:'learning.html'  },
-  { id:'education', label:'Higher Education',icon:'🎓', href:'education.html' },
+  { id:'profile', label:'Profile', icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5Z"/></svg>', href:'profile.html' },
+  { id:'recommendations', label:'Career Recommendations', icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5Zm3.5-.5a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1Zm0 5a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1Z"/></svg>', href:'recommendations.html' },
+  { id:'skills', label:'Skill Gap', icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 18h14v2H5Zm2-4h2v3H7Zm4-6h2v9h-2Zm4 3h2v6h-2Z"/></svg>', href:'skills.html' },
+  { id:'learning', label:'Learning Paths', icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5ZM6 5v12a.5.5 0 0 1-.5-.5V5.5A.5.5 0 0 1 6 5Zm4 3h6M10 11h6M10 15h3"/></svg>', href:'learning.html' },
 ];
 
 function renderSidebar(active) {
   const user = getCurrentUser();
-  const el   = document.getElementById('sidebar');
+  const el = document.getElementById('sidebar');
   if (!el || !user) return;
 
   const navHTML = NAV_ITEMS.map(n => `
     <a href="${n.href}" class="nav-item${active === n.id ? ' active' : ''}">
       <span class="nav-icon">${n.icon}</span>
-      <span>${n.label}</span>
+      <span class="nav-label">${n.label}</span>
     </a>
   `).join('');
 
   el.innerHTML = `
     <div class="sidebar-logo">
       <div class="logo-mark">
-        <span style="font-size:22px">⚡</span> FuturePath AI
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Zm0 2.2L17.3 8 12 10.8 6.7 8 12 5.2Zm-5 4.1 4.5 2.1v5.1L7 17.7v-6.4Zm10 0v6.4l-4.5 2.1v-5.1L17 9.3Z"/></svg>
+        </span>
+        <span class="logo-copy">FuturePath AI</span>
       </div>
       <div class="logo-sub">Career Intelligence Engine</div>
     </div>
@@ -131,7 +136,8 @@ function renderSidebar(active) {
       ${navHTML}
       <div class="nav-group-label">Account</div>
       <div class="nav-item" onclick="logout()">
-        <span class="nav-icon">🚪</span><span>Sign Out</span>
+        <span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17v-2H5V9h5V7l5 5-5 5Zm8-9h-3v2h3v6h-3v2h3a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2Z"/></svg></span>
+        <span class="nav-label">Sign Out</span>
       </div>
     </nav>
     <div class="sidebar-footer">
@@ -150,8 +156,13 @@ function renderTopbar(title, subtitle) {
   if (!el || !user) return;
   el.innerHTML = `
     <div class="topbar-left">
-      <h1>${title}</h1>
-      ${subtitle ? `<p>${subtitle}</p>` : ''}
+      <button class="sidebar-toggle" type="button" aria-label="Toggle sidebar" onclick="toggleSidebar()">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+      </button>
+      <div>
+        <h1>${title}</h1>
+        ${subtitle ? `<p>${subtitle}</p>` : ''}
+      </div>
     </div>
     <div class="topbar-right">
       <div class="user-chip">
@@ -160,6 +171,14 @@ function renderTopbar(title, subtitle) {
       </div>
     </div>
   `;
+}
+
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const main = document.querySelector('.main-content');
+  if (!sidebar || !main) return;
+  const collapsed = sidebar.classList.toggle('collapsed');
+  main.classList.toggle('sidebar-compact', collapsed);
 }
 
 /* ---------- Skill Tag Input ---------- */

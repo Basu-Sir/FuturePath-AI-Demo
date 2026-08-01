@@ -135,13 +135,15 @@ function resetUploadArea() {
 function dropzoneInnerHTML() {
   return `
     <input id="resume-file" type="file" accept=".pdf,.docx,.txt" style="display:none" />
-    <div class="dropzone-icon">📄</div>
-    <h3 class="dropzone-title">Drop your resume here</h3>
-    <p class="dropzone-sub">PDF, DOCX, or TXT • Max 10MB</p>
-    <div class="dropzone-formats">
-      <span class="tag tag-ghost">PDF</span>
-      <span class="tag tag-ghost">DOCX</span>
-      <span class="tag tag-ghost">TXT</span>
+    <div class="dropzone-icon">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Zm0 0v5h5"/></svg>
+    </div>
+    <h3 class="dropzone-title">Upload Resume</h3>
+    <p class="dropzone-sub">Drag &amp; Drop</p>
+    <div class="browse-button">Browse Files</div>
+    <div class="dropzone-formats mt-16">
+      <span class="tag tag-ghost">Supported formats</span>
+      <span class="tag tag-ghost">PDF • DOCX</span>
     </div>
   `;
 }
@@ -190,7 +192,9 @@ function renderExtractionResults(skills, text, wordCount, fileName) {
   // Success state in dropzone
   dropzone.innerHTML = `
     <div style="text-align:center">
-      <div style="font-size:40px; margin-bottom:10px">✅</div>
+      <div style="width:44px;height:44px;border-radius:14px;background:rgba(20,184,138,.12);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;color:var(--success)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 4 4L19 3"/></svg>
+      </div>
       <div style="font-weight:700; color:var(--success); font-size:15px; margin-bottom:4px">${fileName}</div>
       <div style="font-size:13px; color:var(--text-muted)">${wordCount.toLocaleString()} words parsed</div>
       <button class="btn btn-ghost btn-sm mt-12" onclick="resetUploadArea()">Upload Another</button>
@@ -211,5 +215,5 @@ function renderExtractionResults(skills, text, wordCount, fileName) {
   const pagesEl = document.getElementById('extracted-pages');
   if (pagesEl) pagesEl.textContent = extExt;
 
-  showAlert('page-alert', `✅ Resume parsed! ${skills.length} skills extracted and merged into your profile.`, 'success');
+  showAlert('page-alert', `Resume parsed: ${skills.length} skills extracted and merged into your profile.`, 'success');
 }

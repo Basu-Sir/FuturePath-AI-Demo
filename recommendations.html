@@ -111,7 +111,7 @@
         <p>One click runs every model — weighted match, Dice similarity, and Jaccard similarity — side by side.</p>
       </div>
       <button class="btn btn-primary btn-lg" id="generate-btn" onclick="generateAll()">
-        ⚡ Generate Recommendations
+        Generate Recommendations
       </button>
     </div>
 
@@ -166,7 +166,7 @@
           </div>
           <div class="model-body">
             <div class="placeholder-state">
-              <div class="ph-icon">🛠️</div>
+              <div class="ph-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M6.5 6.5l2.8 2.8m5.4 5.4 2.8 2.8m0-11l-2.8 2.8m-5.4 5.4-2.8 2.8"/></svg></div>
               <h3>Coming soon</h3>
               <p>Backend integration pending. This card is wired up and ready to receive results.</p>
             </div>
@@ -221,7 +221,7 @@ async function generateAll() {
   const cgpa      = parseFloat(user.profile.cgpa) || 0;
 
   if (skills.length === 0) {
-    showAlert('page-alert', '⚠️ Add skills to your profile before generating recommendations.', 'error');
+    showAlert('page-alert', 'Add skills to your profile before generating recommendations.', 'error');
     return;
   }
 
@@ -266,10 +266,10 @@ async function generateAll() {
 
   saveCurrentUser(user);
   btn.disabled = false;
-  btn.innerHTML = '⚡ Generate Recommendations';
+  btn.innerHTML = 'Generate Recommendations';
 
-  if (errors.length) showAlert('page-alert', `⚠️ ${errors.join(' · ')}`, 'error');
-  else showAlert('page-alert', '✅ Recommendations generated across all models.', 'success');
+  if (errors.length) showAlert('page-alert', `${errors.join(' · ')}`, 'error');
+  else showAlert('page-alert', 'Recommendations generated across all models.', 'success');
 }
 
 function renderLoading(containerId) {
@@ -320,7 +320,7 @@ function skillTags(list, type, max = 6) {
 function careerCardHTML({ id, title, pct, haveSkills = [], gapSkills = [], rank }) {
   const clickable = id != null;
   const gapBadge = gapSkills.length === 0
-    ? '<span class="tag tag-success text-xs">✅ Full match</span>'
+    ? '<span class="tag tag-success text-xs">Full match</span>'
     : `<span class="tag tag-danger text-xs">${gapSkills.length} to learn</span>`;
 
   const haveRow = haveSkills.length
